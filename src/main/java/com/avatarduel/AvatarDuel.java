@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import com.avatarduel.model.Player;
 import com.avatarduel.model.Element;
 import com.avatarduel.model.Land;
 import com.avatarduel.model.SkillAura;
@@ -24,6 +25,9 @@ public class AvatarDuel extends Application {
   private static final String CHAR_CSV_FILE_PATH = "card/data/character.csv";
 
   private AllCards allCards = AllCards.getInstance();
+
+  private Player player1;
+  private Player player2;
 
   public void loadCards() throws IOException, URISyntaxException {
     File landCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
@@ -70,6 +74,8 @@ public class AvatarDuel extends Application {
 
     try {
       this.loadCards();
+      player1 = new Player();
+      player2 = new Player();
       text.setText("Avatar Duel!");
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);

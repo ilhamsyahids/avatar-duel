@@ -3,8 +3,10 @@ package com.avatarduel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.avatarduel.model.Card;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,18 +15,42 @@ import javafx.stage.Stage;
 
 import com.avatarduel.model.Element;
 import com.avatarduel.model.Land;
+import com.avatarduel.model.Skill;
+import com.avatarduel.model.Player;
+import com.avatarduel.model.Character;
 import com.avatarduel.util.CSVReader;
 
 public class AvatarDuel extends Application {
   private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
+  private static final String SKILL_CSV_FILE_PATH = "card/data/skill_aura.csv";
+  private static final String CHAR_CSV_FILE_PATH = "card/data/character.csv";
+
+  private ArrayList<Card> allCards = new ArrayList<>();
 
   public void loadCards() throws IOException, URISyntaxException {
     File landCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
+    File skillCSVFile = new File(getClass().getResource(SKILL_CSV_FILE_PATH).toURI());
+    File characterCSVFile = new File(getClass().getResource(CHAR_CSV_FILE_PATH ).toURI());
     CSVReader landReader = new CSVReader(landCSVFile, "\t");
+    CSVReader skillReader = new CSVReader(skillCSVFile, "\t");
+    CSVReader charReader = new CSVReader(characterCSVFile, "\t");
     landReader.setSkipHeader(true);
+    skillReader.setSkipHeader(true);
+    charReader.setSkipHeader(true);
     List<String[]> landRows = landReader.read();
-    for (String[] row : landRows) {
-      Land l = new Land(row[1], row[3], Element.valueOf(row[2]));
+    List<String[]> skillRows = skillReader.read();
+    List<String[]> charRows = charReader.read();
+    for (String[] item : landRows) {
+      Land l = new Land(item[1], item[3], Element.valueOf(item[2]));
+      allCards.add(l);
+    }
+    for (String[] item : skillRows) {
+      Skill l = new Skill(item[1], item[3], Element.valueOf(item[2]));
+      allCards.add(l);
+    }
+    for (String[] item : charRows) {
+      Character l = new Character(item[1], item[3], Element.valueOf(item[2]));
+      allCards.add(l);
     }
   }
 

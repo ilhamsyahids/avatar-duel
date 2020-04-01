@@ -3,10 +3,8 @@ package com.avatarduel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.avatarduel.model.Card;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,8 +13,8 @@ import javafx.stage.Stage;
 
 import com.avatarduel.model.Element;
 import com.avatarduel.model.Land;
-import com.avatarduel.model.Skill;
-import com.avatarduel.model.Player;
+import com.avatarduel.model.SkillAura;
+import com.avatarduel.model.AllCards;
 import com.avatarduel.model.Character;
 import com.avatarduel.util.CSVReader;
 
@@ -25,7 +23,7 @@ public class AvatarDuel extends Application {
   private static final String SKILL_CSV_FILE_PATH = "card/data/skill_aura.csv";
   private static final String CHAR_CSV_FILE_PATH = "card/data/character.csv";
 
-  private ArrayList<Card> allCards = new ArrayList<>();
+  private AllCards allCards = AllCards.getInstance();
 
   public void loadCards() throws IOException, URISyntaxException {
     File landCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
@@ -45,11 +43,11 @@ public class AvatarDuel extends Application {
       allCards.add(l);
     }
     for (String[] item : skillRows) {
-      Skill l = new Skill(item[1], item[3], Element.valueOf(item[2]));
+      SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[6]), Integer.parseInt(item[7]), Integer.parseInt(item[5]));
       allCards.add(l);
     }
     for (String[] item : charRows) {
-      Character l = new Character(item[1], item[3], Element.valueOf(item[2]));
+      Character l = new Character(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[5]), Integer.parseInt(item[6]), Integer.parseInt(item[7]));
       allCards.add(l);
     }
   }

@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javafx.application.Application;
+import javafx.application.*;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.stage.*;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.geometry.*;
+import javafx.scene.image.*;
 
 import com.avatarduel.model.Player;
 import com.avatarduel.model.Element;
@@ -28,6 +32,10 @@ public class AvatarDuel extends Application {
 
   private Player player1;
   private Player player2;
+
+  //variabel-variable untuk tampilan GUI
+  Stage window;
+  Scene scene1, scene2;
 
   public void loadCards() throws IOException, URISyntaxException {
     File landCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
@@ -58,6 +66,7 @@ public class AvatarDuel extends Application {
 
   @Override
   public void start(Stage stage) {
+
     Text text = new Text();
     text.setText("Loading...");
     text.setX(50);
@@ -66,7 +75,43 @@ public class AvatarDuel extends Application {
     Group root = new Group();
     root.getChildren().add(text);
 
-    Scene scene = new Scene(root, 1280, 720);
+    //window = primaryStage;
+
+    //Button 1
+    //Label label1 = new Label("Welcome to the first scene!");
+    //Button button1 = new Button("Go to scene 2");
+    //button1.setOnAction(e -> window.setScene(scene2));
+    Image image = new Image("file:lalala.png");
+    //ImageView mv = new ImageView(image);
+    Label label1 = new Label("Welcome players");
+    Button button1 = new Button("Start");
+    VBox layout1 = new VBox(20);
+
+        // create a background image
+        BackgroundImage backgroundimage = new BackgroundImage(image,
+        BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT,
+        BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
+    
+    // create Background
+    Background background = new Background(backgroundimage);
+    
+    // set background
+      layout1.setBackground(background);
+
+    layout1.setAlignment(Pos.CENTER);
+    //layout1.setPadding(new Insets(200, 300, 200, 300));
+    layout1.setSpacing(20);
+    //layout1.setStyle("-fx-background-color: #336699;");
+    //Group root2 = new Group();
+    //root2.getChildren().addAll(mv,label1,button1);
+    layout1.getChildren().addAll(label1,button1);
+    Scene scene = new Scene(layout1, 1000, 600);
+    //Scene scene = new Scene(layout1, 750, 500);
+
+
+
 
     stage.setTitle("Avatar Duel");
     stage.setScene(scene);

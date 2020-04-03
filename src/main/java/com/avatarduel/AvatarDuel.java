@@ -28,8 +28,6 @@ public class AvatarDuel extends Application {
   private static final String SKILL_CSV_FILE_PATH = "card/data/skill_aura.csv";
   private static final String CHAR_CSV_FILE_PATH = "card/data/character.csv";
 
-  private AllCards allCards = AllCards.getInstance();
-
   private Player player1;
   private Player player2;
 
@@ -52,15 +50,15 @@ public class AvatarDuel extends Application {
     List<String[]> charRows = charReader.read();
     for (String[] item : landRows) {
       Land l = new Land(item[1], item[3], Element.valueOf(item[2]));
-      allCards.add(l);
+      AllCards.add(l);
     }
     for (String[] item : skillRows) {
       SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[6]), Integer.parseInt(item[7]), Integer.parseInt(item[5]));
-      allCards.add(l);
+      AllCards.add(l);
     }
     for (String[] item : charRows) {
       Character l = new Character(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[5]), Integer.parseInt(item[6]), Integer.parseInt(item[7]));
-      allCards.add(l);
+      AllCards.add(l);
     }
   }
 

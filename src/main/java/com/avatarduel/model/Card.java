@@ -1,6 +1,6 @@
 package com.avatarduel.model;
 
-public class Card {
+public abstract class Card {
     private String name;
     private String description;
     private Element element;
@@ -16,6 +16,8 @@ public class Card {
         this.description = "";
         this.element = Element.AIR;
     }
+
+    public abstract void action(Character character);
 
     public String getName() {
         return name;

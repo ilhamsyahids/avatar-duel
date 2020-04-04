@@ -19,6 +19,14 @@ public class Player {
         mapPower.put(Element.FIRE, 0);
         mapPower.put(Element.EARTH, 0);
         mapPower.put(Element.WATER, 0);
+        pickCard();
+        pickCard();
+        pickCard();
+        pickCard();
+        pickCard();
+        handCards.forEach(el -> {
+            useCard(el);
+        });
     }
 
     public void pickCard() {
@@ -27,9 +35,12 @@ public class Player {
     }
 
     public void useCard(Card card) {
-        // if (card instanceof Land) {
-        //     int num = mapPower.get(card.getElement());
-        //     mapPower.put(card.getElement(), num + 1);
-        // }
+        System.out.println(card);
+        System.out.println(card.getClass());
+    }
+
+    @Override
+    public String toString() {
+        return "Hand:" + handCards;
     }
 }

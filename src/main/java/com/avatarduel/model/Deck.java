@@ -16,8 +16,9 @@ public class Deck {
         ArrayList<Card> ListCards = AllCards.getInstance().getAllCards();
         for (int i = 0; i < maxCards; i++) {
             int index = (int)(Math.random()*ListCards.size());
-            Card card = new Card(ListCards.get(index).getName(), ListCards.get(index).getDescription(), ListCards.get(index).getElement());
-            cards.add(card);
+            // System.out.println(ListCards.get(index).getClass());
+            // Card card = new Card(ListCards.get(index).getName(), ListCards.get(index).getDescription(), ListCards.get(index).getElement(), ListCards.get(index).getType());
+            cards.add(ListCards.get(index));
         }
     }
 

@@ -28,4 +28,9 @@ public class Card {
     public Element getElement() {
         return element;
     }
+
+    @Override
+    public String toString() {
+        return name + ":" + element + ":" + description.subSequence(0, 10);
+    }
 }

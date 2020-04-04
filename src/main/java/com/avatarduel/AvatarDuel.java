@@ -50,15 +50,15 @@ public class AvatarDuel extends Application {
     List<String[]> charRows = charReader.read();
     for (String[] item : landRows) {
       Land l = new Land(item[1], item[3], Element.valueOf(item[2]));
-      AllCards.add(l);
+      AllCards.addLand(l);
     }
     for (String[] item : skillRows) {
       SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[6]), Integer.parseInt(item[7]), Integer.parseInt(item[5]));
-      AllCards.add(l);
+      AllCards.addSkill(l);
     }
     for (String[] item : charRows) {
       Character l = new Character(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[5]), Integer.parseInt(item[6]), Integer.parseInt(item[7]));
-      AllCards.add(l);
+      AllCards.addCharacter(l);
     }
   }
 

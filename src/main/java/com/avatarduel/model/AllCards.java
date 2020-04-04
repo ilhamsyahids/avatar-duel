@@ -1,6 +1,7 @@
 package com.avatarduel.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AllCards
 {  
@@ -50,5 +51,6 @@ public class AllCards
         getInstance().allCards.addAll(getInstance().getAllCharacters());
         getInstance().allCards.addAll(getInstance().getAllSkills());
         getInstance().allCards.addAll(getInstance().getAllLands());
+        Collections.shuffle(getInstance().allCards);
     }
 } 

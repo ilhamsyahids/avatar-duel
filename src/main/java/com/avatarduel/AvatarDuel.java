@@ -15,8 +15,8 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 import javafx.scene.image.*;
 
-import com.avatarduel.model.Player;
 import com.avatarduel.model.Element;
+import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
 import com.avatarduel.model.SkillAura;
 import com.avatarduel.model.AllCards;
@@ -27,9 +27,6 @@ public class AvatarDuel extends Application {
   private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
   private static final String SKILL_CSV_FILE_PATH = "card/data/skill_aura.csv";
   private static final String CHAR_CSV_FILE_PATH = "card/data/character.csv";
-
-  private Player player1;
-  private Player player2;
 
   //variabel-variable untuk tampilan GUI
   Stage window;
@@ -60,6 +57,7 @@ public class AvatarDuel extends Application {
       Character l = new Character(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[5]), Integer.parseInt(item[6]), Integer.parseInt(item[7]));
       AllCards.addCharacter(l);
     }
+    AllCards.addAll();
   }
 
   @Override
@@ -117,8 +115,7 @@ public class AvatarDuel extends Application {
 
     try {
       this.loadCards();
-      player1 = new Player();
-      player2 = new Player();
+      GameState gState = new GameState();
       text.setText("Avatar Duel!");
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);

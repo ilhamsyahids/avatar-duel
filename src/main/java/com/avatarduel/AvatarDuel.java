@@ -5,15 +5,18 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javafx.application.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.scene.Group;
-import javafx.scene.*;
 import javafx.scene.text.Text;
-import javafx.stage.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 import javafx.scene.image.*;
+import javafx.scene.input.MouseEvent; 
 
 import com.avatarduel.model.Element;
 import com.avatarduel.model.GameState;
@@ -22,6 +25,7 @@ import com.avatarduel.model.SkillAura;
 import com.avatarduel.model.AllCards;
 import com.avatarduel.model.Character;
 import com.avatarduel.util.CSVReader;
+
 
 public class AvatarDuel extends Application {
   private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
@@ -61,7 +65,10 @@ public class AvatarDuel extends Application {
   }
 
   @Override
-  public void start(Stage stage) {
+  public void start(Stage stage) throws IOException {
+    Pane pane = FXMLLoader.load(getClass().getResource("SimpleUI.fxml"));
+    Scene scene2 = new Scene(pane, 1366, 768);
+    
 
     Text text = new Text();
     text.setText("Loading...");
@@ -83,18 +90,20 @@ public class AvatarDuel extends Application {
     Button button1 = new Button("Start");
     VBox layout1 = new VBox(20);
 
-        // create a background image
-        BackgroundImage backgroundimage = new BackgroundImage(image,
-        BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT,
-        BackgroundPosition.DEFAULT,
-        BackgroundSize.DEFAULT);
+    button1.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->  stage.setScene(scene2));
+
+    // create a background image
+    BackgroundImage backgroundimage = new BackgroundImage(image,
+    BackgroundRepeat.NO_REPEAT,
+    BackgroundRepeat.NO_REPEAT,
+    BackgroundPosition.DEFAULT,
+    BackgroundSize.DEFAULT);
     
     // create Background
     Background background = new Background(backgroundimage);
     
     // set background
-      layout1.setBackground(background);
+    layout1.setBackground(background);
 
     layout1.setAlignment(Pos.CENTER);
     //layout1.setPadding(new Insets(200, 300, 200, 300));
@@ -106,23 +115,20 @@ public class AvatarDuel extends Application {
     Scene scene = new Scene(layout1, 1000, 600);
     //Scene scene = new Scene(layout1, 750, 500);
 
-
-
-
     stage.setTitle("Avatar Duel");
     stage.setScene(scene);
     stage.show();
 
     try {
       this.loadCards();
-      GameState gState = new GameState();
+      new GameState();
       text.setText("Avatar Duel!");
     } catch (Exception e) {
-      text.setText("Failed to load cards: " + e);
+      
     }
   }
 
   public static void main(String[] args) {
-    launch();
+    Application.launch();
   }
 }

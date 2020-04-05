@@ -1,11 +1,13 @@
 package com.avatarduel.model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Deck {
-    private ArrayList<Skill> skillArea = new ArrayList<>(Constans.MAXAREAFIELD.getValue());
-    private ArrayList<Character> characterArea = new ArrayList<>(Constans.MAXAREAFIELD.getValue());
-    private ArrayList<Card> handCards = new ArrayList<>(Constans.MAXHANDCARDS.getValue());
+    private ArrayList<Skill> skillArea = new ArrayList<>();
+    private ArrayList<Character> characterArea = new ArrayList<>();
+    private ArrayList<Card> handCards = new ArrayList<>();
+    private ArrayList<Card> allCards = new ArrayList<>();
     private int countTakeCards = 0;
 
     public Deck() {
@@ -21,18 +23,15 @@ public class Deck {
     }
 
     private void refill() {
-        // ArrayList<Card> ListCards = AllCards.getInstance().getAllCards();
-        // for (int i = 0; i < maxCards; i++) {
-        //     int index = (int)(Math.random()*ListCards.size());
-        //     // System.out.println(ListCards.get(index).getClass());
-        //     // Card card = new Card(ListCards.get(index).getName(), ListCards.get(index).getDescription(), ListCards.get(index).getElement(), ListCards.get(index).getType());
-            
-        //     cards.add(ListCards.remove(index));
-        // }
+        ArrayList<Card> ListCards = AllCards.getInstance().getAllCards();
+        for (int i = 0; i < Constans.MAXCARDS.getValue(); i++) {
+            int idx = new Random().nextInt(ListCards.size());
+            allCards.add(ListCards.get(idx));
+        }
     }
 
     public void takeCardToHand() {
-        handCards.add(AllCards.getInstance().getAllCards().remove(0));
+        handCards.add(allCards.remove(0));
         countTakeCards++;
     }
 

@@ -10,7 +10,7 @@ public class Player {
     private Map<Element, Pair<Integer, Integer>> mapPower;
 
     public Player() {
-        this.hp = 80;
+        this.setHp(80);
         this.deck = new Deck();
         this.mapPower = new HashMap<>();
         mapPower.put(Element.AIR, new Pair<>(0, 0));
@@ -21,6 +21,22 @@ public class Player {
         deck.getHandCards().forEach(el -> {
             useCard(el);
         });
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setdeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public void useCard(Card card) {

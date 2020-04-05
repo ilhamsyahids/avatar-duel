@@ -1,7 +1,7 @@
 package com.avatarduel.model;
 
 public enum Constans {
-  MAXCARDS(50),
+  MAXCARDS(40),
   MAXAREAFIELD(4),
   MAXHANDCARDS(9);
 

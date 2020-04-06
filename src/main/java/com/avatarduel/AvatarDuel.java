@@ -8,15 +8,8 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.scene.Group;
-import javafx.scene.text.Text;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import javafx.geometry.*;
 import javafx.scene.image.*;
-import javafx.scene.input.MouseEvent; 
 
 import com.avatarduel.model.Element;
 import com.avatarduel.model.GameState;
@@ -26,7 +19,6 @@ import com.avatarduel.model.AllCards;
 import com.avatarduel.model.Character;
 import com.avatarduel.util.CSVReader;
 import javafx.scene.Parent;
-
 
 public class AvatarDuel extends Application {
   private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
@@ -51,15 +43,15 @@ public class AvatarDuel extends Application {
     List<String[]> skillRows = skillReader.read();
     List<String[]> charRows = charReader.read();
     for (String[] item : landRows) {
-      Land l = new Land(item[1], item[3], Element.valueOf(item[2]));
+      Land l = new Land(item[1], item[3], Element.valueOf(item[2]), item[4]);
       AllCards.addLand(l);
     }
     for (String[] item : skillRows) {
-      SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[6]), Integer.parseInt(item[7]), Integer.parseInt(item[5]));
+      SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[6]), Integer.parseInt(item[7]), Integer.parseInt(item[5]));
       AllCards.addSkill(l);
     }
     for (String[] item : charRows) {
-      Character l = new Character(item[1], item[3], Element.valueOf(item[2]), Integer.parseInt(item[5]), Integer.parseInt(item[6]), Integer.parseInt(item[7]));
+      Character l = new Character(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[5]), Integer.parseInt(item[6]), Integer.parseInt(item[7]));
       AllCards.addCharacter(l);
     }
     AllCards.addAll();
@@ -79,9 +71,8 @@ public class AvatarDuel extends Application {
     try {
       this.loadCards();
       new GameState();
-//      text.setText("Avatar Duel!");
     } catch (Exception e) {
-      
+      System.out.println(e.getMessage());
     }
   }
 

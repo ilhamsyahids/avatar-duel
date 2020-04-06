@@ -1,14 +1,18 @@
 package com.avatarduel.model;
 
+import javafx.scene.image.*;
+
 public abstract class Card {
     private String name;
     private String description;
     private Element element;
+    private Image image;
 
-    public Card(String name, String description, Element element) {
+    public Card(String name, String description, Element element, String imagePath) {
         this.name = name;
         this.description = description;
         this.element = element;
+        this.image = new Image("file:" + imagePath);
     }
 
     public Card() {
@@ -29,6 +33,10 @@ public abstract class Card {
 
     public Element getElement() {
         return element;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     @Override

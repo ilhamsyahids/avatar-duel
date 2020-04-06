@@ -6,8 +6,8 @@ public class Character extends Card implements Powerable {
     private int power;
     private Mode mode;
 
-    public Character(String name, String description, Element element, int attack, int defense, int power) {
-        super(name, description, element);
+    public Character(String name, String description, Element element, String imagePath, int attack, int defense, int power) {
+        super(name, description, element, imagePath);
         this.attack = attack;
         this.defense = defense;
         this.power = power;
@@ -37,7 +37,13 @@ public class Character extends Card implements Powerable {
 
     @Override
     public void action(Character character) {
-        // TODO Auto-generated method stub
+        character.destroy();
+        if (character.mode == Mode.ATTACK && character.getAttack() < attack) {
+            GameState.getInstance().getOtherPlayer().reduceHp(attack - character.getAttack());
+        }
+    }
 
+    public void destroy() {
+        mode = Mode.DESTROY;
     }
 }

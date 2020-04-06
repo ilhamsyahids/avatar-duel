@@ -8,8 +8,8 @@ public abstract class Skill extends Card implements Powerable {
         power = 0;
     }
 
-    public Skill(String name, String description, Element element, int power) {
-        super(name, description, element);
+    public Skill(String name, String description, Element element, int power, String imagePath) {
+        super(name, description, element, imagePath);
         this.power = power;
     }
 

@@ -5,13 +5,16 @@ public class Land extends Card {
     super();
   }
 
-  public Land(String name, String description, Element element) {
-    super(name, description, element);
+  public Land(String name, String description, Element element, String imagePath) {
+    super(name, description, element, imagePath);
   }
 
   @Override
   public void action(Character character) {
-    // TODO Auto-generated method stub
-
+    action();
+  }
+  
+  public void action() {
+    GameState.getInstance().getCurrentPlayer().addPower(getElement(), 1);
   }
 }

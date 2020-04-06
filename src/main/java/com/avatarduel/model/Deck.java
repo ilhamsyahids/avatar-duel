@@ -14,6 +14,14 @@ public class Deck {
         refill();
     }
 
+    public int getCountTakeCards() {
+        return countTakeCards;
+    }
+
+    public void setCountTakeCards(int countTakeCards) {
+        this.countTakeCards = countTakeCards;
+    }
+
     public ArrayList<Card> getHandCards() {
         return handCards;
     }
@@ -32,7 +40,7 @@ public class Deck {
 
     public void takeCardToHand() {
         handCards.add(allCards.remove(0));
-        countTakeCards++;
+        setCountTakeCards(getCountTakeCards() + 1);
     }
 
     public void takeCardsToHand(int n) {

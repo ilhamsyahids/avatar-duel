@@ -3,6 +3,7 @@ package com.avatarduel.model;
 import java.util.ArrayList;
 
 public class GameState {
+  public static GameState INSTANCE = new GameState();
   final static int numOfPlayer = 2;
   private ArrayList<Player> listPlayer = new ArrayList<>(numOfPlayer);
   private int idPlayer = 0;
@@ -12,9 +13,13 @@ public class GameState {
     listPlayer.add(new Player());
   }
 
-  // public Player getOtherPlayer() {
-  //   return listPlayer.get(idPlayer);
-  // }
+  public static GameState getInstance() {
+    return INSTANCE;
+  }
+
+  public Player getOtherPlayer() {
+    return listPlayer.get((idPlayer + 1) % 2);
+  }
 
   public Player getCurrentPlayer() {
     return listPlayer.get(idPlayer);

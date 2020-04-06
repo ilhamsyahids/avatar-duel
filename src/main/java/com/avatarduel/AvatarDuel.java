@@ -25,6 +25,7 @@ import com.avatarduel.model.SkillAura;
 import com.avatarduel.model.AllCards;
 import com.avatarduel.model.Character;
 import com.avatarduel.util.CSVReader;
+import javafx.scene.Parent;
 
 
 public class AvatarDuel extends Application {
@@ -66,63 +67,19 @@ public class AvatarDuel extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    Pane pane = FXMLLoader.load(getClass().getResource("SimpleUI.fxml"));
-    Scene scene2 = new Scene(pane, 1366, 768);
+    Parent window = FXMLLoader.load(getClass().getResource("RegisterUI.fxml"));
+//    Scene windowScene = new Scene(window, 1360, 700);
+    Scene windowScene = new Scene(window, 500, 400);
     
-
-    Text text = new Text();
-    text.setText("Loading...");
-    text.setX(50);
-    text.setY(50);
-
-    Group root = new Group();
-    root.getChildren().add(text);
-
-    //window = primaryStage;
-
-    //Button 1
-    //Label label1 = new Label("Welcome to the first scene!");
-    //Button button1 = new Button("Go to scene 2");
-    //button1.setOnAction(e -> window.setScene(scene2));
-    Image image = new Image("file:lalala.png");
-    //ImageView mv = new ImageView(image);
-    Label label1 = new Label("Welcome players");
-    Button button1 = new Button("Start");
-    VBox layout1 = new VBox(20);
-
-    button1.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->  stage.setScene(scene2));
-
-    // create a background image
-    BackgroundImage backgroundimage = new BackgroundImage(image,
-    BackgroundRepeat.NO_REPEAT,
-    BackgroundRepeat.NO_REPEAT,
-    BackgroundPosition.DEFAULT,
-    BackgroundSize.DEFAULT);
-    
-    // create Background
-    Background background = new Background(backgroundimage);
-    
-    // set background
-    layout1.setBackground(background);
-
-    layout1.setAlignment(Pos.CENTER);
-    //layout1.setPadding(new Insets(200, 300, 200, 300));
-    layout1.setSpacing(20);
-    //layout1.setStyle("-fx-background-color: #336699;");
-    //Group root2 = new Group();
-    //root2.getChildren().addAll(mv,label1,button1);
-    layout1.getChildren().addAll(label1,button1);
-    Scene scene = new Scene(layout1, 1000, 600);
-    //Scene scene = new Scene(layout1, 750, 500);
-
     stage.setTitle("Avatar Duel");
-    stage.setScene(scene);
+    stage.getIcons().add(new Image("file:background/icon.PNG"));
+    stage.setScene(windowScene);
     stage.show();
 
     try {
       this.loadCards();
       new GameState();
-      text.setText("Avatar Duel!");
+//      text.setText("Avatar Duel!");
     } catch (Exception e) {
       
     }

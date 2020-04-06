@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
-    private ArrayList<Skill> skillArea = new ArrayList<>();
-    private ArrayList<Character> characterArea = new ArrayList<>();
+    final static int MAXCARDSTAKKEN = 60;
+    private ArrayList<Skill> skillArea = new ArrayList<>(8);
+    private ArrayList<Character> characterArea = new ArrayList<>(8);
     private ArrayList<Card> handCards = new ArrayList<>();
     private ArrayList<Card> allCards = new ArrayList<>();
     private int countTakeCards = 0;
@@ -32,7 +33,7 @@ public class Deck {
 
     private void refill() {
         ArrayList<Card> ListCards = AllCards.getInstance().getAllCards();
-        for (int i = 0; i < Constans.MAXCARDS.getValue(); i++) {
+        for (int i = 0; i < MAXCARDSTAKKEN; i++) {
             int idx = new Random().nextInt(ListCards.size());
             allCards.add(ListCards.get(idx));
         }

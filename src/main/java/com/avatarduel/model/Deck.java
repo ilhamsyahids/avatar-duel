@@ -23,6 +23,14 @@ public class Deck {
         this.countTakeCards = countTakeCards;
     }
 
+    public ArrayList<Character> getCharacters() {
+        return characterArea;
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return skillArea;
+    }
+
     public ArrayList<Card> getHandCards() {
         return handCards;
     }
@@ -48,5 +56,14 @@ public class Deck {
         for (int i = 0; i < n; i++) {
             takeCardToHand();
         }
+    }
+
+    public void moveToArea(Card card) {
+        if (card instanceof Character) {
+            characterArea.add((Character) card);
+        } else if (Skill.class.isAssignableFrom(card.getClass())) {
+            skillArea.add((Skill) card);
+        }
+        handCards.remove(card);
     }
 }

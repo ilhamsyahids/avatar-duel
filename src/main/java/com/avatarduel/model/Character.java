@@ -37,10 +37,10 @@ public class Character extends Card implements Powerable {
 
     @Override
     public void action(Character character) {
-        character.destroy();
-        if (character.mode == Mode.ATTACK && character.getAttack() < attack) {
-            GameState.getInstance().getOtherPlayer().reduceHp(attack - character.getAttack());
-        }
+        // character.destroy();
+        // if (character.mode == Mode.ATTACK && character.getAttack() < attack) {
+        //     GameState.getInstance().getOtherPlayer().reduceHp(attack - character.getAttack());
+        // }
     }
 
     public void destroy() {

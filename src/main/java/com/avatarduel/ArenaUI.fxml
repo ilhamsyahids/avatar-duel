@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -100,7 +101,10 @@
             <Glow />
          </effect>
       </ProgressBar>
-      <Pane fx:id="fillMyCard" layoutX="1094.0" layoutY="535.0" onMouseClicked="#refillDeck" prefHeight="72.0" prefWidth="117.0" />
+      <Pane fx:id="fillMyCard" layoutX="1134.0" layoutY="544.0" onMouseClicked="#refillDeck" prefHeight="72.0" prefWidth="117.0">
+         <children>
+            <Label fx:id="myCountCard" layoutX="42.0" layoutY="28.0" text="Label" />
+         </children></Pane>
       <Pane fx:id="fillEnemyCard" layoutX="627.0" layoutY="94.0" prefHeight="72.0" prefWidth="117.0" />
       <HBox fx:id="myHand" layoutX="563.0" layoutY="545.0" prefHeight="72.0" prefWidth="609.0" spacing="10.0">
          <opaqueInsets>
@@ -115,5 +119,16 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets></HBox>
+      <Pane fx:id="paneHover" layoutX="53.0" layoutY="48.0" opacity="0.0" prefHeight="433.0" prefWidth="280.0">
+         <children>
+            <Label fx:id="nameHover" layoutX="18.0" layoutY="26.0" text="Name" />
+            <Label fx:id="elementHover" layoutX="213.0" layoutY="27.0" text="Element" />
+            <Label fx:id="attackHover" layoutX="19.0" layoutY="400.0" text="ATK" />
+            <Label fx:id="defenceHover" layoutX="73.0" layoutY="400.0" text="DEF" />
+            <Label fx:id="powerHover" layoutX="123.0" layoutY="400.0" text="POW" />
+            <Label fx:id="descriptionHover" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="5.0" layoutY="274.0" prefHeight="89.0" prefWidth="271.0" text="Label" />
+            <Pane fx:id="imageHover" layoutX="39.0" layoutY="63.0" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </Pane>
    </children>
 </Pane>

@@ -11,12 +11,17 @@ public class KartuUI extends Parent {
     public int fieldCol;
     public int deckCol;
     public Card card;
+    public ImageView imageView;
 
     public KartuUI(Card card){
         this.card = card;
         Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
-        ImageView imgv = new ImageView(img);
-        getChildren().addAll(imgv);
+        imageView = new ImageView(img);
+        getChildren().addAll(imageView);
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 
     public Card getCard() {

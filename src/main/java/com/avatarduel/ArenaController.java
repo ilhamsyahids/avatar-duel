@@ -8,11 +8,7 @@ import java.util.ResourceBundle;
 import com.avatarduel.model.Card;
 import com.avatarduel.model.Character;
 import com.avatarduel.model.GameState;
-import com.avatarduel.model.Land;
-import com.avatarduel.KartuUI;
 
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -63,12 +59,31 @@ public class ArenaController implements Initializable {
     private Pane fillMyCard;
     @FXML
     private Pane fillEnemyCard;
+    @FXML
+    private Pane paneHover;
+    @FXML
+    private Pane imageHover;
+    @FXML
+    private Label nameHover;
+    @FXML
+    private Label elementHover;
+    @FXML
+    private Label attackHover;
+    @FXML
+    private Label defenceHover;
+    @FXML
+    private Label powerHover;
+    @FXML
+    private Label descriptionHover;
 
     int[] handIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
     int[] monsterIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
     int monsterIdx;
     int handIdx;
-    int count = 0;
+
+    private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
+    private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
+    private static final String DETAIL_CARD_STYLE = "-fx-background-color: cadetblue;";
 
     public int findAvIdx(int[] arr){
         // mencari index di gridpane yg available
@@ -83,8 +98,6 @@ public class ArenaController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         renderCard();
-        // refillDeck();
-        count = 0;
     }
 
     public void setBackground(String pict) {
@@ -109,10 +122,30 @@ public class ArenaController implements Initializable {
         myHand.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
             myHand.getChildren().add(cardUI);
+            cardUI.setOnMouseEntered(e -> {
+                cardUI.setStyle(HOVERED_CARD_STYLE);
+                Image img = new Image(new File(item.getImage()).toURI().toString(), 200, 144, false, false);
+                imageHover.getChildren().add(new ImageView(img));
+                nameHover.setText(cardUI.getCard().getName());
+                elementHover.setText(cardUI.getCard().getElement().toString());
+                descriptionHover.setText(cardUI.getCard().getDescription());
+                if (cardUI.getCard() instanceof Character) {
+                    Character cardChar = (Character) cardUI.getCard();
+                    attackHover.setText("ATK " +  cardChar.getAttack());
+                    defenceHover.setText("DEF " +  cardChar.getDefense());
+                    powerHover.setText("POW " +  cardChar.getPower());
+                }
+                paneHover.setStyle("-fx-opacity: 1;");
+                paneHover.setStyle(DETAIL_CARD_STYLE);
+            });
+            cardUI.setOnMouseExited(e -> {
+                cardUI.setStyle(IDLE_CARD_STYLE);
+                paneHover.setStyle("-fx-opacity: 0;");
+            });
             cardUI.setOnMouseClicked(el -> {
                 GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
-                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
                 System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
                 System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
                 renderCard();
@@ -140,20 +173,6 @@ public class ArenaController implements Initializable {
         renderArea();
     }
 
-    public void refillDeck() {
-        // fungsi draw kartu
-        Card card = GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().get(0);
-        Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
-        ImageView mv = new ImageView(img);
-        handIdx = findAvIdx(handIndexArr);
-        // KartuUI kartuIni = new KartuUI(mv, 999, handIdx);
-        // kartuIni.setOnMouseClicked(event -> {
-        //     summonCard(kartuIni);
-        // });
-        // myHand.add(kartuIni, handIdx, 0);
-
-    }
-    
     public void setParamLife(Integer myLife, Integer enemyLife){
         // Set parameter HPpoints dan HPBar sesuai dengan
         // life points player

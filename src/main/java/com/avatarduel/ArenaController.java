@@ -9,6 +9,7 @@ import com.avatarduel.model.Card;
 import com.avatarduel.model.Character;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
+import com.avatarduel.KartuUI;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.ActionEvent;
@@ -105,6 +106,9 @@ public class ArenaController implements Initializable {
             myDeck.getChildren().add(cardUI);
             cardUI.setOnMouseClicked(el -> {
                 GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
                 myDeck.getChildren().clear();
                 initiateHands();
             });

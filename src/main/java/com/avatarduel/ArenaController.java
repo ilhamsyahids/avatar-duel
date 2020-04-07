@@ -4,6 +4,10 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import com.avatarduel.model.Card;
+import com.avatarduel.model.GameState;
+
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,59 +24,87 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class ArenaController implements Initializable{
+public class ArenaController implements Initializable {
 
-    @FXML private Pane utama;
-    @FXML private Label enemyHP;
-    @FXML private Label myHP;
-    @FXML private GridPane enemyField;
-    @FXML private GridPane myField;
-    @FXML private GridPane myDeck;
-    @FXML private GridPane enemyDeck;
-    @FXML private ProgressBar enemyBar;
-    @FXML private ProgressBar myBar;
-    @FXML private Label playerTwo;
-    @FXML private Label playerOne;
-    @FXML private Pane fillMyCard;
-    @FXML private Pane fillEnemyCard;
-    
+    @FXML
+    private Pane utama;
+    @FXML
+    private Label enemyHP;
+    @FXML
+    private Label myHP;
+    @FXML
+    private GridPane enemyField;
+    @FXML
+    private GridPane myField;
+    @FXML
+    private GridPane myDeck;
+    @FXML
+    private GridPane enemyDeck;
+    @FXML
+    private ProgressBar enemyBar;
+    @FXML
+    private ProgressBar myBar;
+    @FXML
+    private Label playerTwo;
+    @FXML
+    private Label playerOne;
+    @FXML
+    private Pane fillMyCard;
+    @FXML
+    private Pane fillEnemyCard;
+
     int count;
-    
-    public void initialize(URL url, ResourceBundle rb){
+
+    public void initialize(URL url, ResourceBundle rb) {
         initDeck();
-//        refillDeck();
+        // refillDeck();
         count = 0;
     }
-    
-    public void setBackground(String pict){
+
+    public void setBackground(String pict) {
         // Set background pada this scene
         Image image = new Image(pict);
-        BackgroundImage backgroundImage = new BackgroundImage(image,
-        BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT,
-        BackgroundPosition.DEFAULT,
-        new BackgroundSize(100,100,false,false,false,true));
-        
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                new BackgroundSize(100, 100, false, false, false, true));
+
         Background background = new Background(backgroundImage);
         utama.setBackground(background);
     }
-    
-    public void initDeck(){
+
+    public void initDeck() {
         Image card = new Image(new File("background/flip.PNG").toURI().toString(), 117, 72, false, false);
-//        myDeck.add(new ImageView(card), 0, 0);
+        // myDeck.add(new ImageView(card), 0, 0);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
+        refillDeck();
     }
-    
-    public void refillDeck(){
-        if(count < 7){
-            Image card = new Image(new File("background/card.PNG").toURI().toString(), 63.86, 72, false, false);
-            myDeck.add(new ImageView(card), count, 0);
-            count++;
-        } else{
-            //Do nothing
+
+    public void refillDeck() {
+        // if (count < 8) {
+            // myDeck.getChildren().clear();
+            // Ini contoh yang diambil dari kartu tangan player
+            // Sesuaikan aja, ini hanya contoh
+            for (Card card : GameState.getInstance().getCurrentPlayer().getDeck().getHandCards()) {
+                Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
+                myDeck.add(new ImageView(img), count, 0);
+                count++;
+                if (count > 8) break;
+            }
+            // GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach((item) -> {
+            //     Image card = new Image(new File(item.getImage()).toURI().toString(), 117, 72, false, false);
+            //     myDeck.add(new ImageView(card), count, 0);
+            //     count++;
+            // });
+        // }
+        // if(count < 7){
+        //     Image card = new Image(new File("background/card.PNG").toURI().toString(), 63.86, 72, false, false);
+        //     myDeck.add(new ImageView(card), count, 0);
+        //     count++;
+        // } else{
+        //     //Do nothing
             
-        }
+        // }
     }
     
     public void setParamLife(Integer myLife, Integer enemyLife){

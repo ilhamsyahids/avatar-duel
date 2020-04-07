@@ -101,7 +101,7 @@
             <Glow />
          </effect>
       </ProgressBar>
-      <Pane fx:id="fillMyCard" layoutX="1134.0" layoutY="544.0" onMouseClicked="#refillDeck" prefHeight="72.0" prefWidth="117.0">
+      <Pane fx:id="fillMyCard" layoutX="1134.0" layoutY="544.0" prefHeight="72.0" prefWidth="117.0">
          <children>
             <Label fx:id="myCountCard" layoutX="42.0" layoutY="28.0" text="Label" />
          </children></Pane>

@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
-    final static int MAXCARDSTAKKEN = 60;
+    public final static int MAXCARDSTAKKEN = 60;
     private ArrayList<Skill> skillArea = new ArrayList<>(8);
     private ArrayList<Character> characterArea = new ArrayList<>(8);
     private ArrayList<Card> handCards = new ArrayList<>();
     private ArrayList<Card> allCards = new ArrayList<>();
-    private int countTakeCards = 0;
+    private int leftTakeCards = MAXCARDSTAKKEN;
 
     public Deck() {
         refill();
     }
 
-    public int getCountTakeCards() {
-        return countTakeCards;
+    public int getLeftTakeCards() {
+        return leftTakeCards;
     }
 
-    public void setCountTakeCards(int countTakeCards) {
-        this.countTakeCards = countTakeCards;
+    public void setLeftTakeCards(int leftTakeCards) {
+        this.leftTakeCards = leftTakeCards;
     }
 
     public ArrayList<Character> getCharacters() {
@@ -49,7 +49,7 @@ public class Deck {
 
     public void takeCardToHand() {
         handCards.add(allCards.remove(0));
-        setCountTakeCards(getCountTakeCards() + 1);
+        setLeftTakeCards(getLeftTakeCards() - 1);
     }
 
     public void takeCardsToHand(int n) {

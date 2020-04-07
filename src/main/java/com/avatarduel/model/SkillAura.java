@@ -15,4 +15,12 @@ public class SkillAura extends Skill {
         character.setAttack(character.getAttack() + attack);
         character.setDefense(character.getDefense() + defense);
     }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
 }

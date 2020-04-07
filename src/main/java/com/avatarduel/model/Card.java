@@ -1,6 +1,6 @@
 package com.avatarduel.model;
 
-public abstract class Card{
+public abstract class Card {
     private String name;
     private String description;
     private Element element;

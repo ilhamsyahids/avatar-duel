@@ -5,9 +5,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
 import com.avatarduel.model.Card;
+import com.avatarduel.model.Character;
 import com.avatarduel.model.GameState;
+import com.avatarduel.model.Land;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.Node;
 
@@ -39,7 +41,7 @@ public class ArenaController implements Initializable {
     @FXML
     private GridPane myField;
     @FXML
-    private GridPane myDeck;
+    private HBox myDeck;
     @FXML
     private GridPane enemyDeck;
     @FXML
@@ -98,19 +100,15 @@ public class ArenaController implements Initializable {
     }
 
     public void initiateHands(){
-        for (Card card : GameState.getInstance().getCurrentPlayer().getDeck().getHandCards()) {
-            Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
-            ImageView mv = new ImageView(img);
-            KartuUI kartuIni = new KartuUI(mv, 999, count);
-            handIndexArr[count] = 1;
-            kartuIni.setOnMouseClicked(event -> {
-                summonCard(kartuIni);
-
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            myDeck.getChildren().add(cardUI);
+            cardUI.setOnMouseClicked(el -> {
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                myDeck.getChildren().clear();
+                initiateHands();
             });
-            myDeck.add(kartuIni, count, 0);
-            count++;
-            if (count > 8) break;
-        }
+        });
     }
 
     public void refillDeck() {
@@ -119,11 +117,11 @@ public class ArenaController implements Initializable {
         Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
         ImageView mv = new ImageView(img);
         handIdx = findAvIdx(handIndexArr);
-        KartuUI kartuIni = new KartuUI(mv, 999, handIdx);
-        kartuIni.setOnMouseClicked(event -> {
-            summonCard(kartuIni);
-        });
-        myDeck.add(kartuIni, handIdx, 0);
+        // KartuUI kartuIni = new KartuUI(mv, 999, handIdx);
+        // kartuIni.setOnMouseClicked(event -> {
+        //     summonCard(kartuIni);
+        // });
+        // myDeck.add(kartuIni, handIdx, 0);
 
     }
     

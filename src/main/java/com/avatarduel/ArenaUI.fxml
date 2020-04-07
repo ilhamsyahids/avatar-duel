@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.effect.Glow?>
@@ -9,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.ArenaController">
+<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.ArenaController">
    <children>
       <Label fx:id="playerTwo" layoutX="568.0" layoutY="47.0" prefHeight="28.0" prefWidth="107.0" text="Player 2">
          <font>
@@ -73,20 +79,6 @@
             <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="myDeck" gridLinesVisible="true" hgap="10.0" layoutX="566.0" layoutY="535.0" prefHeight="72.0" prefWidth="517.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
       <GridPane fx:id="enemyDeck" gridLinesVisible="true" hgap="10.0" layoutX="755.0" layoutY="94.0" prefHeight="72.0" prefWidth="517.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -110,5 +102,9 @@
       </ProgressBar>
       <Pane fx:id="fillMyCard" layoutX="1094.0" layoutY="535.0" onMouseClicked="#refillDeck" prefHeight="72.0" prefWidth="117.0" />
       <Pane fx:id="fillEnemyCard" layoutX="627.0" layoutY="94.0" prefHeight="72.0" prefWidth="117.0" />
+      <HBox fx:id="myDeck" layoutX="563.0" layoutY="545.0" prefHeight="72.0" prefWidth="609.0" spacing="10.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></HBox>
    </children>
 </Pane>

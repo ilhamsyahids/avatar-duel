@@ -19,13 +19,19 @@ import com.avatarduel.ArenaController;
 public class KartuUI extends Parent {
     public int fieldCol;
     public int deckCol;
-    public ImageView mv;
+    public Card card;
 
-    public KartuUI(ImageView mv, int fieldCol, int deckCol){
+    public KartuUI(Card card){
         this.fieldCol = fieldCol;
         this.deckCol = deckCol;
-        this.mv = mv;
-        getChildren().addAll(this.mv);
+        this.card = card;
+        Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
+        ImageView imgv = new ImageView(img);
+        getChildren().addAll(imgv);
+    }
+
+    public Card getCard() {
+        return card;
     }
 
 

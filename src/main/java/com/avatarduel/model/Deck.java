@@ -49,4 +49,10 @@ public class Deck {
             takeCardToHand();
         }
     }
+
+    public void moveToArea(Card card) {
+        // int idx = handCards.indexOf(character);
+        // characterArea.add(character);
+        handCards.remove(card);
+    }
 }

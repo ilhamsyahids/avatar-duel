@@ -33,6 +33,10 @@ public class Player {
         this.deck = deck;
     }
 
+    public Map<Element, Point> getMapPower() {
+        return mapPower;
+    }
+
     public int getHp() {
         return hp;
     }

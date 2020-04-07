@@ -60,7 +60,6 @@ public class AvatarDuel extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     Parent window = FXMLLoader.load(getClass().getResource("RegisterUI.fxml"));
-//    Scene windowScene = new Scene(window, 1360, 700);
     Scene windowScene = new Scene(window, 500, 400);
     
     stage.setTitle("Avatar Duel");

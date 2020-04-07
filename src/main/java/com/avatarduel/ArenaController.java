@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
 import com.avatarduel.model.Card;
 import com.avatarduel.model.GameState;
 
@@ -23,6 +24,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.Node;
 
 public class ArenaController implements Initializable {
 
@@ -53,7 +55,21 @@ public class ArenaController implements Initializable {
     @FXML
     private Pane fillEnemyCard;
 
-    int count;
+    int[] handIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
+    int[] monsterIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
+    int monsterIdx;
+    int handIdx;
+    int count = 0;
+
+    public int findAvIdx(int[] arr){
+        for(int i=0; i<8; i++){
+            if(arr[i] == 0){
+                arr[i] = 1;
+                return i;
+            }
+        }
+        return 999;
+    }
 
     public void initialize(URL url, ResourceBundle rb) {
         initDeck();
@@ -77,34 +93,36 @@ public class ArenaController implements Initializable {
         // myDeck.add(new ImageView(card), 0, 0);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
-        refillDeck();
+        initiateHands();
+    }
+
+    public void initiateHands(){
+        for (Card card : GameState.getInstance().getCurrentPlayer().getDeck().getHandCards()) {
+            Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
+            ImageView mv = new ImageView(img);
+            KartuUI kartuIni = new KartuUI(mv, 999, count);
+            handIndexArr[count] = 1;
+            kartuIni.setOnMouseClicked(event -> {
+                summonCard(kartuIni);
+
+            });
+            myDeck.add(kartuIni, count, 0);
+            count++;
+            if (count > 8) break;
+        }
     }
 
     public void refillDeck() {
-        // if (count < 8) {
-            // myDeck.getChildren().clear();
-            // Ini contoh yang diambil dari kartu tangan player
-            // Sesuaikan aja, ini hanya contoh
-            for (Card card : GameState.getInstance().getCurrentPlayer().getDeck().getHandCards()) {
-                Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
-                myDeck.add(new ImageView(img), count, 0);
-                count++;
-                if (count > 8) break;
-            }
-            // GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach((item) -> {
-            //     Image card = new Image(new File(item.getImage()).toURI().toString(), 117, 72, false, false);
-            //     myDeck.add(new ImageView(card), count, 0);
-            //     count++;
-            // });
-        // }
-        // if(count < 7){
-        //     Image card = new Image(new File("background/card.PNG").toURI().toString(), 63.86, 72, false, false);
-        //     myDeck.add(new ImageView(card), count, 0);
-        //     count++;
-        // } else{
-        //     //Do nothing
-            
-        // }
+        Card card = GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().get(0);
+        Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
+        ImageView mv = new ImageView(img);
+        handIdx = findAvIdx(handIndexArr);
+        KartuUI kartuIni = new KartuUI(mv, 999, handIdx);
+        kartuIni.setOnMouseClicked(event -> {
+            summonCard(kartuIni);
+        });
+        myDeck.add(kartuIni, handIdx, 0);
+
     }
     
     public void setParamLife(Integer myLife, Integer enemyLife){
@@ -124,5 +142,16 @@ public class ArenaController implements Initializable {
     public void setName(String player1, String player2){
         playerOne.setText(player1);
         playerTwo.setText(player2);
+    }
+
+    public void summonCard(KartuUI kartuIni){
+        monsterIdx = findAvIdx(monsterIndexArr);
+        if(monsterIdx != 999){
+            handIndexArr[kartuIni.deckCol] = 0;
+            kartuIni.fieldCol = monsterIdx;
+            kartuIni.deckCol = 999;
+            myField.add(kartuIni,monsterIdx,0);
+        }
+
     }
 }

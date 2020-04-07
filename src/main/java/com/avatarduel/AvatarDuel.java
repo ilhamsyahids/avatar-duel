@@ -21,18 +21,18 @@ import com.avatarduel.util.CSVReader;
 import javafx.scene.Parent;
 
 public class AvatarDuel extends Application {
-  private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
-  private static final String SKILL_CSV_FILE_PATH = "card/data/skill_aura.csv";
-  private static final String CHAR_CSV_FILE_PATH = "card/data/character.csv";
+  private static final String LAND_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/land.csv";
+  private static final String SKILL_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_aura.csv";
+  private static final String CHAR_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/character.csv";
 
   //variabel-variable untuk tampilan GUI
   Stage window;
   Scene scene1, scene2;
 
   public void loadCards() throws IOException, URISyntaxException {
-    File landCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
-    File skillCSVFile = new File(getClass().getResource(SKILL_CSV_FILE_PATH).toURI());
-    File characterCSVFile = new File(getClass().getResource(CHAR_CSV_FILE_PATH ).toURI());
+    File landCSVFile = new File((LAND_CSV_FILE_PATH));
+    File skillCSVFile = new File((SKILL_CSV_FILE_PATH));
+    File characterCSVFile = new File((CHAR_CSV_FILE_PATH ));
     CSVReader landReader = new CSVReader(landCSVFile, "\t");
     CSVReader skillReader = new CSVReader(skillCSVFile, "\t");
     CSVReader charReader = new CSVReader(characterCSVFile, "\t");

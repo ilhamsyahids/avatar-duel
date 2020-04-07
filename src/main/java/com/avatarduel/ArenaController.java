@@ -42,7 +42,13 @@ public class ArenaController implements Initializable {
     @FXML
     private GridPane myField;
     @FXML
-    private HBox myDeck;
+    private HBox otherHand;
+    @FXML
+    private HBox mySkillArea;
+    @FXML
+    private HBox myCharArea;
+    @FXML
+    private HBox myHand;
     @FXML
     private GridPane enemyDeck;
     @FXML
@@ -76,7 +82,7 @@ public class ArenaController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
-        initDeck();
+        renderCard();
         // refillDeck();
         count = 0;
     }
@@ -94,25 +100,44 @@ public class ArenaController implements Initializable {
 
     public void initDeck() {
         Image card = new Image(new File("background/flip.PNG").toURI().toString(), 117, 72, false, false);
-        // myDeck.add(new ImageView(card), 0, 0);
+        // myHand.add(new ImageView(card), 0, 0);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
-        initiateHands();
     }
 
-    public void initiateHands(){
+    public void initiateHands() {
+        myHand.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
-            myDeck.getChildren().add(cardUI);
+            myHand.getChildren().add(cardUI);
             cardUI.setOnMouseClicked(el -> {
                 GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
                 System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
                 System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
                 System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
-                myDeck.getChildren().clear();
-                initiateHands();
+                renderCard();
             });
         });
+    }
+
+    public void renderArea() {
+        myCharArea.getChildren().clear();
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            myCharArea.getChildren().add(cardUI);
+        });
+        mySkillArea.getChildren().clear();
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            mySkillArea.getChildren().add(cardUI);
+        });
+        
+    }
+
+    public void renderCard() {
+        initDeck();
+        initiateHands();
+        renderArea();
     }
 
     public void refillDeck() {
@@ -125,7 +150,7 @@ public class ArenaController implements Initializable {
         // kartuIni.setOnMouseClicked(event -> {
         //     summonCard(kartuIni);
         // });
-        // myDeck.add(kartuIni, handIdx, 0);
+        // myHand.add(kartuIni, handIdx, 0);
 
     }
     

@@ -1,5 +1,6 @@
 package com.avatarduel;
 
+import com.avatarduel.model.Card;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,7 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-
+import com.avatarduel.ArenaController;
 
 public class KartuUI extends Parent {
     public int fieldCol;
@@ -24,10 +25,6 @@ public class KartuUI extends Parent {
         this.fieldCol = fieldCol;
         this.deckCol = deckCol;
         this.mv = mv;
-        kartuIni.setOnMouseClicked(event -> {
-            summonCard(kartuIni);
-
-        });
         getChildren().addAll(this.mv);
     }
 

@@ -62,6 +62,7 @@ public class ArenaController implements Initializable {
     int count = 0;
 
     public int findAvIdx(int[] arr){
+        // mencari index di gridpane yg available
         for(int i=0; i<8; i++){
             if(arr[i] == 0){
                 arr[i] = 1;
@@ -113,6 +114,7 @@ public class ArenaController implements Initializable {
     }
 
     public void refillDeck() {
+        // fungsi draw kartu
         Card card = GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().get(0);
         Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
         ImageView mv = new ImageView(img);

@@ -1,5 +1,7 @@
 package com.avatarduel;
 
+
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.ResourceBundle;
 
 import com.avatarduel.model.Card;
 import com.avatarduel.model.Character;
+import com.avatarduel.model.Mode;
 import com.avatarduel.model.Deck;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
@@ -193,15 +196,8 @@ public class ArenaController implements Initializable {
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        // KartuUI card = new KartuUI(card);
-        // // klik char di arena
-        // card.setOnMouseClicked(el -> {
-        //     // dialog box
-        // });
-        // // klik char lawan di arena
-        // card.setOnMouseClicked(el -> {
-        //     // validasi dan attack
-        // });
+        // klik char di arena
+        // klik char di arena lawan
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
             ImageView imageView = new ImageView(img);
@@ -223,6 +219,28 @@ public class ArenaController implements Initializable {
             renderCardMain();
         });
     } 
+    
+    public void klikCharArena(KartuUI card){
+        card.setOnMouseClicked(el -> {
+            // nampilin dialogbox
+            renderCardBattle();
+        });
+    }
+
+    public void klikCharArenaLawan(KartuUI cardArena, KartuUI cardLawan){
+        cardLawan.setOnMouseClicked(el -> {
+            Character charArena = (Character)(cardArena.getCard());
+            Character charLawan = (Character)(cardLawan.getCard());
+            // CHAR lawan posisi menyerang
+            // 1. Attack lawan <= Attack CHAR
+            // CHAR lawan posisi bertahan
+            // 1. Defense lawan <= Attack CHAR
+            if(((charLawan.getMode()==Mode.ATTACK)&&(charLawan.getAttack()<=charArena.getAttack()))||((charLawan.getMode()==Mode.DEFENSE)&&(charLawan.getDefense()<=charArena.getAttack()))){
+                charArena.action(charLawan);
+            }
+            renderCardBattle();
+        });
+    }
 
     public void setHover(KartuUI cardUI) {
         cardUI.setOnMouseEntered(e -> {

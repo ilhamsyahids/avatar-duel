@@ -60,6 +60,7 @@ public class Phase {
     
     public void battlePhase(){
         fase = Fase.BATTLE;
+        arenaController.renderCardBattle();
         // 1. player dapat menggunakan CHAR untuk menyerang CHAR lawan/HP lawan
         // 2. kalo ada CHAR di area lawan, gabisa langsung nyerang HP
         // 3. tiap CHAR nyerang maks 1 kali

@@ -23,7 +23,6 @@ public class Player {
         deck.getHandCards().forEach(el -> {
             useCard(el);
         });
-        System.out.println(deck + "\n");
     }
 
     public Deck getDeck() {

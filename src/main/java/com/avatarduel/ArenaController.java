@@ -102,7 +102,6 @@ public class ArenaController implements Initializable {
     int monsterIdx;
     int handIdx;
     int winner;
-    boolean isCanTakeLand;
 
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
@@ -150,6 +149,18 @@ public class ArenaController implements Initializable {
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
         });
+        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
             ImageView imageView = new ImageView(img);
@@ -158,7 +169,6 @@ public class ArenaController implements Initializable {
     }
     public void renderHandsMain() {
         System.out.println("masuk main");
-        isCanTakeLand=true;
         otherHand.getChildren().clear();
         myHand.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
@@ -166,20 +176,19 @@ public class ArenaController implements Initializable {
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
-            
-            // 3. meletakkan MAKS. 1 kartu land
-            if(cardUI.getCard() instanceof Land){
-                if(isCanTakeLand){
-                    moveToArena(cardUI);
-                    isCanTakeLand=false;
-                }else{
-                    //action(null)
-                }
-            }else{
-                moveToArena(cardUI);
-            }
-            
-            
+            moveToArena(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
         });
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
@@ -191,6 +200,18 @@ public class ArenaController implements Initializable {
         otherHand.getChildren().clear();
         myHand.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
             myHand.getChildren().add(cardUI);
@@ -213,7 +234,15 @@ public class ArenaController implements Initializable {
 
     public void moveToArena(KartuUI card) {
         card.setOnMouseClicked(el -> {
-            GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(card.getCard());
+            // 3. meletakkan MAKS. 1 kartu land
+            if(card.getCard() instanceof Land){
+                if(GameState.getInstance().getCurrentPlayer().getTakeLand()){
+                    GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(card.getCard());
+                    GameState.getInstance().getCurrentPlayer().setTakeLand(false);
+                }
+            }else if(((card.getCard() instanceof Character)&&(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size()<8))||((card.getCard() instanceof Skill)&&(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size()<8))){
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(card.getCard());
+            }
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
             renderCardMain();

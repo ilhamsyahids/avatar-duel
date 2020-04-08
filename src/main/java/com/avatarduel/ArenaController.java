@@ -11,6 +11,7 @@ import com.avatarduel.model.Deck;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
 import com.avatarduel.model.Phase;
+import com.avatarduel.model.Phase.Fase;
 import com.avatarduel.model.Skill;
 import com.avatarduel.model.SkillAura;
 //import java.awt.Rectangle;
@@ -98,6 +99,18 @@ public class ArenaController implements Initializable {
     private Rectangle rectElemen;
     @FXML
     private Rectangle colorCard;
+    @FXML
+    private Rectangle changePhase;
+    @FXML
+    private Label draw;
+    @FXML
+    private Label main1;
+    @FXML
+    private Label battle;
+    @FXML
+    private Label end;
+    @FXML
+    private Label main2;
 
     int[] handIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
     int[] monsterIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -216,10 +229,33 @@ public class ArenaController implements Initializable {
 
             paneHover.setStyle("-fx-opacity: 0;");
         });
-        
-
     }
 
+    public Rectangle changePhase(double position){
+        this.changePhase.setLayoutY(position);
+        return this.changePhase;
+    }
+    
+    public Label draw(){
+        return this.draw;
+    }
+    
+    public Label main1(){
+        return this.main1;
+    }
+    
+    public Label battle(){
+        return this.battle;
+    }
+    
+    public Label main2(){
+        return this.main2;
+    }
+    
+    public Label end(){
+        return this.end;
+    }
+    
     public void renderArea() {
         myCharArea.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {

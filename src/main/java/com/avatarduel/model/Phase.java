@@ -8,7 +8,7 @@ public class Phase {
     public ArenaController arenaController;
     public Fase fase;
 
-    enum Fase {
+    public enum Fase {
         DRAW,
         MAIN1,
         BATTLE,
@@ -24,7 +24,8 @@ public class Phase {
     
     public void startGame() {
         System.out.println(":");
-        main1Phase();
+//        main1Phase();
+        drawPhase();
     }
     
     public static Phase getInstancePhase() {
@@ -35,6 +36,9 @@ public class Phase {
         fase = Fase.DRAW;
         // 2. Power player di reset
         GameState.getInstance().getCurrentPlayer().resetPower();
+        arenaController.changePhase(273);
+        arenaController.end().setText("END");
+        arenaController.draw().setText("-->DRAW");
         // 1. Player ngambil satu kartu dari deck, taruh di tangan
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
@@ -54,6 +58,9 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             battlePhase();
         });
+        arenaController.changePhase(300);
+        arenaController.draw().setText("DRAW");
+        arenaController.main1().setText("--> MAIN 1");
     }
     
     public void battlePhase(){
@@ -75,6 +82,10 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             main2Phase();
         });
+        arenaController.changePhase(327);
+        arenaController.main1().setText("MAIN 1");
+        arenaController.battle().setText("--> BATTLE");
+        
     }
     
     public void main2Phase(){
@@ -84,6 +95,9 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             endPhase();
         });
+        arenaController.changePhase(354);
+        arenaController.battle().setText("BATTLE");
+        arenaController.main2().setText("--> MAIN 2");
     }
     
     public void endPhase(){
@@ -92,7 +106,11 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             GameState.getInstance().nextPlayer();
             drawPhase();
+            
         });
+        arenaController.changePhase(381);
+        arenaController.main2().setText("MAIN 2");
+        arenaController.end().setText("--> END");
     }
 
     public void nextPhase() {

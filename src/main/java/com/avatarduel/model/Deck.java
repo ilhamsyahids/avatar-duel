@@ -61,10 +61,12 @@ public class Deck {
     }
 
     public void moveToArea(Card card) {
-        if (card instanceof Character) {
+        if (card instanceof Character && characterArea.size()<8) {
             characterArea.add((Character) card);
-        } else if (Skill.class.isAssignableFrom(card.getClass())) {
+        } else if (Skill.class.isAssignableFrom(card.getClass()) && skillArea.size()<8) {
             skillArea.add((Skill) card);
+        } else if(card instanceof Land){
+            ((Land)card).action();
         }
         handCards.remove(card);
     }

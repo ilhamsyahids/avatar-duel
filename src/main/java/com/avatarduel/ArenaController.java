@@ -99,6 +99,7 @@ public class ArenaController implements Initializable {
     int monsterIdx;
     int handIdx;
     int winner;
+    boolean isCanTakeLand;
 
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
@@ -137,24 +138,6 @@ public class ArenaController implements Initializable {
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
     }
-
-    public void renderHandsMain() {
-        otherHand.getChildren().clear();
-        myHand.getChildren().clear();
-        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
-            setHover(cardUI);
-            moveToArena(cardUI);
-        });
-        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
-            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
-            ImageView imageView = new ImageView(img);
-            otherHand.getChildren().add(imageView);
-        });
-    }
-
     public void renderHandsDraw() {
         otherHand.getChildren().clear();
         myHand.getChildren().clear();
@@ -170,6 +153,63 @@ public class ArenaController implements Initializable {
             otherHand.getChildren().add(imageView);
         });
     }
+    public void renderHandsMain() {
+        System.out.println("masuk main");
+        isCanTakeLand=true;
+        otherHand.getChildren().clear();
+        myHand.getChildren().clear();
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+            
+            // 3. meletakkan MAKS. 1 kartu land
+            if(cardUI.getCard() instanceof Land){
+                if(isCanTakeLand){
+                    moveToArena(cardUI);
+                    isCanTakeLand=false;
+                }else{
+                    //action(null)
+                }
+            }else{
+                moveToArena(cardUI);
+            }
+            
+            
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
+            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
+            ImageView imageView = new ImageView(img);
+            otherHand.getChildren().add(imageView);
+        });
+    }
+    public void renderHandsBattle() {
+        otherHand.getChildren().clear();
+        myHand.getChildren().clear();
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        // KartuUI card = new KartuUI(card);
+        // // klik char di arena
+        // card.setOnMouseClicked(el -> {
+        //     // dialog box
+        // });
+        // // klik char lawan di arena
+        // card.setOnMouseClicked(el -> {
+        //     // validasi dan attack
+        // });
+        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
+            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
+            ImageView imageView = new ImageView(img);
+            otherHand.getChildren().add(imageView);
+        });
+    }
+
+    
 
     public HBox getMyHand() {
         return myHand;
@@ -259,6 +299,11 @@ public class ArenaController implements Initializable {
     public void renderCardDraw() {
         renderCount();
         renderHandsDraw();
+        renderArea();
+    }
+    public void renderCardBattle() {
+        renderCount();
+        renderHandsBattle();
         renderArea();
     }
 

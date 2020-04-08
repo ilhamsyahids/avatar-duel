@@ -25,7 +25,7 @@ public class Phase {
     
     public void startGame() {
         System.out.println(":");
-        main1Phase();
+        drawPhase();
     }
     
     public static Phase getInstancePhase() {

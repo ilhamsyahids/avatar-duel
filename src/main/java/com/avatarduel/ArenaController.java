@@ -3,6 +3,7 @@ package com.avatarduel;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.avatarduel.model.Card;
@@ -13,6 +14,7 @@ import com.avatarduel.model.Land;
 import com.avatarduel.model.Phase;
 import com.avatarduel.model.Skill;
 import com.avatarduel.model.SkillAura;
+import com.avatarduel.model.Phase.Fase;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -136,7 +138,7 @@ public class ArenaController implements Initializable {
         fillEnemyCard.getChildren().add(new ImageView(card));
     }
 
-    public void renderHands() {
+    public void renderHandsMain() {
         otherHand.getChildren().clear();
         myHand.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
@@ -144,12 +146,7 @@ public class ArenaController implements Initializable {
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
-            cardUI.setOnMouseClicked(el -> {
-                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
-                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
-                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
-                renderCard();
-            });
+            moveToArena(cardUI);
         });
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
@@ -157,6 +154,35 @@ public class ArenaController implements Initializable {
             otherHand.getChildren().add(imageView);
         });
     }
+
+    public void renderHandsDraw() {
+        otherHand.getChildren().clear();
+        myHand.getChildren().clear();
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
+            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
+            ImageView imageView = new ImageView(img);
+            otherHand.getChildren().add(imageView);
+        });
+    }
+
+    public HBox getMyHand() {
+        return myHand;
+    }
+
+    public void moveToArena(KartuUI card) {
+        card.setOnMouseClicked(el -> {
+            GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(card.getCard());
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+            renderCardMain();
+        });
+    } 
 
     public void setHover(KartuUI cardUI) {
         cardUI.setOnMouseEntered(e -> {
@@ -224,9 +250,15 @@ public class ArenaController implements Initializable {
         
     }
 
-    public void renderCard() {
+    public void renderCardMain() {
         renderCount();
-        renderHands();
+        renderHandsMain();
+        renderArea();
+    }
+
+    public void renderCardDraw() {
+        renderCount();
+        renderHandsDraw();
         renderArea();
     }
 

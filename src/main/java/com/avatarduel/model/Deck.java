@@ -48,8 +48,10 @@ public class Deck {
     }
 
     public void takeCardToHand() {
-        handCards.add(allCards.remove(0));
-        setLeftTakeCards(getLeftTakeCards() - 1);
+        if (handCards.size() < 8) {
+            handCards.add(allCards.remove(0));
+            setLeftTakeCards(getLeftTakeCards() - 1);
+        }
     }
 
     public void takeCardsToHand(int n) {

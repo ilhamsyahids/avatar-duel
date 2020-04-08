@@ -23,6 +23,7 @@ public class Player {
         deck.getHandCards().forEach(el -> {
             useCard(el);
         });
+        System.out.println(deck + "\n");
     }
 
     public Deck getDeck() {
@@ -64,7 +65,7 @@ public class Player {
 
     public void useCard(Card card) {
         System.out.println(card);
-        System.out.println(card.getClass());
+        // System.out.println(card.getClass());
     }
 
     @Override

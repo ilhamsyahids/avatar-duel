@@ -123,14 +123,14 @@ public class ArenaController implements Initializable {
         utama.setBackground(background);
     }
 
-    public void initDeck() {
+    public void renderCountCard() {
         Image card = new Image(new File("background/flip.PNG").toURI().toString(), 117, 72, false, false);
         // myHand.add(new ImageView(card), 0, 0);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
     }
 
-    public void initiateHands() {
+    public void renderHands() {
         otherHand.getChildren().clear();
         myHand.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
@@ -220,12 +220,12 @@ public class ArenaController implements Initializable {
 
     public void renderCard() {
         renderCount();
-        initDeck();
-        initiateHands();
+        renderHands();
         renderArea();
     }
 
     public void renderCount() {
+        renderCountCard();
         myCountCard.setText(GameState.getInstance().getCurrentPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
         enemyCountCard.setText(GameState.getInstance().getOtherPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
     }

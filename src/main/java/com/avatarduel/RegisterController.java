@@ -3,6 +3,9 @@ package com.avatarduel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.avatarduel.model.Phase;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -59,6 +61,8 @@ public class RegisterController implements Initializable {
         stage.setY(0);
         
         ArenaController controller = loader.getController();
+        Phase.getInstancePhase().setController(controller);
+        Phase.getInstancePhase().startGame();
         String playerOne = playerOneName.getText();
         String playerTwo = playerTwoName.getText();
         controller.setName(playerOne, playerTwo);

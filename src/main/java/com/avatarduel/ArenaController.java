@@ -10,11 +10,13 @@ import com.avatarduel.model.Character;
 import com.avatarduel.model.Deck;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
+import com.avatarduel.model.Phase;
 import com.avatarduel.model.Skill;
 import com.avatarduel.model.SkillAura;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -87,11 +89,14 @@ public class ArenaController implements Initializable {
     private Label descriptionHover;
     @FXML
     private Label typeClass;
+    @FXML
+    private Button endPhase;
 
     int[] handIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
     int[] monsterIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
     int monsterIdx;
     int handIdx;
+    int winner;
 
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
@@ -109,7 +114,8 @@ public class ArenaController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
-        renderCard();
+        winner = -1;
+        // renderCard();
     }
 
     public void setBackground(String pict) {
@@ -257,6 +263,9 @@ public class ArenaController implements Initializable {
             kartuIni.deckCol = 999;
             myField.add(kartuIni,monsterIdx,0);
         }
+    }
 
+    public Button getButtonPhase() {
+        return endPhase;
     }
 }

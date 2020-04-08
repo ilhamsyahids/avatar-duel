@@ -5,14 +5,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.avatarduel.model.Card;
+import com.avatarduel.model.*;
 import com.avatarduel.model.Character;
-import com.avatarduel.model.Deck;
-import com.avatarduel.model.GameState;
-import com.avatarduel.model.Land;
-import com.avatarduel.model.Phase;
-import com.avatarduel.model.Skill;
-import com.avatarduel.model.SkillAura;
+import javafx.scene.text.Text;
+
+import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.Node;
+
 
 public class ArenaController implements Initializable {
 
@@ -98,6 +103,8 @@ public class ArenaController implements Initializable {
     int handIdx;
     int winner;
 
+
+
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
     private static final String DETAIL_CARD_STYLE = "-fx-background-color: cadetblue;-fx-opacity: 1;";
@@ -136,6 +143,97 @@ public class ArenaController implements Initializable {
         fillEnemyCard.getChildren().add(new ImageView(card));
     }
 
+    public void setCardsOnHandsDialog(KartuUI cardUI){
+        cardUI.imageView.setOnMouseClicked(el -> {
+            cardUI.summon.setOnMouseClicked(e -> {
+                // implementasi summon
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+                renderCard();
+
+            });
+            cardUI.set.setOnMouseClicked(e -> {
+                // implementasi set
+                cardUI.getCard().setMode(Mode.DEFENSE);
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+                renderCard();
+            });
+
+            cardUI.activate.setOnMouseClicked(e ->{
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+                renderCard();
+                // tambahin kodingan efek dari kartunya disini..
+
+            });
+
+            if(cardUI.isClicked){
+                cardUI.HandDialog.getChildren().clear();
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.imageView);
+                cardUI.isClicked = false;
+            }
+            else{
+                // tampilin menu tergantung state dari kartuUInya
+                if(cardUI.getCard() instanceof Character){ // tampilin pilihan set kalau mmg dia karakter
+                    cardUI.HandDialog.getChildren().addAll(cardUI.summon,cardUI.set);
+                }
+                else { //bukan karakter
+                    cardUI.HandDialog.getChildren().addAll(cardUI.activate);
+                }
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.HandDialog,cardUI.imageView);
+                cardUI.isClicked = true;
+            }
+
+
+        });
+    }
+
+    public void setCharactersDialogInField(KartuUI cardUI){
+        cardUI.attack.setOnMouseClicked(e -> {
+            // implementasikan attack disini Gil
+            System.out.println("Aku nyerang"); // ini dummy aja
+
+        });
+        cardUI.changePosition.setOnMouseClicked(e -> {
+            // implementasi changePosition
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(0);
+                cardUI.getCard().setMode(Mode.ATTACK); // set mode ke attack
+            }
+            else{ //awalnya attack
+                cardUI.imageView.setRotate(90);
+                cardUI.getCard().setMode(Mode.DEFENSE); // set mode ke defense
+            }
+        });
+
+
+        cardUI.imageView.setOnMouseClicked(el -> {
+            if (cardUI.isClicked) {
+                cardUI.HandDialog.getChildren().clear();
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.imageView);
+                cardUI.isClicked = false;
+            } else {
+                //cek mode dari kartu
+                if(cardUI.getCard().getMode() == Mode.ATTACK){
+                    cardUI.HandDialog.getChildren().addAll(cardUI.attack, cardUI.changePosition);
+                }
+                else{
+                    cardUI.HandDialog.getChildren().addAll(cardUI.changePosition);
+                }
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.HandDialog,cardUI.imageView);
+                cardUI.isClicked = true;
+            }
+        });
+    }
+
     public void renderHands() {
         otherHand.getChildren().clear();
         myHand.getChildren().clear();
@@ -144,12 +242,7 @@ public class ArenaController implements Initializable {
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
-            cardUI.setOnMouseClicked(el -> {
-                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
-                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
-                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
-                renderCard();
-            });
+            setCardsOnHandsDialog(cardUI);
         });
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
@@ -159,7 +252,7 @@ public class ArenaController implements Initializable {
     }
 
     public void setHover(KartuUI cardUI) {
-        cardUI.setOnMouseEntered(e -> {
+        cardUI.imageView.setOnMouseEntered(e -> {
             cardUI.setStyle(HOVERED_CARD_STYLE);
             Image img = new Image(new File(cardUI.getCard().getImage()).toURI().toString(), 200, 144, false, false);
             imageHover.getChildren().add(new ImageView(img));
@@ -200,6 +293,10 @@ public class ArenaController implements Initializable {
         myCharArea.getChildren().clear();
         GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
+            setCharactersDialogInField(cardUI);
             myCharArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
@@ -212,6 +309,10 @@ public class ArenaController implements Initializable {
         enemyCharArea.getChildren().clear();
         GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
+            setCharactersDialogInField(cardUI);
             enemyCharArea.getChildren().add(cardUI);
             setHover(cardUI);
         });

@@ -4,14 +4,12 @@ public class Character extends Card implements Powerable {
     private int attack;
     private int defense;
     private int power;
-    private Mode mode;
 
     public Character(String name, String description, Element element, String imagePath, int attack, int defense, int power) {
-        super(name, description, element, imagePath);
+        super(name, description, element, imagePath, Mode.ATTACK);
         this.attack = attack;
         this.defense = defense;
         this.power = power;
-        this.mode = Mode.DEFENSE;
     }
 
     public int getAttack() {
@@ -44,6 +42,7 @@ public class Character extends Card implements Powerable {
     }
 
     public void destroy() {
-        mode = Mode.DESTROY;
+        super.setMode(Mode.DESTROY);
+        //super.mode = Mode.DESTROY;
     }
 }

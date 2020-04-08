@@ -13,6 +13,7 @@ import com.avatarduel.model.Land;
 import com.avatarduel.model.Phase;
 import com.avatarduel.model.Skill;
 import com.avatarduel.model.SkillAura;
+//import java.awt.Rectangle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +31,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class ArenaController implements Initializable {
 
@@ -91,6 +94,10 @@ public class ArenaController implements Initializable {
     private Label typeClass;
     @FXML
     private Button endPhase;
+    @FXML
+    private Rectangle rectElemen;
+    @FXML
+    private Rectangle colorCard;
 
     int[] handIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
     int[] monsterIndexArr = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -116,6 +123,7 @@ public class ArenaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         winner = -1;
         // renderCard();
+        setBackground("file:background/arena.JPG");
     }
 
     public void setBackground(String pict) {
@@ -130,7 +138,7 @@ public class ArenaController implements Initializable {
     }
 
     public void renderCountCard() {
-        Image card = new Image(new File("background/flip.PNG").toURI().toString(), 117, 72, false, false);
+        Image card = new Image(new File("background/flip.PNG").toURI().toString(), 93, 68, false, false);
         // myHand.add(new ImageView(card), 0, 0);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
@@ -161,10 +169,23 @@ public class ArenaController implements Initializable {
     public void setHover(KartuUI cardUI) {
         cardUI.setOnMouseEntered(e -> {
             cardUI.setStyle(HOVERED_CARD_STYLE);
-            Image img = new Image(new File(cardUI.getCard().getImage()).toURI().toString(), 200, 144, false, false);
+            Image img = new Image(new File(cardUI.getCard().getImage()).toURI().toString(), 200, 200, false, false);
             imageHover.getChildren().add(new ImageView(img));
             nameHover.setText(cardUI.getCard().getName());
             elementHover.setText(cardUI.getCard().getElement().toString());
+            if(elementHover.getText().equalsIgnoreCase("FIRE")){
+                this.rectElemen.setFill(Color.web("#ff3333"));
+                this.colorCard.setFill(Color.web("#ff8080"));
+            } else if(elementHover.getText().equalsIgnoreCase("WATER")){
+                this.rectElemen.setFill(Color.web("#33ccff"));
+                this.colorCard.setFill(Color.web("#80dfff"));
+            } else if(elementHover.getText().equalsIgnoreCase("EARTH")){
+                this.rectElemen.setFill(Color.web("#b33c00"));
+                this.colorCard.setFill(Color.web("#e64d00"));
+            } else{
+                this.rectElemen.setFill(Color.web("#e6ffff"));
+                this.colorCard.setFill(Color.web("#ffffff"));
+            }
             descriptionHover.setText(cardUI.getCard().getDescription());
             typeClass.setText(cardUI.getCard().getClass().getSimpleName());
             attackHover.setText("");
@@ -192,8 +213,11 @@ public class ArenaController implements Initializable {
         });
         cardUI.setOnMouseExited(e -> {
             cardUI.setStyle(IDLE_CARD_STYLE);
+
             paneHover.setStyle("-fx-opacity: 0;");
         });
+        
+
     }
 
     public void renderArea() {

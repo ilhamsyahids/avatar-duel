@@ -1,28 +1,35 @@
 package com.avatarduel.model;
 
 import com.avatarduel.ArenaController;
+import com.avatarduel.Rendered;
 
 public class Phase {
     public static Phase INSTANCEPHASE = new Phase();
 
-    public ArenaController arenaController;
+    public static ArenaController arenaController;
     public Fase fase;
     
 
     public static enum Fase {
         DRAW,
-        MAIN1,
+        MAIN,
         BATTLE,
-        MAIN2,
         END
     }
 
     public Phase() {}
 
-    public void setController(ArenaController arenaController) {
-      this.arenaController = arenaController;
+    /**
+     * @return the fase
+     */
+    public Fase getFase() {
+        return fase;
     }
-    
+
+    public void setController(Rendered arenaController) {
+      Phase.arenaController = (ArenaController)arenaController;
+    }
+
     public void startGame() {
         System.out.println(":");
         drawPhase();
@@ -41,7 +48,7 @@ public class Phase {
         arenaController.getDrawTextLabel().setText("-->DRAW");
         // 1. Player ngambil satu kartu dari deck, taruh di tangan
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
-        arenaController.renderCardDraw();
+        arenaController.render();
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             main1Phase();
         });
@@ -49,8 +56,8 @@ public class Phase {
     
     public void main1Phase() {
         GameState.getInstance().getCurrentPlayer().setTakeLand(true);
-        fase = Fase.MAIN1;
-        arenaController.renderCardMain();
+        fase = Fase.MAIN;
+        arenaController.render();
         // 1. meletakkan 0 atau lebih kartu karakter (bertarung/bertahan)
         // karakter yg baru diletakkan tidak dapat bertarung di battle phase
         // 2. mengubah posisi kartu CHAR di field
@@ -67,7 +74,7 @@ public class Phase {
     
     public void battlePhase(){
         fase = Fase.BATTLE;
-        arenaController.renderCardBattle();
+        arenaController.render();
         // 1. player dapat menggunakan CHAR untuk menyerang CHAR lawan/HP lawan
         // 2. kalo ada CHAR di area lawan, gabisa langsung nyerang HP
         // 3. tiap CHAR nyerang maks 1 kali

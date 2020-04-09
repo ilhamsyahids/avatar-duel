@@ -24,7 +24,6 @@ public class Player {
         deck.getHandCards().forEach(el -> {
             useCard(el);
         });
-        System.out.println(deck + "\n");
     }
 
     public Deck getDeck() {
@@ -59,7 +58,13 @@ public class Player {
     public void addPower(Element el, int added) {
         int x = (int)mapPower.get(el).getX();
         int y = (int)mapPower.get(el).getY();
-        mapPower.get(el).move(x + 1, y + 1);
+        mapPower.get(el).move(x + added, y + added);
+    }
+
+    public void reducePower(Element el, int minus) {
+        int x = (int)mapPower.get(el).getX();
+        int y = (int)mapPower.get(el).getY();
+        mapPower.get(el).move(x, y - minus);
     }
 
     public void resetPower() {
@@ -70,7 +75,7 @@ public class Player {
     }
 
     public void useCard(Card card) {
-        System.out.println(card);
+//        System.out.println(card);
         // System.out.println(card.getClass());
     }
 

@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.avatarduel.model.Character;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import com.avatarduel.model.Mode;
 import com.avatarduel.model.Deck;
 import com.avatarduel.model.GameState;
@@ -17,8 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -29,6 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 
 public class ArenaController implements Initializable {
 
@@ -107,6 +108,8 @@ public class ArenaController implements Initializable {
     @FXML
     private Label main2;
 
+
+
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
     private static final String REMOVE_CARD_STYLE = "-fx-opacity: 0;";
@@ -163,6 +166,7 @@ public class ArenaController implements Initializable {
     }
 
     private void renderEnemyHand() {
+        otherHand.getChildren().clear();
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
             ImageView imageView = new ImageView(img);
@@ -170,10 +174,141 @@ public class ArenaController implements Initializable {
         });
     }
 
-    public void renderMyArea() {
+    public void setCardsOnHandsDialog(KartuUI cardUI){
+        cardUI.imageView.setOnMouseClicked(el -> {
+            cardUI.summon.setOnMouseClicked(e -> {
+                // implementasi summon
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+                renderCardMain();
+
+            });
+            cardUI.set.setOnMouseClicked(e -> {
+                // implementasi set
+                cardUI.getCard().setMode(Mode.DEFENSE);
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+                renderCardMain();
+            });
+
+            cardUI.activate.setOnMouseClicked(e ->{
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(cardUI.getCard());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
+                System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+                renderCardMain();
+                // tambahin kodingan efek dari kartunya disini..
+
+            });
+
+            if(cardUI.isClicked){
+                cardUI.HandDialog.getChildren().clear();
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.imageView);
+                cardUI.isClicked = false;
+            }
+            else{
+                // tampilin menu tergantung state dari kartuUInya
+                if(cardUI.getCard() instanceof Character){ // tampilin pilihan set kalau mmg dia karakter
+                    cardUI.HandDialog.getChildren().addAll(cardUI.summon,cardUI.set);
+                }
+                else { //bukan karakter
+                    cardUI.HandDialog.getChildren().addAll(cardUI.activate);
+                }
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.HandDialog,cardUI.imageView);
+                cardUI.isClicked = true;
+            }
+
+
+        });
+    }
+
+    public void setCharactersDialogInField(KartuUI cardUI){
+        cardUI.attack.setOnMouseClicked(e -> {
+            // implementasikan attack disini Gil
+            System.out.println("Aku nyerang"); // ini dummy aja
+
+        });
+        cardUI.changePosition.setOnMouseClicked(e -> {
+            // implementasi changePosition
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(0);
+                cardUI.getCard().setMode(Mode.ATTACK); // set mode ke attack
+            }
+            else{ //awalnya attack
+                cardUI.imageView.setRotate(90);
+                cardUI.getCard().setMode(Mode.DEFENSE); // set mode ke defense
+            }
+        });
+
+
+        cardUI.imageView.setOnMouseClicked(el -> {
+            if (cardUI.isClicked) {
+                cardUI.HandDialog.getChildren().clear();
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.imageView);
+                cardUI.isClicked = false;
+            } else {
+                //cek mode dari kartu
+                if(cardUI.getCard().getMode() == Mode.ATTACK){
+                    cardUI.HandDialog.getChildren().addAll(cardUI.attack, cardUI.changePosition);
+                }
+                else{
+                    cardUI.HandDialog.getChildren().addAll(cardUI.changePosition);
+                }
+                cardUI.root.getChildren().clear();
+                cardUI.root.getChildren().addAll(cardUI.HandDialog,cardUI.imageView);
+                cardUI.isClicked = true;
+            }
+        });
+    }
+
+    public void renderHandsDraw() {
+        myHand.getChildren().clear();
+        myCharArea.getChildren().clear();
+        mySkillArea.getChildren().clear();
+
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
         GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
             myCharArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            mySkillArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        // renderMyArea();
+    }
+
+    public void renderHandsMain() {
+        myHand.getChildren().clear();
+        myCharArea.getChildren().clear();
+        mySkillArea.getChildren().clear();
+
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+            setCardsOnHandsDialog(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
+            myCharArea.getChildren().add(cardUI);
+            setCharactersDialogInField(cardUI); // untuk ubah cuman bisa change position dan destroy
             setHover(cardUI);
         });
         GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
@@ -183,39 +318,32 @@ public class ArenaController implements Initializable {
         });
     }
 
-    public void renderHandsDraw() {
-        otherHand.getChildren().clear();
-        myHand.getChildren().clear();
-        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            myHand.getChildren().add(cardUI);
-            setHover(cardUI);
-        });
-        renderMyArea();
-    }
-
-    public void renderHandsMain() {
-        System.out.println("masuk main");
-        otherHand.getChildren().clear();
-        myHand.getChildren().clear();
-        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            myHand.getChildren().add(cardUI);
-            setHover(cardUI);
-            setCanMoveToArena(cardUI);
-        });
-        renderMyArea();
-    }
-
     public void renderHandsBattle() {
-        otherHand.getChildren().clear();
         myHand.getChildren().clear();
+        myCharArea.getChildren().clear();
+        mySkillArea.getChildren().clear();
+        
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        renderMyArea();
+
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
+            myCharArea.getChildren().add(cardUI);
+            setCharactersDialogInField(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            mySkillArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        // renderMyArea();
     }
 
     public void setCanMoveToArena(KartuUI card) {
@@ -262,7 +390,7 @@ public class ArenaController implements Initializable {
     }
 
     public void setHover(KartuUI cardUI) {
-        cardUI.setOnMouseEntered(e -> {
+        cardUI.imageView.setOnMouseEntered(e -> {
             cardUI.setStyle(HOVERED_CARD_STYLE);
             Image img = new Image(new File(cardUI.getCard().getImage()).toURI().toString(), 200, 200, false, false);
             imageHover.getChildren().add(new ImageView(img));
@@ -309,20 +437,14 @@ public class ArenaController implements Initializable {
     }
 
     public void renderArea() {
-        clearAreaCard();
+        enemyCharArea.getChildren().clear();
+        enemySkillArea.getChildren().clear();
 
-        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            myCharArea.getChildren().add(cardUI);
-            setHover(cardUI);
-        });
-        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            mySkillArea.getChildren().add(cardUI);
-            setHover(cardUI);
-        });
         GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
             enemyCharArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
@@ -336,8 +458,6 @@ public class ArenaController implements Initializable {
     public void clearAreaCard() {
         myCharArea.getChildren().clear();
         mySkillArea.getChildren().clear();
-        enemyCharArea.getChildren().clear();
-        enemySkillArea.getChildren().clear();
     }
 
     public void renderCardMain() {

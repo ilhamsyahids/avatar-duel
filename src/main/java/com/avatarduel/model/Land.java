@@ -6,7 +6,7 @@ public class Land extends Card {
   }
 
   public Land(String name, String description, Element element, String imagePath) {
-    super(name, description, element, imagePath);
+    super(name, description, element, imagePath, Mode.ATTACK);
   }
 
   @Override

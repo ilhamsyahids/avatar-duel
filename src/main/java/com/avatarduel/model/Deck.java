@@ -65,6 +65,8 @@ public class Deck {
             characterArea.add((Character) card);
         } else if (Skill.class.isAssignableFrom(card.getClass())) {
             skillArea.add((Skill) card);
+        } else if(card instanceof Land){
+            ((Land)card).action();
         }
         handCards.remove(card);
     }

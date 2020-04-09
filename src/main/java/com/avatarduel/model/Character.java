@@ -26,6 +26,10 @@ public class Character extends Card implements Powerable {
         return defense;
     }
 
+    public Mode getMode(){
+        return mode;
+    }
+    
     public void setDefense(int defense) {
         this.defense = defense;
     }

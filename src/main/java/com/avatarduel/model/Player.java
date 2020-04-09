@@ -7,6 +7,7 @@ import java.awt.Point;
 
 
 public class Player {
+    public boolean isCanTakeLand;
     private int hp;
     private Deck deck;
     private Map<Element, Point> mapPower;
@@ -28,7 +29,12 @@ public class Player {
     public Deck getDeck() {
         return deck;
     }
-
+    public boolean getTakeLand(){
+        return isCanTakeLand;
+    }
+    public void setTakeLand(boolean isCan){
+        isCanTakeLand=isCan;
+    }
     public void setdeck(Deck deck) {
         this.deck = deck;
     }

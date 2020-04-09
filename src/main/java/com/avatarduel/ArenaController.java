@@ -1,10 +1,13 @@
 package com.avatarduel;
 
+
+
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.avatarduel.model.Character;
+import com.avatarduel.model.Mode;
 import com.avatarduel.model.Deck;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
@@ -150,24 +153,6 @@ public class ArenaController implements Initializable {
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
     }
-
-    public void renderHandsMain() {
-        otherHand.getChildren().clear();
-        myHand.getChildren().clear();
-        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
-            setHover(cardUI);
-            moveToArena(cardUI);
-        });
-        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
-            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
-            ImageView imageView = new ImageView(img);
-            otherHand.getChildren().add(imageView);
-        });
-    }
-
     public void renderHandsDraw() {
         otherHand.getChildren().clear();
         myHand.getChildren().clear();
@@ -177,6 +162,76 @@ public class ArenaController implements Initializable {
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
         });
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myCharArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            mySkillArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
+            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
+            ImageView imageView = new ImageView(img);
+            otherHand.getChildren().add(imageView);
+        });
+    }
+    public void renderHandsMain() {
+        System.out.println("masuk main");
+        otherHand.getChildren().clear();
+        myHand.getChildren().clear();
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+            moveToArena(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myCharArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            mySkillArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
+            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
+            ImageView imageView = new ImageView(img);
+            otherHand.getChildren().add(imageView);
+        });
+    }
+    public void renderHandsBattle() {
+        otherHand.getChildren().clear();
+        myHand.getChildren().clear();
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            myCharArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
+            mySkillArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        // klik char di arena
+        // klik char di arena lawan
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
             ImageView imageView = new ImageView(img);
@@ -184,18 +239,50 @@ public class ArenaController implements Initializable {
         });
     }
 
+    
+
     public HBox getMyHand() {
         return myHand;
     }
 
     public void moveToArena(KartuUI card) {
         card.setOnMouseClicked(el -> {
-            GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(card.getCard());
+            // 3. meletakkan MAKS. 1 kartu land
+            if(card.getCard() instanceof Land){
+                if(GameState.getInstance().getCurrentPlayer().getTakeLand()){
+                    GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(card.getCard());
+                    GameState.getInstance().getCurrentPlayer().setTakeLand(false);
+                }
+            }else if(((card.getCard() instanceof Character)&&(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size()<8))||((card.getCard() instanceof Skill)&&(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size()<8))){
+                GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(card.getCard());
+            }
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
             renderCardMain();
         });
     } 
+    
+    public void klikCharArena(KartuUI card){
+        card.setOnMouseClicked(el -> {
+            // nampilin dialogbox
+            renderCardBattle();
+        });
+    }
+
+    public void klikCharArenaLawan(KartuUI cardArena, KartuUI cardLawan){
+        cardLawan.setOnMouseClicked(el -> {
+            Character charArena = (Character)(cardArena.getCard());
+            Character charLawan = (Character)(cardLawan.getCard());
+            // CHAR lawan posisi menyerang
+            // 1. Attack lawan <= Attack CHAR
+            // CHAR lawan posisi bertahan
+            // 1. Defense lawan <= Attack CHAR
+            if(((charLawan.getMode()==Mode.ATTACK)&&(charLawan.getAttack()<=charArena.getAttack()))||((charLawan.getMode()==Mode.DEFENSE)&&(charLawan.getDefense()<=charArena.getAttack()))){
+                charArena.action(charLawan);
+            }
+            renderCardBattle();
+        });
+    }
 
     public void setHover(KartuUI cardUI) {
         cardUI.setOnMouseEntered(e -> {
@@ -311,6 +398,11 @@ public class ArenaController implements Initializable {
     public void renderCardDraw() {
         renderCount();
         renderHandsDraw();
+        renderArea();
+    }
+    public void renderCardBattle() {
+        renderCount();
+        renderHandsBattle();
         renderArea();
     }
 

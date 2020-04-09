@@ -7,6 +7,7 @@ public class Phase {
 
     public ArenaController arenaController;
     public Fase fase;
+    
 
     public static enum Fase {
         DRAW,
@@ -24,10 +25,9 @@ public class Phase {
     
     public void startGame() {
         System.out.println(":");
-//        main1Phase();
         drawPhase();
     }
-    
+
     public static Phase getInstancePhase() {
         return INSTANCEPHASE;
     }
@@ -48,6 +48,7 @@ public class Phase {
     }
     
     public void main1Phase() {
+        GameState.getInstance().getCurrentPlayer().setTakeLand(true);
         fase = Fase.MAIN1;
         arenaController.renderCardMain();
         // 1. meletakkan 0 atau lebih kartu karakter (bertarung/bertahan)
@@ -66,6 +67,7 @@ public class Phase {
     
     public void battlePhase(){
         fase = Fase.BATTLE;
+        arenaController.renderCardBattle();
         // 1. player dapat menggunakan CHAR untuk menyerang CHAR lawan/HP lawan
         // 2. kalo ada CHAR di area lawan, gabisa langsung nyerang HP
         // 3. tiap CHAR nyerang maks 1 kali

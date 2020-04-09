@@ -47,6 +47,6 @@ public abstract class Card {
 
     @Override
     public String toString() {
-        return name + ":" + element + ":" + description.subSequence(0, 10);
+        return name + ":" + element + ":" + image.split("/")[image.split("/").length - 1] + this.getClass().getSimpleName();
     }
 }

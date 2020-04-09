@@ -24,6 +24,12 @@ public class Player {
         deck.getHandCards().forEach(el -> {
             useCard(el);
         });
+
+        // For Debuging
+        deck.getHandCards().forEach(item -> {
+            System.out.println(item);
+        });
+        System.out.println();
     }
 
     public Deck getDeck() {

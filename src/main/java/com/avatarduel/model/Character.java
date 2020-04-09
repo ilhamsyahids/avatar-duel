@@ -26,6 +26,10 @@ public class Character extends Card implements Powerable {
         return defense;
     }
 
+    public void setMode(Mode m){
+        mode = m;
+    }
+
     public Mode getMode(){
         return mode;
     }

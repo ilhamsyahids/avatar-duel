@@ -166,6 +166,7 @@ public class ArenaController implements Initializable {
     }
 
     private void renderEnemyHand() {
+        otherHand.getChildren().clear();
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
             ImageView imageView = new ImageView(img);
@@ -264,10 +265,50 @@ public class ArenaController implements Initializable {
         });
     }
 
-    public void renderMyArea() {
+    public void renderHandsDraw() {
+        myHand.getChildren().clear();
+        myCharArea.getChildren().clear();
+        mySkillArea.getChildren().clear();
+
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
         GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
             myCharArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            mySkillArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        // renderMyArea();
+    }
+
+    public void renderHandsMain() {
+        myHand.getChildren().clear();
+        myCharArea.getChildren().clear();
+        mySkillArea.getChildren().clear();
+
+        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            myHand.getChildren().add(cardUI);
+            setHover(cardUI);
+            setCardsOnHandsDialog(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
+            myCharArea.getChildren().add(cardUI);
+            setCharactersDialogInField(cardUI); // untuk ubah cuman bisa change position dan destroy
             setHover(cardUI);
         });
         GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
@@ -277,40 +318,32 @@ public class ArenaController implements Initializable {
         });
     }
 
-    public void renderHandsDraw() {
-        otherHand.getChildren().clear();
-        myHand.getChildren().clear();
-        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            myHand.getChildren().add(cardUI);
-            setHover(cardUI);
-        });
-        renderMyArea();
-    }
-
-    public void renderHandsMain() {
-        System.out.println("masuk main");
-        otherHand.getChildren().clear();
-        myHand.getChildren().clear();
-        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            myHand.getChildren().add(cardUI);
-            setHover(cardUI);
-            // setCanMoveToArena(cardUI);
-            setCardsOnHandsDialog(cardUI);
-        });
-        renderMyArea();
-    }
-
     public void renderHandsBattle() {
-        otherHand.getChildren().clear();
         myHand.getChildren().clear();
+        myCharArea.getChildren().clear();
+        mySkillArea.getChildren().clear();
+        
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        renderMyArea();
+
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            if(cardUI.getCard().getMode() == Mode.DEFENSE){
+                cardUI.imageView.setRotate(90);
+            }
+            myCharArea.getChildren().add(cardUI);
+            setCharactersDialogInField(cardUI);
+            setHover(cardUI);
+        });
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+            KartuUI cardUI = new KartuUI(item);
+            mySkillArea.getChildren().add(cardUI);
+            setHover(cardUI);
+        });
+        // renderMyArea();
     }
 
     public void setCanMoveToArena(KartuUI card) {
@@ -404,22 +437,9 @@ public class ArenaController implements Initializable {
     }
 
     public void renderArea() {
-        clearAreaCard();
+        enemyCharArea.getChildren().clear();
+        enemySkillArea.getChildren().clear();
 
-        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            if(cardUI.getCard().getMode() == Mode.DEFENSE){
-                cardUI.imageView.setRotate(90);
-            }
-            setCharactersDialogInField(cardUI);
-            myCharArea.getChildren().add(cardUI);
-            setHover(cardUI);
-        });
-        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
-            mySkillArea.getChildren().add(cardUI);
-            setHover(cardUI);
-        });
         GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             if(cardUI.getCard().getMode() == Mode.DEFENSE){
@@ -438,8 +458,6 @@ public class ArenaController implements Initializable {
     public void clearAreaCard() {
         myCharArea.getChildren().clear();
         mySkillArea.getChildren().clear();
-        enemyCharArea.getChildren().clear();
-        enemySkillArea.getChildren().clear();
     }
 
     public void renderCardMain() {

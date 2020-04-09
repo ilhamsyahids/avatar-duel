@@ -108,8 +108,6 @@ public class ArenaController implements Initializable {
     @FXML
     private Label end;
     @FXML
-    private Label main2;
-    @FXML
     private Label thoseFire;
     @FXML
     private Label thoseWater;
@@ -146,10 +144,6 @@ public class ArenaController implements Initializable {
 
     public Label getBattleTextLabel() {
         return this.battle;
-    }
-
-    public Label getMain2TextLabel() {
-        return this.main2;
     }
 
     public Label getEndTextLabel() {

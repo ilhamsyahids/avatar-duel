@@ -62,7 +62,7 @@ public class Phase {
         });
         arenaController.changePhase(300);
         arenaController.getDrawTextLabel().setText("DRAW");
-        arenaController.getMain1TextLabel().setText("--> MAIN 1");
+        arenaController.getMain1TextLabel().setText("--> MAIN");
     }
     
     public void battlePhase(){
@@ -83,25 +83,25 @@ public class Phase {
         // 3. Tidak ada HP yang berkurang
         // validasi trus manggil action(character)
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
-            main2Phase();
+            endPhase();
         });
         arenaController.changePhase(327);
-        arenaController.getMain1TextLabel().setText("MAIN 1");
+        arenaController.getMain1TextLabel().setText("MAIN");
         arenaController.getBattleTextLabel().setText("--> BATTLE");
         
     }
     
-    public void main2Phase(){
-        fase = Fase.MAIN2;
-        // 1. mainPhase1
-        // 2. CHAR yang baru saja menyerang tidak dapat diubah posisi
-        arenaController.getButtonPhase().setOnMouseClicked(el -> {
-            endPhase();
-        });
-        arenaController.changePhase(354);
-        arenaController.getBattleTextLabel().setText("BATTLE");
-        arenaController.getMain2TextLabel().setText("--> MAIN 2");
-    }
+//    public void main2Phase(){
+//        fase = Fase.MAIN2;
+//        // 1. mainPhase1
+//        // 2. CHAR yang baru saja menyerang tidak dapat diubah posisi
+//        arenaController.getButtonPhase().setOnMouseClicked(el -> {
+//            endPhase();
+//        });
+//        arenaController.changePhase(354);
+//        arenaController.getBattleTextLabel().setText("BATTLE");
+//        arenaController.getMain2TextLabel().setText("--> MAIN 2");
+//    }
     
     public void endPhase(){
         fase = Fase.END;
@@ -111,8 +111,8 @@ public class Phase {
             drawPhase();
             
         });
-        arenaController.changePhase(381);
-        arenaController.getMain2TextLabel().setText("MAIN 2");
+        arenaController.changePhase(354);
+        arenaController.getBattleTextLabel().setText("BATTLE");
         arenaController.getEndTextLabel().setText("--> END");
     }
 

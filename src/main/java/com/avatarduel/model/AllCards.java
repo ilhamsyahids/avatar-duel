@@ -11,7 +11,7 @@ public class AllCards
     private ArrayList<Skill> allSkills = new ArrayList<>();
     private ArrayList<Land> allLands = new ArrayList<>();
   
-    private AllCards() {}
+    AllCards() {}
 
     public static AllCards getInstance()
     { 

@@ -1,0 +1,11 @@
+id	name	element	description	imagepath	power
+91	Combustionbending	FIRE	Ignite objects with their mind instead of traditional firebending methods.	src/main/resources/com/avatarduel/card/image/skill/Combustionbending.png	2
+92	Wall of Flames	FIRE	Wall of concentrated flames acts as a barrier to incoming attacks and destroy all in it way.	src/main/resources/com/avatarduel/card/image/skill/Wall of Flames.png	2
+93	Air Bomb	AIR	Hard landings to completely decimate his surroundings after a lengthy fall.	src/main/resources/com/avatarduel/card/image/skill/Air Bomb.png	2
+94	Fire Bursts	FIRE	Burst of flames to burn everything in front of it.	src/main/resources/com/avatarduel/card/image/skill/Fire Bursts.png	2
+95	Fire Missiles	FIRE	Shooting large missiles of flame that could home in on their opponent. These missiles can chase an opponent.	src/main/resources/com/avatarduel/card/image/skill/Fire Missiles.png	2
+96	Ice Spears	WATER	Throwing countless ice spears were as sharp as knives.	src/main/resources/com/avatarduel/card/image/skill/Ice Spears.png	2
+97	Lightning	FIRE	The bolt of lightning fired by a Firebender travels so fast that it's not easy to avoid.	src/main/resources/com/avatarduel/card/image/skill/Lightning.png	2
+98	Rock Bullets	EARTH	Compressed a rock into bullets that he launched so fast that managed to decimate the battlefield.	src/main/resources/com/avatarduel/card/image/skill/Rock Bullets.png	2
+99	Throwing rock	EARTH	Levitating rocks and punching or kicking them toward a target.	src/main/resources/com/avatarduel/card/image/skill/Throwing rock.png	2
+100	Tidal Wave	WATER	Create a  massive tidal waves that was powerful to push their opponent	src/main/resources/com/avatarduel/card/image/skill/Tidal Wave.png	2

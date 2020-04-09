@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GameState {
   public static GameState INSTANCE = new GameState();
   final static int numOfPlayer = 2;
+
   private ArrayList<Player> listPlayer = new ArrayList<>(numOfPlayer);
   private int idPlayer = 0;
 
@@ -15,6 +16,10 @@ public class GameState {
 
   public static GameState getInstance() {
     return INSTANCE;
+  }
+
+  public ArrayList<Player> getListPlayer() {
+    return listPlayer;
   }
 
   public Player getOtherPlayer() {

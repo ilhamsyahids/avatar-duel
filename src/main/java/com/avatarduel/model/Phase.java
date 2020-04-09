@@ -8,7 +8,7 @@ public class Phase {
     public ArenaController arenaController;
     public Fase fase;
 
-    public enum Fase {
+    public static enum Fase {
         DRAW,
         MAIN1,
         BATTLE,
@@ -41,6 +41,7 @@ public class Phase {
         arenaController.draw().setText("-->DRAW");
         // 1. Player ngambil satu kartu dari deck, taruh di tangan
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
+        arenaController.renderCardDraw();
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             main1Phase();
         });
@@ -48,7 +49,7 @@ public class Phase {
     
     public void main1Phase() {
         fase = Fase.MAIN1;
-        arenaController.renderCard();
+        arenaController.renderCardMain();
         // 1. meletakkan 0 atau lebih kartu karakter (bertarung/bertahan)
         // karakter yg baru diletakkan tidak dapat bertarung di battle phase
         // 2. mengubah posisi kartu CHAR di field

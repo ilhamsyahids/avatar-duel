@@ -4,4 +4,4 @@ public enum Mode {
   ATTACK,
   DEFENSE,
   DESTROY
-}
+};

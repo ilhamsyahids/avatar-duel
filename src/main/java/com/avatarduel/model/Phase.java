@@ -7,8 +7,9 @@ public class Phase {
 
     public ArenaController arenaController;
     public Fase fase;
+    
 
-    enum Fase {
+    public static enum Fase {
         DRAW,
         MAIN1,
         BATTLE,
@@ -24,9 +25,9 @@ public class Phase {
     
     public void startGame() {
         System.out.println(":");
-        main1Phase();
+        drawPhase();
     }
-    
+
     public static Phase getInstancePhase() {
         return INSTANCEPHASE;
     }
@@ -35,16 +36,21 @@ public class Phase {
         fase = Fase.DRAW;
         // 2. Power player di reset
         GameState.getInstance().getCurrentPlayer().resetPower();
+        arenaController.changePhase(273);
+        arenaController.getEndTextLabel().setText("END");
+        arenaController.getDrawTextLabel().setText("-->DRAW");
         // 1. Player ngambil satu kartu dari deck, taruh di tangan
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
+        arenaController.renderCardDraw();
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             main1Phase();
         });
     }
     
     public void main1Phase() {
+        GameState.getInstance().getCurrentPlayer().setTakeLand(true);
         fase = Fase.MAIN1;
-        arenaController.renderCard();
+        arenaController.renderCardMain();
         // 1. meletakkan 0 atau lebih kartu karakter (bertarung/bertahan)
         // karakter yg baru diletakkan tidak dapat bertarung di battle phase
         // 2. mengubah posisi kartu CHAR di field
@@ -54,10 +60,14 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             battlePhase();
         });
+        arenaController.changePhase(300);
+        arenaController.getDrawTextLabel().setText("DRAW");
+        arenaController.getMain1TextLabel().setText("--> MAIN 1");
     }
     
     public void battlePhase(){
         fase = Fase.BATTLE;
+        arenaController.renderCardBattle();
         // 1. player dapat menggunakan CHAR untuk menyerang CHAR lawan/HP lawan
         // 2. kalo ada CHAR di area lawan, gabisa langsung nyerang HP
         // 3. tiap CHAR nyerang maks 1 kali
@@ -75,6 +85,10 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             main2Phase();
         });
+        arenaController.changePhase(327);
+        arenaController.getMain1TextLabel().setText("MAIN 1");
+        arenaController.getBattleTextLabel().setText("--> BATTLE");
+        
     }
     
     public void main2Phase(){
@@ -84,6 +98,9 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             endPhase();
         });
+        arenaController.changePhase(354);
+        arenaController.getBattleTextLabel().setText("BATTLE");
+        arenaController.getMain2TextLabel().setText("--> MAIN 2");
     }
     
     public void endPhase(){
@@ -92,7 +109,11 @@ public class Phase {
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
             GameState.getInstance().nextPlayer();
             drawPhase();
+            
         });
+        arenaController.changePhase(381);
+        arenaController.getMain2TextLabel().setText("MAIN 2");
+        arenaController.getEndTextLabel().setText("--> END");
     }
 
     public void nextPhase() {

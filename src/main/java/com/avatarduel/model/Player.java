@@ -7,6 +7,7 @@ import java.awt.Point;
 
 
 public class Player {
+    public boolean isCanTakeLand;
     private int hp;
     private Deck deck;
     private Map<Element, Point> mapPower;
@@ -23,13 +24,17 @@ public class Player {
         deck.getHandCards().forEach(el -> {
             useCard(el);
         });
-        System.out.println(deck + "\n");
     }
 
     public Deck getDeck() {
         return deck;
     }
-
+    public boolean getTakeLand(){
+        return isCanTakeLand;
+    }
+    public void setTakeLand(boolean isCan){
+        isCanTakeLand=isCan;
+    }
     public void setdeck(Deck deck) {
         this.deck = deck;
     }
@@ -53,7 +58,13 @@ public class Player {
     public void addPower(Element el, int added) {
         int x = (int)mapPower.get(el).getX();
         int y = (int)mapPower.get(el).getY();
-        mapPower.get(el).move(x + 1, y + 1);
+        mapPower.get(el).move(x + added, y + added);
+    }
+
+    public void reducePower(Element el, int minus) {
+        int x = (int)mapPower.get(el).getX();
+        int y = (int)mapPower.get(el).getY();
+        mapPower.get(el).move(x, y - minus);
     }
 
     public void resetPower() {
@@ -64,7 +75,7 @@ public class Player {
     }
 
     public void useCard(Card card) {
-        System.out.println(card);
+//        System.out.println(card);
         // System.out.println(card.getClass());
     }
 

@@ -49,6 +49,11 @@ public class Player {
         return mapPower;
     }
 
+    public String getSpecificPower(Element el) {
+        Point P = getMapPower().get(el);
+        return P.x + "/" + P.y;
+    }
+
     public int getHp() {
         return hp;
     }

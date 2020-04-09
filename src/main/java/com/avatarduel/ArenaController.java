@@ -8,7 +8,9 @@ import com.avatarduel.model.Character;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import com.avatarduel.model.Mode;
+import com.avatarduel.model.Player;
 import com.avatarduel.model.Deck;
+import com.avatarduel.model.Element;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
 import com.avatarduel.model.Skill;
@@ -494,6 +496,7 @@ public class ArenaController implements Initializable {
         renderEnemyHand();
         renderCount();
         renderArea();
+        renderPower();
     }
 
     public void renderCount() {
@@ -501,6 +504,19 @@ public class ArenaController implements Initializable {
                 GameState.getInstance().getCurrentPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
         enemyCountCard.setText(
                 GameState.getInstance().getOtherPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
+    }
+
+    public void renderPower() {
+        Player me = GameState.getInstance().getCurrentPlayer();
+        Player enemy =GameState.getInstance().getOtherPlayer();
+        thisAir.setText(me.getSpecificPower(Element.AIR));
+        thisEarth.setText(me.getSpecificPower(Element.EARTH));
+        thisFire.setText(me.getSpecificPower(Element.FIRE));
+        thisWater.setText(me.getSpecificPower(Element.WATER));
+        thoseAir.setText(enemy.getSpecificPower(Element.AIR));
+        thoseEarth.setText(enemy.getSpecificPower(Element.EARTH));
+        thoseFire.setText(enemy.getSpecificPower(Element.FIRE));
+        thoseWater.setText(enemy.getSpecificPower(Element.WATER));
     }
 
     public void setParamLife(Integer myLife, Integer enemyLife) {

@@ -111,6 +111,35 @@ public class ArenaController implements Initializable {
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
     private static final String REMOVE_CARD_STYLE = "-fx-opacity: 0;";
 
+    public Rectangle changePhase(double position) {
+        this.changePhase.setLayoutY(position);
+        return this.changePhase;
+    }
+
+    public Label getDrawTextLabel() {
+        return this.draw;
+    }
+
+    public Label getMain1TextLabel() {
+        return this.main1;
+    }
+
+    public Label getBattleTextLabel() {
+        return this.battle;
+    }
+
+    public Label getMain2TextLabel() {
+        return this.main2;
+    }
+
+    public Label getEndTextLabel() {
+        return this.end;
+    }
+
+    public Button getButtonPhase() {
+        return endPhase;
+    }
+
     public void initialize(URL url, ResourceBundle rb) {
         setBackground("file:background/arena.JPG");
         renderCountCard();
@@ -131,6 +160,14 @@ public class ArenaController implements Initializable {
         Image card = new Image(new File("background/flip.PNG").toURI().toString(), 93, 68, false, false);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
+    }
+
+    private void renderEnemyHand() {
+        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
+            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
+            ImageView imageView = new ImageView(img);
+            otherHand.getChildren().add(imageView);
+        });
     }
 
     public void renderMyArea() {
@@ -155,14 +192,6 @@ public class ArenaController implements Initializable {
             setHover(cardUI);
         });
         renderMyArea();
-    }
-
-    private void renderEnemyHand() {
-        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
-            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
-            ImageView imageView = new ImageView(img);
-            otherHand.getChildren().add(imageView);
-        });
     }
 
     public void renderHandsMain() {
@@ -277,35 +306,6 @@ public class ArenaController implements Initializable {
             cardUI.setStyle(IDLE_CARD_STYLE);
             paneHover.setStyle(REMOVE_CARD_STYLE);
         });
-    }
-
-    public Rectangle changePhase(double position) {
-        this.changePhase.setLayoutY(position);
-        return this.changePhase;
-    }
-
-    public Label draw() {
-        return this.draw;
-    }
-
-    public Label main1() {
-        return this.main1;
-    }
-
-    public Label battle() {
-        return this.battle;
-    }
-
-    public Label main2() {
-        return this.main2;
-    }
-
-    public Label end() {
-        return this.end;
-    }
-
-    public Button getButtonPhase() {
-        return endPhase;
     }
 
     public void renderArea() {

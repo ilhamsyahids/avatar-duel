@@ -37,8 +37,8 @@ public class Phase {
         // 2. Power player di reset
         GameState.getInstance().getCurrentPlayer().resetPower();
         arenaController.changePhase(273);
-        arenaController.end().setText("END");
-        arenaController.draw().setText("-->DRAW");
+        arenaController.getEndTextLabel().setText("END");
+        arenaController.getDrawTextLabel().setText("-->DRAW");
         // 1. Player ngambil satu kartu dari deck, taruh di tangan
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
         arenaController.renderCardDraw();
@@ -61,8 +61,8 @@ public class Phase {
             battlePhase();
         });
         arenaController.changePhase(300);
-        arenaController.draw().setText("DRAW");
-        arenaController.main1().setText("--> MAIN 1");
+        arenaController.getDrawTextLabel().setText("DRAW");
+        arenaController.getMain1TextLabel().setText("--> MAIN 1");
     }
     
     public void battlePhase(){
@@ -86,8 +86,8 @@ public class Phase {
             main2Phase();
         });
         arenaController.changePhase(327);
-        arenaController.main1().setText("MAIN 1");
-        arenaController.battle().setText("--> BATTLE");
+        arenaController.getMain1TextLabel().setText("MAIN 1");
+        arenaController.getBattleTextLabel().setText("--> BATTLE");
         
     }
     
@@ -99,8 +99,8 @@ public class Phase {
             endPhase();
         });
         arenaController.changePhase(354);
-        arenaController.battle().setText("BATTLE");
-        arenaController.main2().setText("--> MAIN 2");
+        arenaController.getBattleTextLabel().setText("BATTLE");
+        arenaController.getMain2TextLabel().setText("--> MAIN 2");
     }
     
     public void endPhase(){
@@ -112,8 +112,8 @@ public class Phase {
             
         });
         arenaController.changePhase(381);
-        arenaController.main2().setText("MAIN 2");
-        arenaController.end().setText("--> END");
+        arenaController.getMain2TextLabel().setText("MAIN 2");
+        arenaController.getEndTextLabel().setText("--> END");
     }
 
     public void nextPhase() {

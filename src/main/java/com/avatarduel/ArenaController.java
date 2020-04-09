@@ -107,7 +107,22 @@ public class ArenaController implements Initializable {
     private Label end;
     @FXML
     private Label main2;
-
+    @FXML
+    private Label thoseFire;
+    @FXML
+    private Label thoseWater;
+    @FXML
+    private Label thoseAir;
+    @FXML
+    private Label thoseEarth;
+    @FXML
+    private Label thisEarth;
+    @FXML
+    private Label thisAir;
+    @FXML
+    private Label thisWater;
+    @FXML
+    private Label thisFire;
 
 
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";

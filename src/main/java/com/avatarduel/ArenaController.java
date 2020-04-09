@@ -162,16 +162,16 @@ public class ArenaController implements Initializable {
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
+            myCharArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
+            mySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
@@ -191,16 +191,16 @@ public class ArenaController implements Initializable {
             setHover(cardUI);
             moveToArena(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
+            myCharArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
+            mySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
         GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
@@ -218,16 +218,16 @@ public class ArenaController implements Initializable {
             myHand.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
+        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
+            myCharArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
+        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
             KartuUI cardUI = new KartuUI(item);
             System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().size());
-            myHand.getChildren().add(cardUI);
+            mySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
         // klik char di arena

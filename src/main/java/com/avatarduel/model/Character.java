@@ -68,6 +68,9 @@ public class Character extends Card implements Powerable {
         return charSkills;
     }
     public void addToCharSkills(Skill skill){
+        // add to list
         charSkills.add(skill);
+        // action
+        skill.action(this);
     }
 }

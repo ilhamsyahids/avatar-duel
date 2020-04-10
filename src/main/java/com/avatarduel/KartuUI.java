@@ -125,6 +125,7 @@ public class KartuUI extends Parent {
     public Card getCard() {
         return card;
     }
+    
 
 
 }

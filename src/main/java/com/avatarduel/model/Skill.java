@@ -17,4 +17,11 @@ public abstract class Skill extends Card implements Powerable {
     public int getPower() {
         return power;
     }
+    @Override
+    public boolean isCanSummon(){
+        int power = (int)GameState.getInstance().getCurrentPlayer().getMapPower().get(getElement()).getY();
+        // powerSkill<=power -> true
+        return(getPower()<=power);
+        
+    }
 }

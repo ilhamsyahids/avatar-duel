@@ -1,10 +1,13 @@
 package com.avatarduel.model;
 
+import java.util.ArrayList;
+
 public class Character extends Card implements Powerable {
     private int attack;
     private int defense;
     private int power;
     private Mode mode;
+    private ArrayList<Skill> charSkills = new ArrayList<>();
 
     public Character(String name, String description, Element element, String imagePath, int attack, int defense, int power) {
         super(name, description, element, imagePath, Mode.ATTACK);
@@ -13,7 +16,7 @@ public class Character extends Card implements Powerable {
         this.power = power;
         mode = Mode.ATTACK;
     }
-
+    
     public int getAttack() {
         return attack;
     }
@@ -42,7 +45,13 @@ public class Character extends Card implements Powerable {
     public int getPower() {
         return power;
     }
-
+    @Override
+    public boolean isCanSummon(){
+        int power = (int)GameState.getInstance().getCurrentPlayer().getMapPower().get(getElement()).getY();
+        // powerChar<=power -> true
+        return(getPower()<=power);
+        
+    }
     @Override
     public void action(Character character) {
         // character.destroy();
@@ -54,5 +63,11 @@ public class Character extends Card implements Powerable {
     public void destroy() {
         super.setMode(Mode.DESTROY);
         //super.mode = Mode.DESTROY;
+    }
+    public ArrayList<Skill> getCharSkills() {
+        return charSkills;
+    }
+    public void addToCharSkills(Skill skill){
+        charSkills.add(skill);
     }
 }

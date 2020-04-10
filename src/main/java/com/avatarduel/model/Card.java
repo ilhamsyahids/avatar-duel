@@ -20,7 +20,7 @@ public abstract class Card {
         this.description = "";
         this.element = Element.AIR;
     }
-
+    
     public abstract void action(Character character);
 
     public String getName() {
@@ -44,7 +44,7 @@ public abstract class Card {
     public void setMode(Mode mode){
         this.mode = mode;
     }
-
+    
     @Override
     public String toString() {
         return name + ":" + element + ":" + image.split("/")[image.split("/").length - 1] + this.getClass().getSimpleName();

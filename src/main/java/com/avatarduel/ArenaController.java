@@ -269,7 +269,7 @@ public class ArenaController implements Initializable, Rendered {
         });
         myPlayer.getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.getInstancePhase().getFase());
-            if (cardUI.getCard().getMode() == Mode.DEFENSE) {
+            if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
                 cardUI.imageView.setRotate(90);
             }
             myCharArea.getChildren().add(cardUI);
@@ -289,7 +289,7 @@ public class ArenaController implements Initializable, Rendered {
         // ENEMY
         enemyPlayer.getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.Fase.END);
-            if (cardUI.getCard().getMode() == Mode.DEFENSE) {
+            if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
                 cardUI.imageView.setRotate(90);
             }
             enemyCharArea.getChildren().add(cardUI);

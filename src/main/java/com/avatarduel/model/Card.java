@@ -5,14 +5,12 @@ public abstract class Card {
     private String description;
     private Element element;
     private String image;
-    private Mode mode;
 
-    public Card(String name, String description, Element element, String imagePath, Mode mode) {
+    public Card(String name, String description, Element element, String imagePath) {
         this.name = name;
         this.description = description;
         this.element = element;
         this.image = imagePath;
-        this.mode = mode;
     }
 
     public Card() {
@@ -20,7 +18,7 @@ public abstract class Card {
         this.description = "";
         this.element = Element.AIR;
     }
-    
+
     public abstract void action(Character character);
 
     public String getName() {
@@ -31,10 +29,6 @@ public abstract class Card {
         return description;
     }
 
-    public Mode getMode() {
-        return mode;
-    }
-
     public Element getElement() {
         return element;
     }
@@ -43,10 +37,6 @@ public abstract class Card {
         return image;
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
-    }
-    
     @Override
     public String toString() {
         return name + ":" + element + ":" + image.split("/")[image.split("/").length - 1]

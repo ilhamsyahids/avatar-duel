@@ -2,8 +2,11 @@ package com.avatarduel;
 
 import com.avatarduel.model.Card;
 import com.avatarduel.model.GameState;
+import com.avatarduel.model.Land;
 import com.avatarduel.model.Mode;
 import com.avatarduel.model.Phase;
+import com.avatarduel.model.Player;
+import com.avatarduel.model.Powerable;
 import com.avatarduel.model.Phase.Fase;
 import com.avatarduel.model.Character;
 
@@ -87,7 +90,6 @@ public class KartuUI extends Parent {
     public Card getCard() {
         return card;
     }
-    
 
     public void emptyCardDialog() {
         // membuat kartu tidak menampilkan pilihan dialog apapun
@@ -98,26 +100,44 @@ public class KartuUI extends Parent {
     }
 
     public void setHandDialog() {
+        Player myPlayer = GameState.getInstance().getCurrentPlayer();
+
         this.summon.setOnMouseClicked(e -> {
             // implementasi summon
-            GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(this.getCard());
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+            Powerable powerCard = (Powerable) this.getCard();
+            if (powerCard.isCanSummon()) { // Comment this for game test
+                myPlayer.getDeck().moveToArea(this.getCard());
+                myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); // Comment this for game test
+            } else { // Comment this for game test
+                Phase.arenaController.setGameMessage("Power tidak cukup!"); // Comment this for game test
+            } // Comment this for game test
             Phase.arenaController.render();
         });
         this.set.setOnMouseClicked(e -> {
             // implementasi set
-            this.getCard().setMode(Mode.DEFENSE);
-            GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(this.getCard());
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+            ((Character) this.getCard()).setMode(Mode.DEFENSE);
+            Powerable powerCard = (Powerable) this.getCard();
+            if (powerCard.isCanSummon()) {
+                myPlayer.getDeck().moveToArea(this.getCard());
+                myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); // Comment this for game test
+            } else { // Comment this for game test
+                Phase.arenaController.setGameMessage("Power tidak cukup!"); // Comment this for game test
+            } // Comment this for game test
             Phase.arenaController.render();
         });
 
         this.activate.setOnMouseClicked(e -> {
-            GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(this.getCard());
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size());
-            System.out.println(GameState.getInstance().getCurrentPlayer().getDeck().getSkills().size());
+            if (!(getCard() instanceof Land)) {
+                Powerable powerCard = (Powerable) this.getCard();
+                if (powerCard.isCanSummon()) { // Comment this for game test
+                    myPlayer.getDeck().moveToArea(this.getCard());
+                    myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); // Comment this for game test
+                } else { // Comment this for game test
+                    Phase.arenaController.setGameMessage("Power tidak cukup!"); // Comment this for game test
+                } // Comment this for game test
+            } else {
+                myPlayer.getDeck().moveToArea(this.getCard());
+            }
             Phase.arenaController.render();
             // tambahin kodingan efek dari kartunya disini..
         });
@@ -187,13 +207,18 @@ public class KartuUI extends Parent {
         });
         this.changePosition.setOnMouseClicked(e -> {
             // implementasi changePosition
-            if (this.getCard().getMode() == Mode.DEFENSE) {
+            if (((Character) this.getCard()).getMode() == Mode.DEFENSE) {
                 this.imageView.setRotate(0);
-                this.getCard().setMode(Mode.ATTACK); // set mode ke attack
+                ((Character) this.getCard()).setMode(Mode.ATTACK); // set mode ke attack
+                this.HandDialog.getChildren().add(this.attack);
             } else { // awalnya attack
                 this.imageView.setRotate(90);
-                this.getCard().setMode(Mode.DEFENSE); // set mode ke defense
+                ((Character) this.getCard()).setMode(Mode.DEFENSE); // set mode ke defense
+                this.HandDialog.getChildren().remove(this.attack);
             }
+            this.root.getChildren().clear();
+            this.root.getChildren().addAll(this.HandDialog, this.imageView);
+            this.isClicked = true;
         });
 
         this.imageView.setOnMouseClicked(el -> {
@@ -201,7 +226,7 @@ public class KartuUI extends Parent {
                 this.emptyCardDialog();
             } else {
                 // cek mode dari kartu
-                if (this.getCard().getMode() == Mode.ATTACK) {
+                if (((Character) this.getCard()).getMode() == Mode.ATTACK) {
                     this.HandDialog.getChildren().addAll(this.attack, this.changePosition);
                 } else {
                     this.HandDialog.getChildren().addAll(this.changePosition);

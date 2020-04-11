@@ -6,7 +6,7 @@ public class Land extends Card {
   }
 
   public Land(String name, String description, Element element, String imagePath) {
-    super(name, description, element, imagePath, Mode.ATTACK);
+    super(name, description, element, imagePath);
   }
 
   @Override
@@ -15,7 +15,6 @@ public class Land extends Card {
   }
 
   public void action() {
-    GameState.getInstance().getCurrentPlayer().addPower(getElement(), 1);
-    System.out.println(GameState.getInstance().getCurrentPlayer().getMapPower());
+    GameState.getInstance().getCurrentPlayer().addPower(getElement(), 4);
   }
 }

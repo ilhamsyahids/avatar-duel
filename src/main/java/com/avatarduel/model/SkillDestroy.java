@@ -7,6 +7,5 @@ public class SkillDestroy extends Skill {
 
     @Override
     public void action(Character character) {
-        character.destroy();
     }
 }

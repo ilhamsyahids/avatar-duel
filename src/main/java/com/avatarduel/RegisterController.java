@@ -27,48 +27,51 @@ import javafx.stage.Stage;
 
 public class RegisterController implements Initializable {
 
-    @FXML private Pane utama;
-    @FXML private TextField playerOneName;
-    @FXML private TextField playerTwoName;
-    @FXML private Label title;
-    @FXML private Button playButton;
-    
-    public void initialize(URL url, ResourceBundle rb){
+    @FXML
+    private Pane utama;
+    @FXML
+    private TextField playerOneName;
+    @FXML
+    private TextField playerTwoName;
+    @FXML
+    private Label title;
+    @FXML
+    private Button playButton;
+
+    public void initialize(URL url, ResourceBundle rb) {
         setBackground("file:background/RegBackground.jpg");
     }
-    
-    public void setBackground(String pict){
+
+    public void setBackground(String pict) {
         Image image = new Image(pict);
-        BackgroundImage backgroundImage = new BackgroundImage(image,
-        BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT,
-        BackgroundPosition.DEFAULT,
-        new BackgroundSize(100,100,true,true,false,true));
-        
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                new BackgroundSize(100, 100, true, true, false, true));
+
         Background background = new Background(backgroundImage);
         utama.setBackground(background);
     }
 
-    public void changeScene(ActionEvent event) throws IOException{
+    public void changeScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ArenaUI.fxml"));
         Parent otherStage = loader.load();
-        Scene otherScene = new Scene(otherStage,1360,700);
-        
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene otherScene = new Scene(otherStage, 1360, 700);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(otherScene);
         stage.setX(0);
         stage.setY(0);
-        
+
         ArenaController controller = loader.getController();
         Phase.getInstancePhase().setController(controller);
         Phase.getInstancePhase().startGame();
         String playerOne = playerOneName.getText();
         String playerTwo = playerTwoName.getText();
         controller.setName(playerOne, playerTwo);
-        
+
         stage.show();
-        
+
     }
-    
+
 }

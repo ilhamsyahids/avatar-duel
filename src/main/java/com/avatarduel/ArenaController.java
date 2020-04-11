@@ -36,7 +36,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
 public class ArenaController implements Initializable, Rendered {
 
     @FXML
@@ -113,7 +112,7 @@ public class ArenaController implements Initializable, Rendered {
     private Label endTextLabel;
     @FXML
     private Label gameMessage;
-    
+
     FXMLLoader loaderPower1;
     FXMLLoader loaderPower2;
 
@@ -176,16 +175,16 @@ public class ArenaController implements Initializable, Rendered {
     public void initialize(URL url, ResourceBundle rb) {
         loaderPower1 = new FXMLLoader();
         loaderPower1.setLocation(getClass().getResource("PowerUI.fxml"));
-        
+
         loaderPower2 = new FXMLLoader();
         loaderPower2.setLocation(getClass().getResource("PowerUI.fxml"));
-        
+
         try {
             powerBoard();
         } catch (IOException ex) {
             Logger.getLogger(ArenaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         setBackground("file:background/arena.JPG");
         renderStackOfCards();
     }
@@ -193,34 +192,35 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Specify reference to power
      */
-    public void powerBoard() throws IOException{
-        Parent power2 = (Parent)loaderPower2.load();
+    public void powerBoard() throws IOException {
+        Parent power2 = (Parent) loaderPower2.load();
         power2.setLayoutX(548);
         power2.setLayoutY(179);
 
-        Node power1 = (Node)loaderPower1.load();
+        Node power1 = (Node) loaderPower1.load();
         power1.setLayoutX(1201);
         power1.setLayoutY(366);
-        
-        utama.getChildren().addAll(power1,power2);
+
+        utama.getChildren().addAll(power1, power2);
     }
-    
+
     /**
      * Render power of each player
      */
-    public void renderPower(){
+    public void renderPower() {
         Player p1 = GameState.getInstance().getCurrentPlayer();
         Player p2 = GameState.getInstance().getOtherPlayer();
-        
+
         PowerController pc1 = loaderPower1.getController();
         pc1.setPowerPoint(p1);
 
         PowerController pc2 = loaderPower2.getController();
         pc2.setPowerPoint(p2);
     }
-    
+
     /**
      * Set background of this scene
+     * 
      * @param pictPath path of background
      */
     public void setBackground(String pictPath) {
@@ -260,10 +260,9 @@ public class ArenaController implements Initializable, Rendered {
         myPlayer.getDeck().getHandCards().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.getInstancePhase().getFase());
             myHand.getChildren().add(cardUI);
-            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+            if (Phase.getInstancePhase().getFase() == Phase.Fase.MAIN) {
                 cardUI.setHandDialog();
-            }
-            else {
+            } else {
                 cardUI.emptyCardDialog();
             }
             setHover(cardUI);
@@ -274,10 +273,9 @@ public class ArenaController implements Initializable, Rendered {
                 cardUI.imageView.setRotate(90);
             }
             myCharArea.getChildren().add(cardUI);
-            if(Phase.getInstancePhase().getFase() == Phase.Fase.BATTLE){
+            if (Phase.getInstancePhase().getFase() == Phase.Fase.BATTLE) {
                 cardUI.setCharacterDialogInField();
-            }
-            else{
+            } else {
                 cardUI.emptyCardDialog();
             }
             setHover(cardUI);
@@ -291,14 +289,13 @@ public class ArenaController implements Initializable, Rendered {
         // ENEMY
         enemyPlayer.getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.Fase.END);
-            if (cardUI.getCard().getMode() == Mode.DEFENSE){
+            if (cardUI.getCard().getMode() == Mode.DEFENSE) {
                 cardUI.imageView.setRotate(90);
             }
             enemyCharArea.getChildren().add(cardUI);
-            if(KartuUI.getPowerAttack() != 9999){
+            if (KartuUI.getPowerAttack() != 9999) {
                 cardUI.setCharacterDialogAttackedInField();
-            }
-            else{
+            } else {
                 cardUI.emptyCardDialog();
             }
             setHover(cardUI);
@@ -321,6 +318,7 @@ public class ArenaController implements Initializable, Rendered {
 
     /**
      * Display details card when hover
+     * 
      * @param cardUI KartuUI for trigger the hover
      */
     public void setHover(KartuUI cardUI) {
@@ -374,15 +372,14 @@ public class ArenaController implements Initializable, Rendered {
      * Render rest of player can take cards
      */
     public void renderCountRestTakeCards() {
-        myCountCard.setText(
-                GameState.getInstance().getCurrentPlayer().getDeck().getRestOfCanTakeCards());
-        enemyCountCard.setText(
-                GameState.getInstance().getOtherPlayer().getDeck().getRestOfCanTakeCards());
+        myCountCard.setText(GameState.getInstance().getCurrentPlayer().getDeck().getRestOfCanTakeCards());
+        enemyCountCard.setText(GameState.getInstance().getOtherPlayer().getDeck().getRestOfCanTakeCards());
     }
 
     /**
      * Set life bar of the players
-     * @param myLife current player HP to set
+     * 
+     * @param myLife    current player HP to set
      * @param enemyLife enemy player HP to set
      */
     public void setParamLife(Integer myLife, Integer enemyLife) {

@@ -4,7 +4,8 @@ public class SkillAura extends Skill {
     private int attack;
     private int defense;
 
-    public SkillAura(String name, String description, Element element, String imagePath, int attack, int defense, int power) {
+    public SkillAura(String name, String description, Element element, String imagePath, int attack, int defense,
+            int power) {
         super(name, description, element, power, imagePath);
         this.attack = attack;
         this.defense = defense;

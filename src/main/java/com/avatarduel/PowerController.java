@@ -15,7 +15,7 @@ public class PowerController implements Initializable {
 
     @FXML
     private Pane powerContainer;
-        
+
     @FXML
     private Label fireElmt;
 
@@ -30,12 +30,12 @@ public class PowerController implements Initializable {
 
     @FXML
     private Label energyElmt;
-    
+
     public void initialize(URL url, ResourceBundle rb) {
         // Do nothing
     }
-    
-    public void setPowerPoint(Player p){
+
+    public void setPowerPoint(Player p) {
         this.fireElmt.setText(p.getSpecificPower(Element.FIRE));
         this.waterElmt.setText(p.getSpecificPower(Element.WATER));
         this.airElmt.setText(p.getSpecificPower(Element.AIR));

@@ -30,14 +30,6 @@ public class GameState {
     return listPlayer.get(idPlayer);
   }
 
-  // public void setCurrentPlayer(Player currentPlayer) {
-  //   this.currentPlayer = currentPlayer;
-  // }
-
-  // public void setOtherPlayer(Player otherPlayer) {
-  //   this.otherPlayer = otherPlayer;
-  // }
-
   public void nextPlayer() {
     idPlayer = (idPlayer + 1) % 2;
   }

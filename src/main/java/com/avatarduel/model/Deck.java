@@ -24,8 +24,8 @@ public class Deck {
     }
 
     /**
-     * Rest of can take cards,
-     * format: <b>60/60</b>
+     * Rest of can take cards, format: <b>60/60</b>
+     * 
      * @return String like the format
      */
     public String getRestOfCanTakeCards() {
@@ -74,8 +74,8 @@ public class Deck {
             characterArea.add((Character) card);
         } else if (Skill.class.isAssignableFrom(card.getClass())) {
             skillArea.add((Skill) card);
-        } else if(card instanceof Land){
-            ((Land)card).action();
+        } else if (card instanceof Land) {
+            ((Land) card).action();
         }
         handCards.remove(card);
     }

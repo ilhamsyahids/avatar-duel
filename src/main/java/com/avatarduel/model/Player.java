@@ -2,9 +2,7 @@ package com.avatarduel.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.awt.Point; 
-
-
+import java.awt.Point;
 
 public class Player {
     public boolean isCanTakeLand;
@@ -36,12 +34,15 @@ public class Player {
     public Deck getDeck() {
         return deck;
     }
-    public boolean getTakeLand(){
+
+    public boolean getTakeLand() {
         return isCanTakeLand;
     }
-    public void setTakeLand(boolean isCan){
-        isCanTakeLand=isCan;
+
+    public void setTakeLand(boolean isCan) {
+        isCanTakeLand = isCan;
     }
+
     public void setdeck(Deck deck) {
         this.deck = deck;
     }
@@ -55,11 +56,11 @@ public class Player {
     }
 
     public int getMaxPower(Element el) {
-        return (int)getMapPower().get(el).getX();
+        return (int) getMapPower().get(el).getX();
     }
 
     public int getValuePower(Element el) {
-        return (int)getMapPower().get(el).getY();
+        return (int) getMapPower().get(el).getY();
     }
 
     public int getHp() {
@@ -75,14 +76,14 @@ public class Player {
     }
 
     public void addPower(Element el, int added) {
-        int x = (int)mapPower.get(el).getX();
-        int y = (int)mapPower.get(el).getY();
+        int x = (int) mapPower.get(el).getX();
+        int y = (int) mapPower.get(el).getY();
         mapPower.get(el).move(x + added, y + added);
     }
 
     public void reducePower(Element el, int minus) {
-        int x = (int)mapPower.get(el).getX();
-        int y = (int)mapPower.get(el).getY();
+        int x = (int) mapPower.get(el).getX();
+        int y = (int) mapPower.get(el).getY();
         mapPower.get(el).move(x, y - minus);
     }
 
@@ -94,7 +95,7 @@ public class Player {
     }
 
     public void useCard(Card card) {
-//        System.out.println(card);
+        // System.out.println(card);
         // System.out.println(card.getClass());
     }
 

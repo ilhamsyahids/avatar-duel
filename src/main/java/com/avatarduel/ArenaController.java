@@ -13,7 +13,6 @@ import com.avatarduel.model.Player;
 import com.avatarduel.model.Deck;
 import com.avatarduel.model.Element;
 import com.avatarduel.model.GameState;
-import com.avatarduel.model.Land;
 import com.avatarduel.model.Skill;
 import com.avatarduel.model.SkillAura;
 
@@ -330,13 +329,26 @@ public class ArenaController implements Initializable, Rendered {
         enemyBar.setProgress(calculateBar(enemyLife));
     }
 
+    /**
+     * @return calculate life bar player
+     */
     public double calculateBar(int life) {
-        // Melakukan perhitungan lifeBar player
         return 1.25 * life / 100;
     }
 
+    /**
+     * @return set name of two player
+     */
     public void setName(String player1, String player2) {
         playerOne.setText(player1);
         playerTwo.setText(player2);
+    }
+
+    /**
+     * Switch player name
+     */
+    public void switchPlayerName() {
+        String temp = playerOne.getText();
+        setName(playerTwo.getText(), temp);
     }
 }

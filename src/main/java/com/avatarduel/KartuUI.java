@@ -35,7 +35,7 @@ public class KartuUI extends Parent {
     private static int powerAttack = 9999; // bernilai 9999 jika tidak ada monster di field yang mendeclare attack
     private static int powerAttacked = 9999; // bernilai 9999 jika monster yang diserang belum dipilih
 
-    public KartuUI(Card card, Fase fase) {
+    public KartuUI(Card card) {
         HandDialog = new VBox();
         HandDialog.setSpacing(5);
         summon = new Button("summon");

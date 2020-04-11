@@ -15,6 +15,6 @@ public class Land extends Card {
   }
 
   public void action() {
-    GameState.getInstance().getCurrentPlayer().addPower(getElement(), 4);
+    GameState.getInstance().getCurrentPlayer().addPower(getElement(), 1);
   }
 }

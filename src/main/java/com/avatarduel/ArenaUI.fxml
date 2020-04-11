@@ -12,10 +12,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.ArenaController">
+<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.ArenaController">
    <children>
       <Rectangle fx:id="changePhase" arcHeight="5.0" arcWidth="5.0" fill="#ffcb21b0" height="39.0" layoutX="364.0" layoutY="354.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="165.0" />
       <Label fx:id="playerTwo" layoutX="568.0" layoutY="35.0" prefHeight="28.0" prefWidth="262.0" text="Player 2" textFill="WHITE">
@@ -316,5 +317,11 @@
             <Glow />
          </effect>
       </ImageView>
+      <StackPane layoutX="344.0" layoutY="450.0" prefHeight="57.0" prefWidth="158.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="44.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <Label fx:id="gameMessage" />
+         </children>
+      </StackPane>
    </children>
 </Pane>

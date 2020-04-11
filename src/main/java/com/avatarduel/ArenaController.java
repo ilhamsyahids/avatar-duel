@@ -124,6 +124,8 @@ public class ArenaController implements Initializable, Rendered {
     private Label thisWater;
     @FXML
     private Label thisFire;
+    @FXML
+    private Label gameMessage;
 
 
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
@@ -133,6 +135,10 @@ public class ArenaController implements Initializable, Rendered {
     public Rectangle changePhase(double position) {
         this.changePhase.setLayoutY(position);
         return this.changePhase;
+    }
+
+    public void setGameMessage(String msg){
+        this.gameMessage.setText(msg);
     }
 
     public Label getDrawTextLabel() {
@@ -189,6 +195,12 @@ public class ArenaController implements Initializable, Rendered {
         GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.getInstancePhase().getFase());
             myHand.getChildren().add(cardUI);
+            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+                cardUI.setHandDialog();
+            }
+            else {
+                cardUI.emptyCardDialog();
+            }
             setHover(cardUI);
         });
         GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
@@ -197,7 +209,12 @@ public class ArenaController implements Initializable, Rendered {
                 cardUI.imageView.setRotate(90);
             }
             myCharArea.getChildren().add(cardUI);
-            setCharactersDialogInField(cardUI);
+            if(Phase.getInstancePhase().getFase() == Phase.Fase.BATTLE){
+                cardUI.setCharacterDialogInField();
+            }
+            else{
+                cardUI.emptyCardDialog();
+            }
             setHover(cardUI);
         });
         GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
@@ -213,6 +230,12 @@ public class ArenaController implements Initializable, Rendered {
                 cardUI.imageView.setRotate(90);
             }
             enemyCharArea.getChildren().add(cardUI);
+            if(KartuUI.getPowerAttack() != 9999){
+                cardUI.setCharacterDialogAttackedInField();
+            }
+            else{
+                cardUI.emptyCardDialog();
+            }
             setHover(cardUI);
         });
         GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
@@ -229,46 +252,6 @@ public class ArenaController implements Initializable, Rendered {
         renderCount();
         renderPower();
         setParamLife(GameState.getInstance().getCurrentPlayer().getHp(), GameState.getInstance().getOtherPlayer().getHp());
-    }
-
-    public void setCharactersDialogInField(KartuUI cardUI){
-        cardUI.attack.setOnMouseClicked(e -> {
-            // implementasikan attack disini Gil
-            System.out.println("Aku nyerang"); // ini dummy aja
-
-        });
-        cardUI.changePosition.setOnMouseClicked(e -> {
-            // implementasi changePosition
-            if(cardUI.getCard().getMode() == Mode.DEFENSE){
-                cardUI.imageView.setRotate(0);
-                cardUI.getCard().setMode(Mode.ATTACK); // set mode ke attack
-            }
-            else{ //awalnya attack
-                cardUI.imageView.setRotate(90);
-                cardUI.getCard().setMode(Mode.DEFENSE); // set mode ke defense
-            }
-        });
-
-
-        cardUI.imageView.setOnMouseClicked(el -> {
-            if (cardUI.isClicked) {
-                cardUI.HandDialog.getChildren().clear();
-                cardUI.root.getChildren().clear();
-                cardUI.root.getChildren().addAll(cardUI.imageView);
-                cardUI.isClicked = false;
-            } else {
-                //cek mode dari kartu
-                if(cardUI.getCard().getMode() == Mode.ATTACK){
-                    cardUI.HandDialog.getChildren().addAll(cardUI.attack, cardUI.changePosition);
-                }
-                else{
-                    cardUI.HandDialog.getChildren().addAll(cardUI.changePosition);
-                }
-                cardUI.root.getChildren().clear();
-                cardUI.root.getChildren().addAll(cardUI.HandDialog,cardUI.imageView);
-                cardUI.isClicked = true;
-            }
-        });
     }
 
     public void setHover(KartuUI cardUI) {

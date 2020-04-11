@@ -1,6 +1,7 @@
 package com.avatarduel.model;
 
 import com.avatarduel.ArenaController;
+import com.avatarduel.KartuUI;
 import com.avatarduel.Rendered;
 
 public class Phase {
@@ -90,6 +91,11 @@ public class Phase {
         // 3. Tidak ada HP yang berkurang
         // validasi trus manggil action(character)
         arenaController.getButtonPhase().setOnMouseClicked(el -> {
+            //Setelah beres battle phase kembalikan variabel battle dari kartuUI ke nilai" defaultnya
+            KartuUI.setPowerAttacked(9999);
+            KartuUI.setPowerAttack(9999);
+            //hapus game message sblmnya
+            Phase.arenaController.setGameMessage("");
             endPhase();
         });
         arenaController.changePhase(327);

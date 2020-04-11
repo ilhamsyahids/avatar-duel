@@ -41,9 +41,9 @@ public class GameStateTest {
 
     @Test
     public void initGameState() {
-        assertEquals(GameState.getInstance().getListPlayer().size(), GameState.numOfPlayer);
+        assertTrue(GameState.getInstance().getCurrentPlayer() instanceof Player);
+        assertTrue(GameState.getInstance().getOtherPlayer() instanceof Player);
     }
-
 
     // Test Change Player
     @Test

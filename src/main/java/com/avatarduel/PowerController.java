@@ -40,6 +40,6 @@ public class PowerController implements Initializable {
         this.waterElmt.setText(p.getSpecificPower(Element.WATER));
         this.airElmt.setText(p.getSpecificPower(Element.AIR));
         this.earthElmt.setText(p.getSpecificPower(Element.EARTH));
-//        this.energyElmt.setText(p.getSpecificPower(Element.ENERGY));
+        this.energyElmt.setText(p.getSpecificPower(Element.ENERGY));
     }
 }

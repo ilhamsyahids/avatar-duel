@@ -23,6 +23,15 @@ public class Deck {
         this.leftTakeCards = leftTakeCards;
     }
 
+    /**
+     * Rest of can take cards,
+     * format: <b>60/60</b>
+     * @return String like the format
+     */
+    public String getRestOfCanTakeCards() {
+        return getLeftTakeCards() + "/" + MAXCARDSTAKKEN;
+    }
+
     public ArrayList<Character> getCharacters() {
         return characterArea;
     }

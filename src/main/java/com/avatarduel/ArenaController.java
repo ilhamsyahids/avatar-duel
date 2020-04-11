@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import com.avatarduel.model.Mode;
 import com.avatarduel.model.Phase;
 import com.avatarduel.model.Player;
-import com.avatarduel.model.Deck;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Skill;
 import com.avatarduel.model.SkillAura;
@@ -105,13 +104,13 @@ public class ArenaController implements Initializable, Rendered {
     @FXML
     private Rectangle changePhase;
     @FXML
-    private Label draw;
+    private Label drawTextLabel;
     @FXML
-    private Label main1;
+    private Label mainTextLabel;
     @FXML
-    private Label battle;
+    private Label battleTextLabel;
     @FXML
-    private Label end;
+    private Label endTextLabel;
     @FXML
     private Label gameMessage;
     
@@ -122,35 +121,58 @@ public class ArenaController implements Initializable, Rendered {
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
     private static final String REMOVE_CARD_STYLE = "-fx-opacity: 0;";
 
-    public Rectangle changePhase(double position) {
+    /**
+     * @param positon positon in Y-axis
+     */
+    public void changePhasePosition(double position) {
         this.changePhase.setLayoutY(position);
-        return this.changePhase;
     }
 
-    public void setGameMessage(String msg){
+    /**
+     * @param msg the message to gameMessage
+     */
+    public void setGameMessage(String msg) {
         this.gameMessage.setText(msg);
     }
 
+    /**
+     * @return the drawTextLabel
+     */
     public Label getDrawTextLabel() {
-        return this.draw;
+        return drawTextLabel;
     }
 
-    public Label getMain1TextLabel() {
-        return this.main1;
+    /**
+     * @return the mainTextLabel
+     */
+    public Label getMainTextLabel() {
+        return mainTextLabel;
     }
 
+    /**
+     * @return the battleTextLabel
+     */
     public Label getBattleTextLabel() {
-        return this.battle;
+        return battleTextLabel;
     }
 
+    /**
+     * @return the endTextLabel
+     */
     public Label getEndTextLabel() {
-        return this.end;
+        return endTextLabel;
     }
 
-    public Button getButtonPhase() {
+    /**
+     * @return the endPhase
+     */
+    public Button getEndPhase() {
         return endPhase;
     }
 
+    /**
+     * Init scene
+     */
     public void initialize(URL url, ResourceBundle rb) {
         loaderPower1 = new FXMLLoader();
         loaderPower1.setLocation(getClass().getResource("PowerUI.fxml"));
@@ -165,10 +187,12 @@ public class ArenaController implements Initializable, Rendered {
         }
         
         setBackground("file:background/arena.JPG");
-        renderCountCard();
-        
+        renderStackOfCards();
     }
 
+    /**
+     * Specify reference to power
+     */
     public void powerBoard() throws IOException{
         Parent power2 = (Parent)loaderPower2.load();
         power2.setLayoutX(548);
@@ -181,20 +205,26 @@ public class ArenaController implements Initializable, Rendered {
         utama.getChildren().addAll(power1,power2);
     }
     
+    /**
+     * Render power of each player
+     */
     public void renderPower(){
         Player p1 = GameState.getInstance().getCurrentPlayer();
         Player p2 = GameState.getInstance().getOtherPlayer();
         
         PowerController pc1 = loaderPower1.getController();
         pc1.setPowerPoint(p1);
-        
+
         PowerController pc2 = loaderPower2.getController();
         pc2.setPowerPoint(p2);
     }
     
-    public void setBackground(String pict) {
-        // Set background pada this scene
-        Image image = new Image(pict);
+    /**
+     * Set background of this scene
+     * @param pictPath path of background
+     */
+    public void setBackground(String pictPath) {
+        Image image = new Image(pictPath);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 new BackgroundSize(100, 100, false, false, false, true));
@@ -203,12 +233,18 @@ public class ArenaController implements Initializable, Rendered {
         utama.setBackground(background);
     }
 
-    public void renderCountCard() {
+    /**
+     * Render stack of cards (static)
+     */
+    public void renderStackOfCards() {
         Image card = new Image(new File("background/flip.PNG").toURI().toString(), 93, 68, false, false);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
     }
 
+    /**
+     * Render GUI
+     */
     public void render() {
         myHand.getChildren().clear();
         myCharArea.getChildren().clear();
@@ -217,8 +253,11 @@ public class ArenaController implements Initializable, Rendered {
         enemyCharArea.getChildren().clear();
         enemySkillArea.getChildren().clear();
 
+        Player myPlayer = GameState.getInstance().getCurrentPlayer();
+        Player enemyPlayer = GameState.getInstance().getOtherPlayer();
+
         // ME
-        GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().forEach(item -> {
+        myPlayer.getDeck().getHandCards().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.getInstancePhase().getFase());
             myHand.getChildren().add(cardUI);
             if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
@@ -229,7 +268,7 @@ public class ArenaController implements Initializable, Rendered {
             }
             setHover(cardUI);
         });
-        GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
+        myPlayer.getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.getInstancePhase().getFase());
             if (cardUI.getCard().getMode() == Mode.DEFENSE) {
                 cardUI.imageView.setRotate(90);
@@ -243,14 +282,14 @@ public class ArenaController implements Initializable, Rendered {
             }
             setHover(cardUI);
         });
-        GameState.getInstance().getCurrentPlayer().getDeck().getSkills().forEach(item -> {
+        myPlayer.getDeck().getSkills().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.getInstancePhase().getFase());
             mySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
 
         // ENEMY
-        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().forEach(item -> {
+        enemyPlayer.getDeck().getCharacters().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.Fase.END);
             if (cardUI.getCard().getMode() == Mode.DEFENSE){
                 cardUI.imageView.setRotate(90);
@@ -264,22 +303,26 @@ public class ArenaController implements Initializable, Rendered {
             }
             setHover(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getSkills().forEach(item -> {
+        enemyPlayer.getDeck().getSkills().forEach(item -> {
             KartuUI cardUI = new KartuUI(item, Phase.Fase.END);
             enemySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
-        GameState.getInstance().getOtherPlayer().getDeck().getHandCards().forEach(item -> {
+        enemyPlayer.getDeck().getHandCards().forEach(item -> {
             Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
             ImageView imageView = new ImageView(img);
             otherHand.getChildren().add(imageView);
         });
-        
-        renderCount();
+
+        renderCountRestTakeCards();
         renderPower();
-        setParamLife(GameState.getInstance().getCurrentPlayer().getHp(), GameState.getInstance().getOtherPlayer().getHp());
+        setParamLife(myPlayer.getHp(), enemyPlayer.getHp());
     }
 
+    /**
+     * Display details card when hover
+     * @param cardUI KartuUI for trigger the hover
+     */
     public void setHover(KartuUI cardUI) {
         cardUI.imageView.setOnMouseEntered(e -> {
             cardUI.setStyle(HOVERED_CARD_STYLE);
@@ -327,16 +370,22 @@ public class ArenaController implements Initializable, Rendered {
         });
     }
 
-    public void renderCount() {
+    /**
+     * Render rest of player can take cards
+     */
+    public void renderCountRestTakeCards() {
         myCountCard.setText(
-                GameState.getInstance().getCurrentPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
+                GameState.getInstance().getCurrentPlayer().getDeck().getRestOfCanTakeCards());
         enemyCountCard.setText(
-                GameState.getInstance().getOtherPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
+                GameState.getInstance().getOtherPlayer().getDeck().getRestOfCanTakeCards());
     }
 
+    /**
+     * Set life bar of the players
+     * @param myLife current player HP to set
+     * @param enemyLife enemy player HP to set
+     */
     public void setParamLife(Integer myLife, Integer enemyLife) {
-        // Set parameter HPpoints dan HPBar sesuai dengan
-        // life points player
         myHP.setText(myLife.toString());
         enemyHP.setText(enemyLife.toString());
         myBar.setProgress(calculateBar(myLife));

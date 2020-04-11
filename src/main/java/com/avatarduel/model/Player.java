@@ -22,11 +22,11 @@ public class Player {
         mapPower.put(Element.WATER, new Point(0, 0));
         mapPower.put(Element.ENERGY, new Point(0, 0));
         deck.takeCardsToHand(7);
+
+        // For Debuging
         deck.getHandCards().forEach(el -> {
             useCard(el);
         });
-
-        // For Debuging
         deck.getHandCards().forEach(item -> {
             System.out.println(item);
         });
@@ -51,8 +51,15 @@ public class Player {
     }
 
     public String getSpecificPower(Element el) {
-        Point P = getMapPower().get(el);
-        return P.y + "/" + P.x;
+        return getValuePower(el) + "/" + getMaxPower(el);
+    }
+
+    public int getMaxPower(Element el) {
+        return (int)getMapPower().get(el).getX();
+    }
+
+    public int getValuePower(Element el) {
+        return (int)getMapPower().get(el).getY();
     }
 
     public int getHp() {

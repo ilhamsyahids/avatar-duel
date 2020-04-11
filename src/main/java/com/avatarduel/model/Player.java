@@ -20,6 +20,7 @@ public class Player {
         mapPower.put(Element.FIRE, new Point(0, 0));
         mapPower.put(Element.EARTH, new Point(0, 0));
         mapPower.put(Element.WATER, new Point(0, 0));
+        mapPower.put(Element.ENERGY, new Point(0, 0));
         deck.takeCardsToHand(7);
         deck.getHandCards().forEach(el -> {
             useCard(el);
@@ -51,7 +52,7 @@ public class Player {
 
     public String getSpecificPower(Element el) {
         Point P = getMapPower().get(el);
-        return P.x + "/" + P.y;
+        return P.y + "/" + P.x;
     }
 
     public int getHp() {

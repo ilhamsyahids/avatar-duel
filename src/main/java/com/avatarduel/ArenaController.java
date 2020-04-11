@@ -11,13 +11,18 @@ import com.avatarduel.model.Mode;
 import com.avatarduel.model.Phase;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.Deck;
-import com.avatarduel.model.Element;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Skill;
 import com.avatarduel.model.SkillAura;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -108,24 +113,10 @@ public class ArenaController implements Initializable, Rendered {
     @FXML
     private Label end;
     @FXML
-    private Label thoseFire;
-    @FXML
-    private Label thoseWater;
-    @FXML
-    private Label thoseAir;
-    @FXML
-    private Label thoseEarth;
-    @FXML
-    private Label thisEarth;
-    @FXML
-    private Label thisAir;
-    @FXML
-    private Label thisWater;
-    @FXML
-    private Label thisFire;
-    @FXML
     private Label gameMessage;
-
+    
+    FXMLLoader loaderPower1;
+    FXMLLoader loaderPower2;
 
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
@@ -161,10 +152,46 @@ public class ArenaController implements Initializable, Rendered {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
+        loaderPower1 = new FXMLLoader();
+        loaderPower1.setLocation(getClass().getResource("PowerUI.fxml"));
+        
+        loaderPower2 = new FXMLLoader();
+        loaderPower2.setLocation(getClass().getResource("PowerUI.fxml"));
+        
+        try {
+            powerBoard();
+        } catch (IOException ex) {
+            Logger.getLogger(ArenaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         setBackground("file:background/arena.JPG");
         renderCountCard();
+        
     }
 
+    public void powerBoard() throws IOException{
+        Parent power2 = (Parent)loaderPower2.load();
+        power2.setLayoutX(548);
+        power2.setLayoutY(179);
+
+        Node power1 = (Node)loaderPower1.load();
+        power1.setLayoutX(1201);
+        power1.setLayoutY(366);
+        
+        utama.getChildren().addAll(power1,power2);
+    }
+    
+    public void renderPower(){
+        Player p1 = GameState.getInstance().getCurrentPlayer();
+        Player p2 = GameState.getInstance().getOtherPlayer();
+        
+        PowerController pc1 = loaderPower1.getController();
+        pc1.setPowerPoint(p1);
+        
+        PowerController pc2 = loaderPower2.getController();
+        pc2.setPowerPoint(p2);
+    }
+    
     public void setBackground(String pict) {
         // Set background pada this scene
         Image image = new Image(pict);
@@ -305,19 +332,6 @@ public class ArenaController implements Initializable, Rendered {
                 GameState.getInstance().getCurrentPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
         enemyCountCard.setText(
                 GameState.getInstance().getOtherPlayer().getDeck().getLeftTakeCards() + "/" + Deck.MAXCARDSTAKKEN);
-    }
-
-    public void renderPower() {
-        Player me = GameState.getInstance().getCurrentPlayer();
-        Player enemy =GameState.getInstance().getOtherPlayer();
-        thisAir.setText(me.getSpecificPower(Element.AIR));
-        thisEarth.setText(me.getSpecificPower(Element.EARTH));
-        thisFire.setText(me.getSpecificPower(Element.FIRE));
-        thisWater.setText(me.getSpecificPower(Element.WATER));
-        thoseAir.setText(enemy.getSpecificPower(Element.AIR));
-        thoseEarth.setText(enemy.getSpecificPower(Element.EARTH));
-        thoseFire.setText(enemy.getSpecificPower(Element.FIRE));
-        thoseWater.setText(enemy.getSpecificPower(Element.WATER));
     }
 
     public void setParamLife(Integer myLife, Integer enemyLife) {

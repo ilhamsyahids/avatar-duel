@@ -9,7 +9,7 @@ public abstract class Skill extends Card implements Powerable {
     }
 
     public Skill(String name, String description, Element element, int power, String imagePath) {
-        super(name, description, element, imagePath,Mode.ATTACK);
+        super(name, description, element, imagePath, Mode.ATTACK);
         this.power = power;
     }
 

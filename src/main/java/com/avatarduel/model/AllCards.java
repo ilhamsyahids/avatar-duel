@@ -3,31 +3,30 @@ package com.avatarduel.model;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class AllCards
-{  
+public class AllCards {
     private static AllCards INSTANCE = new AllCards();
     private ArrayList<Card> allCards = new ArrayList<>();
     private ArrayList<Character> allCharacters = new ArrayList<>();
     private ArrayList<Skill> allSkills = new ArrayList<>();
     private ArrayList<Land> allLands = new ArrayList<>();
-  
-    AllCards() {}
 
-    public static AllCards getInstance()
-    { 
-        return INSTANCE; 
+    AllCards() {
+    }
+
+    public static AllCards getInstance() {
+        return INSTANCE;
     }
 
     public static void addLand(Land Land) {
-      getInstance().allLands.add(Land);
+        getInstance().allLands.add(Land);
     }
 
     public static void addSkill(Skill skill) {
-      getInstance().allSkills.add(skill);
+        getInstance().allSkills.add(skill);
     }
 
     public static void addCharacter(Character character) {
-      getInstance().allCharacters.add(character);
+        getInstance().allCharacters.add(character);
     }
 
     public ArrayList<Character> getAllCharacters() {
@@ -53,4 +52,4 @@ public class AllCards
         getInstance().allCards.addAll(getInstance().getAllLands());
         Collections.shuffle(getInstance().allCards);
     }
-} 
+}

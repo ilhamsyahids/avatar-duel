@@ -1,13 +1,11 @@
 package com.avatarduel;
 
 import com.avatarduel.model.Element;
-import com.avatarduel.model.GameState;
 import com.avatarduel.model.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
@@ -15,7 +13,7 @@ public class PowerController implements Initializable {
 
     @FXML
     private Pane powerContainer;
-        
+
     @FXML
     private Label fireElmt;
 
@@ -30,12 +28,12 @@ public class PowerController implements Initializable {
 
     @FXML
     private Label energyElmt;
-    
+
     public void initialize(URL url, ResourceBundle rb) {
         // Do nothing
     }
-    
-    public void setPowerPoint(Player p){
+
+    public void setPowerPoint(Player p) {
         this.fireElmt.setText(p.getSpecificPower(Element.FIRE));
         this.waterElmt.setText(p.getSpecificPower(Element.WATER));
         this.airElmt.setText(p.getSpecificPower(Element.AIR));

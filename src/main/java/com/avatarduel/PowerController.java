@@ -1,13 +1,11 @@
 package com.avatarduel;
 
 import com.avatarduel.model.Element;
-import com.avatarduel.model.GameState;
 import com.avatarduel.model.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 

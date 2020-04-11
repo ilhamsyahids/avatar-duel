@@ -1,6 +1,7 @@
 package com.avatarduel.model;
 
 import com.avatarduel.ArenaController;
+import com.avatarduel.KartuUI;
 import com.avatarduel.Rendered;
 
 public class Phase {
@@ -8,16 +9,13 @@ public class Phase {
 
     public static ArenaController arenaController;
     public Fase fase;
-    
 
     public static enum Fase {
-        DRAW,
-        MAIN,
-        BATTLE,
-        END
+        DRAW, MAIN, BATTLE, END
     }
 
-    public Phase() {}
+    public Phase() {
+    }
 
     /**
      * @return the fase
@@ -27,7 +25,7 @@ public class Phase {
     }
 
     public void setController(Rendered arenaController) {
-      Phase.arenaController = (ArenaController)arenaController;
+        Phase.arenaController = (ArenaController) arenaController;
     }
 
     public void startGame() {
@@ -39,21 +37,21 @@ public class Phase {
         return INSTANCEPHASE;
     }
 
-    public void drawPhase(){
+    public void drawPhase() {
         fase = Fase.DRAW;
         // 2. Power player di reset
         GameState.getInstance().getCurrentPlayer().resetPower();
-        arenaController.changePhase(273);
+        arenaController.changePhasePosition(273);
         arenaController.getEndTextLabel().setText("END");
-        arenaController.getDrawTextLabel().setText("-->DRAW");
+        arenaController.getDrawTextLabel().setText("--> DRAW");
         // 1. Player ngambil satu kartu dari deck, taruh di tangan
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
         arenaController.render();
-        arenaController.getButtonPhase().setOnMouseClicked(el -> {
+        arenaController.getEndPhase().setOnMouseClicked(el -> {
             main1Phase();
         });
     }
-    
+
     public void main1Phase() {
         GameState.getInstance().getCurrentPlayer().setTakeLand(true);
         fase = Fase.MAIN;
@@ -64,21 +62,21 @@ public class Phase {
         // 3. meletakkan MAKS. 1 kartu land
         // 4. meletakkan 0 atau lebih kartu SKILL, memilih karakter yg ditargetkan
         // 5. membuang 0 atau lebih kartu SKILL
-        arenaController.getButtonPhase().setOnMouseClicked(el -> {
+        arenaController.getEndPhase().setOnMouseClicked(el -> {
             battlePhase();
         });
-        arenaController.changePhase(300);
+        arenaController.changePhasePosition(300);
         arenaController.getDrawTextLabel().setText("DRAW");
-        arenaController.getMain1TextLabel().setText("--> MAIN");
+        arenaController.getMainTextLabel().setText("--> MAIN");
     }
-    
-    public void battlePhase(){
+
+    public void battlePhase() {
         fase = Fase.BATTLE;
         arenaController.render();
         // 1. player dapat menggunakan CHAR untuk menyerang CHAR lawan/HP lawan
         // 2. kalo ada CHAR di area lawan, gabisa langsung nyerang HP
         // 3. tiap CHAR nyerang maks 1 kali
-        
+
         // NYERANG CHAR LAWAN:
         // CHAR lawan posisi menyerang
         // 1. Attack lawan <= Attack CHAR
@@ -89,36 +87,42 @@ public class Phase {
         // 2. Setelah menyerang, char lawan mati
         // 3. Tidak ada HP yang berkurang
         // validasi trus manggil action(character)
-        arenaController.getButtonPhase().setOnMouseClicked(el -> {
+        arenaController.getEndPhase().setOnMouseClicked(el -> {
+            // Setelah beres battle phase kembalikan variabel battle dari kartuUI ke nilai"
+            // defaultnya
+            KartuUI.setPowerAttacked(9999);
+            KartuUI.setPowerAttack(9999);
+            // hapus game message sblmnya
+            Phase.arenaController.setGameMessage("");
             endPhase();
         });
-        arenaController.changePhase(327);
-        arenaController.getMain1TextLabel().setText("MAIN");
+        arenaController.changePhasePosition(327);
+        arenaController.getMainTextLabel().setText("MAIN");
         arenaController.getBattleTextLabel().setText("--> BATTLE");
-        
+
     }
-    
-//    public void main2Phase(){
-//        fase = Fase.MAIN2;
-//        // 1. mainPhase1
-//        // 2. CHAR yang baru saja menyerang tidak dapat diubah posisi
-//        arenaController.getButtonPhase().setOnMouseClicked(el -> {
-//            endPhase();
-//        });
-//        arenaController.changePhase(354);
-//        arenaController.getBattleTextLabel().setText("BATTLE");
-//        arenaController.getMain2TextLabel().setText("--> MAIN 2");
-//    }
-    
-    public void endPhase(){
+
+    // public void main2Phase(){
+    // fase = Fase.MAIN2;
+    // // 1. mainPhase1
+    // // 2. CHAR yang baru saja menyerang tidak dapat diubah posisi
+    // arenaController.getEndPhase().setOnMouseClicked(el -> {
+    // endPhase();
+    // });
+    // arenaController.changePhasePosition(354);
+    // arenaController.getBattleTextLabel().setText("BATTLE");
+    // arenaController.getMain2TextLabel().setText("--> MAIN 2");
+    // }
+
+    public void endPhase() {
         fase = Fase.END;
         // mengakhiri giliran
-        arenaController.getButtonPhase().setOnMouseClicked(el -> {
+        arenaController.getEndPhase().setOnMouseClicked(el -> {
             GameState.getInstance().nextPlayer();
             drawPhase();
-            
+
         });
-        arenaController.changePhase(354);
+        arenaController.changePhasePosition(354);
         arenaController.getBattleTextLabel().setText("BATTLE");
         arenaController.getEndTextLabel().setText("--> END");
     }

@@ -27,12 +27,15 @@ public class SummonedCharacter implements ISummoned {
 
     @Override
     public int getPositionValue() {
-        if (inAttack) return character.getAttack();
-        else return character.getDefense();
+        if (inAttack)
+            return character.getAttack();
+        else
+            return character.getDefense();
     }
 
     @Override
     public void render() {
-        System.out.println(String.format("Character %s dalam keadaan %s dengan posisi %s", character.getName(), (open ? "terbuka" : "tertutup"), (inAttack ? "menyerang" : "bertahan")));
+        System.out.println(String.format("Character %s dalam keadaan %s dengan posisi %s", character.getName(),
+                (open ? "terbuka" : "tertutup"), (inAttack ? "menyerang" : "bertahan")));
     }
 }

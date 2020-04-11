@@ -29,7 +29,7 @@ public class AvatarDuel extends Application {
   private static final String SKILL_DESTROY_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_destroy.csv";
   private static final String CHAR_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/character.csv";
 
-  //variabel-variable untuk tampilan GUI
+  // variabel-variable untuk tampilan GUI
   Stage window;
   Scene scene1, scene2;
 
@@ -38,7 +38,7 @@ public class AvatarDuel extends Application {
     File skillAuraCSVFile = new File((SKILL_AURA_CSV_FILE_PATH));
     File skillPowerUpCSVFile = new File((SKILL_POWERUP_CSV_FILE_PATH));
     File skillDestroyCSVFile = new File((SKILL_DESTROY_CSV_FILE_PATH));
-    File characterCSVFile = new File((CHAR_CSV_FILE_PATH ));
+    File characterCSVFile = new File((CHAR_CSV_FILE_PATH));
     CSVReader landReader = new CSVReader(landCSVFile, "\t");
     CSVReader skillAuraReader = new CSVReader(skillAuraCSVFile, "\t");
     CSVReader skillDestroyReader = new CSVReader(skillDestroyCSVFile, "\t");
@@ -59,7 +59,8 @@ public class AvatarDuel extends Application {
       AllCards.addLand(l);
     }
     for (String[] item : skillAuraRows) {
-      SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[6]), Integer.parseInt(item[7]), Integer.parseInt(item[5]));
+      SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[6]),
+          Integer.parseInt(item[7]), Integer.parseInt(item[5]));
       AllCards.addSkill(l);
     }
     for (String[] item : skillDestroyRows) {
@@ -71,7 +72,8 @@ public class AvatarDuel extends Application {
       AllCards.addSkill(l);
     }
     for (String[] item : charRows) {
-      Character l = new Character(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[5]), Integer.parseInt(item[6]), Integer.parseInt(item[7]));
+      Character l = new Character(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[5]),
+          Integer.parseInt(item[6]), Integer.parseInt(item[7]));
       AllCards.addCharacter(l);
     }
     AllCards.addAll();
@@ -80,8 +82,9 @@ public class AvatarDuel extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     Parent window = FXMLLoader.load(getClass().getResource("RegisterUI.fxml"));
+    // Parent window = FXMLLoader.load(getClass().getResource("PowerUI.fxml"));
     Scene windowScene = new Scene(window, 500, 400);
-    
+
     stage.setTitle("Avatar Duel");
     stage.getIcons().add(new Image("file:background/icon.PNG"));
     stage.setScene(windowScene);

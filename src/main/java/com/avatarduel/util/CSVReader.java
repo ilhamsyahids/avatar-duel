@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CSVReader is a reader with given filename and separator.
- * IMPORTANT NOTE:
- * We assume that the csv doesn't have separator in the cells.
- * This implementation only split each line using separator
- * into array of values.
+ * CSVReader is a reader with given filename and separator. IMPORTANT NOTE: We
+ * assume that the csv doesn't have separator in the cells. This implementation
+ * only split each line using separator into array of values.
  *
  * @author Laboratorium Programming
  */
@@ -20,14 +18,15 @@ public class CSVReader {
     private File csvFile;
     private String separator;
     /**
-     * If set to true, CSVReader will skip the first line.
-     * For example, when the csv has header.
+     * If set to true, CSVReader will skip the first line. For example, when the csv
+     * has header.
      */
     private boolean skipFirstLine;
 
     /**
      * Creates a new reader from a file, using a separator
-     * @param csvFile file csv
+     * 
+     * @param csvFile   file csv
      * @param separator separator of csv file
      */
     public CSVReader(File csvFile, String separator) {
@@ -37,8 +36,9 @@ public class CSVReader {
     }
 
     /**
-     * Set the reader to skip the first line, because the first line
-     * is the header of csv
+     * Set the reader to skip the first line, because the first line is the header
+     * of csv
+     * 
      * @param isSkippingHeader true if header should be skipped
      */
     public void setSkipHeader(boolean isSkippingHeader) {
@@ -47,8 +47,9 @@ public class CSVReader {
 
     /**
      * Reads the csv file into list of string array.
-     * @throws IOException exception when reading csv file.
-     *         for example: file not found error
+     * 
+     * @throws IOException exception when reading csv file. for example: file not
+     *                     found error
      * @return list of string array. Each list item represent a row.
      */
     public List<String[]> read() throws IOException {
@@ -72,6 +73,7 @@ public class CSVReader {
             }
             firstLine = false;
         }
+        br.close();
         return list;
     }
 

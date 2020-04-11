@@ -13,7 +13,7 @@ public class Land extends Card {
   public void action(Character character) {
     action();
   }
-  
+
   public void action() {
     GameState.getInstance().getCurrentPlayer().addPower(getElement(), 1);
     System.out.println(GameState.getInstance().getCurrentPlayer().getMapPower());

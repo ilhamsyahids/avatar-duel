@@ -23,6 +23,15 @@ public class Deck {
         this.leftTakeCards = leftTakeCards;
     }
 
+    /**
+     * Rest of can take cards, format: <b>60/60</b>
+     * 
+     * @return String like the format
+     */
+    public String getRestOfCanTakeCards() {
+        return getLeftTakeCards() + "/" + MAXCARDSTAKKEN;
+    }
+
     public ArrayList<Character> getCharacters() {
         return characterArea;
     }
@@ -65,8 +74,8 @@ public class Deck {
             characterArea.add((Character) card);
         } else if (Skill.class.isAssignableFrom(card.getClass())) {
             skillArea.add((Skill) card);
-        } else if(card instanceof Land){
-            ((Land)card).action();
+        } else if (card instanceof Land) {
+            ((Land) card).action();
         }
         handCards.remove(card);
     }

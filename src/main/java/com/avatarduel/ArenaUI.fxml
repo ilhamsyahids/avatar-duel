@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,10 +20,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.ArenaController">
+<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.ArenaController">
    <children>
       <Rectangle fx:id="changePhase" arcHeight="5.0" arcWidth="5.0" fill="#ffcb21b0" height="39.0" layoutX="364.0" layoutY="354.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="165.0" />
       <Label fx:id="playerTwo" layoutX="568.0" layoutY="35.0" prefHeight="28.0" prefWidth="262.0" text="Player 2" textFill="WHITE">
@@ -150,21 +159,21 @@
       <HBox fx:id="enemyCharArea" layoutX="638.0" layoutY="260.0" prefHeight="76.0" prefWidth="632.0" spacing="10.0" />
       <Button fx:id="endPhase" layoutX="411.0" layoutY="401.0" mnemonicParsing="false" text="End Phase" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="122.0" layoutX="364.0" layoutY="273.0" stroke="BLACK" strokeType="INSIDE" width="165.0" />
-      <Label fx:id="draw" layoutX="379.0" layoutY="280.0" text="DRAW" textFill="WHITE">
+      <Label fx:id="drawTextLabel" layoutX="379.0" layoutY="280.0" text="DRAW" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <Label fx:id="main1" layoutX="379.0" layoutY="306.0" text="MAIN 1" textFill="WHITE">
+      <Label fx:id="mainTextLabel" layoutX="379.0" layoutY="306.0" text="MAIN" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="battle" layoutX="378.0" layoutY="333.0" text="BATTLE" textFill="WHITE">
+      <Label fx:id="battleTextLabel" layoutX="378.0" layoutY="333.0" text="BATTLE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="end" layoutX="379.0" layoutY="361.0" text="END" textFill="WHITE">
+      <Label fx:id="endTextLabel" layoutX="379.0" layoutY="361.0" text="END" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -174,147 +183,11 @@
             <Image url="@../../../../../background/icon.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5bf" height="158.0" layoutX="1201.0" layoutY="366.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="88.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cf2530bf" height="32.0" layoutX="1209.0" layoutY="365.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="1213.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/fire.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0fc0db80" height="32.0" layoutX="1209.0" layoutY="397.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f6feff80" height="32.0" layoutX="1209.0" layoutY="429.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bf5f3c80" height="32.0" layoutX="1209.0" layoutY="461.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5bf" height="158.0" layoutX="548.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="88.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cf2530bf" height="32.0" layoutX="557.0" layoutY="177.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="561.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/fire.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0fc0db80" height="32.0" layoutX="557.0" layoutY="209.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f6feff80" height="32.0" layoutX="557.0" layoutY="241.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bf5f3c80" height="32.0" layoutX="557.0" layoutY="273.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Label fx:id="thoseFire" layoutX="590.0" layoutY="181.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="thoseWater" layoutX="590.0" layoutY="212.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="thoseAir" layoutX="589.0" layoutY="245.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="thoseEarth" layoutX="589.0" layoutY="277.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="thisEarth" layoutX="1242.0" layoutY="465.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="thisAir" layoutX="1241.0" layoutY="434.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="thisWater" layoutX="1242.0" layoutY="400.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="thisFire" layoutX="1241.0" layoutY="368.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffa0980" height="32.0" layoutX="1209.0" layoutY="493.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Label fx:id="thisEnergy" layoutX="1242.0" layoutY="497.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="561.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/air.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="560.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/earth.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="1213.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/air.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="1213.0" layoutY="463.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/earth.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="1213.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/water.png" />
-         </image>
-         <effect>
-            <Glow level="0.37" />
-         </effect>
-      </ImageView>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="561.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/water.png" />
-         </image>
-         <effect>
-            <Glow level="0.37" />
-         </effect>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffa0980" height="32.0" layoutX="557.0" layoutY="305.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
-      <Label fx:id="thoseEnergy" layoutX="589.0" layoutY="308.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="560.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/energy.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="1211.0" layoutY="496.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../background/energy.png" />
-         </image>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
+      <StackPane layoutX="115.0" layoutY="560.0" prefHeight="57.0" prefWidth="200.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="44.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <Label fx:id="gameMessage" />
+         </children>
+      </StackPane>
    </children>
 </Pane>

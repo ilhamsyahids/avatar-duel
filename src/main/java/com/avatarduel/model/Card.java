@@ -31,7 +31,9 @@ public abstract class Card {
         return description;
     }
 
-    public Mode getMode(){ return mode; }
+    public Mode getMode() {
+        return mode;
+    }
 
     public Element getElement() {
         return element;
@@ -41,12 +43,13 @@ public abstract class Card {
         return image;
     }
 
-    public void setMode(Mode mode){
+    public void setMode(Mode mode) {
         this.mode = mode;
     }
     
     @Override
     public String toString() {
-        return name + ":" + element + ":" + image.split("/")[image.split("/").length - 1] + this.getClass().getSimpleName();
+        return name + ":" + element + ":" + image.split("/")[image.split("/").length - 1]
+                + this.getClass().getSimpleName();
     }
 }

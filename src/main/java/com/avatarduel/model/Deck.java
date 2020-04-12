@@ -1,7 +1,6 @@
 package com.avatarduel.model;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Deck {
     public final static int MAXCARDSTAKKEN = 60;
@@ -49,10 +48,8 @@ public class Deck {
     }
 
     private void refill() {
-        ArrayList<Card> ListCards = AllCards.getInstance().getAllCards();
         for (int i = 0; i < MAXCARDSTAKKEN; i++) {
-            int idx = new Random().nextInt(ListCards.size());
-            allCards.add(ListCards.get(idx));
+            allCards.add(AllCards.getInstance().getCard());
         }
     }
 

@@ -20,19 +20,18 @@ public class DeckTest {
         Character c1 = new Character("Char1", "", Element.AIR, "", 1, 2, 3);
         Character c2 = new Character("Char2", "", Element.AIR, "", 1, 2, 3);
         Character c3 = new Character("Char3", "", Element.AIR, "", 1, 2, 3);
-        AllCards.addCharacter(c1);
-        AllCards.addCharacter(c2);
-        AllCards.addCharacter(c3);
-        AllCards.addLand(l1);
-        AllCards.addLand(l2);
-        AllCards.addLand(l3);
-        AllCards.addSkill(s1);
-        AllCards.addSkill(s2);
-        AllCards.addSkill(s3);
-        AllCards.addSkill(d1);
-        AllCards.addSkill(d2);
-        AllCards.addSkill(p1);
-        AllCards.addAll();
+        AllCards.getInstance().getAllCards().add(c1);
+        AllCards.getInstance().getAllCards().add(c2);
+        AllCards.getInstance().getAllCards().add(c3);
+        AllCards.getInstance().getAllCards().add(l1);
+        AllCards.getInstance().getAllCards().add(l2);
+        AllCards.getInstance().getAllCards().add(l3);
+        AllCards.getInstance().getAllCards().add(s1);
+        AllCards.getInstance().getAllCards().add(s2);
+        AllCards.getInstance().getAllCards().add(s3);
+        AllCards.getInstance().getAllCards().add(d1);
+        AllCards.getInstance().getAllCards().add(d2);
+        AllCards.getInstance().getAllCards().add(p1);
     }
 
     @Test

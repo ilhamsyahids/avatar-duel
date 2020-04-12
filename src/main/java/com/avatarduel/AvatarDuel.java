@@ -1,9 +1,6 @@
 package com.avatarduel;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
 
-import com.avatarduel.model.Element;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.Land;
 import com.avatarduel.model.SkillAura;
@@ -19,7 +15,6 @@ import com.avatarduel.model.SkillDestroy;
 import com.avatarduel.model.SkillPowerUp;
 import com.avatarduel.model.AllCards;
 import com.avatarduel.model.Character;
-import com.avatarduel.util.CSVReader;
 import javafx.scene.Parent;
 
 public class AvatarDuel extends Application {
@@ -33,56 +28,17 @@ public class AvatarDuel extends Application {
   Stage window;
   Scene scene1, scene2;
 
-  public void loadCards() throws IOException, URISyntaxException {
-    File landCSVFile = new File((LAND_CSV_FILE_PATH));
-    File skillAuraCSVFile = new File((SKILL_AURA_CSV_FILE_PATH));
-    File skillPowerUpCSVFile = new File((SKILL_POWERUP_CSV_FILE_PATH));
-    File skillDestroyCSVFile = new File((SKILL_DESTROY_CSV_FILE_PATH));
-    File characterCSVFile = new File((CHAR_CSV_FILE_PATH));
-    CSVReader landReader = new CSVReader(landCSVFile, "\t");
-    CSVReader skillAuraReader = new CSVReader(skillAuraCSVFile, "\t");
-    CSVReader skillDestroyReader = new CSVReader(skillDestroyCSVFile, "\t");
-    CSVReader skillPowerUpReader = new CSVReader(skillPowerUpCSVFile, "\t");
-    CSVReader charReader = new CSVReader(characterCSVFile, "\t");
-    landReader.setSkipHeader(true);
-    skillAuraReader.setSkipHeader(true);
-    skillDestroyReader.setSkipHeader(true);
-    skillPowerUpReader.setSkipHeader(true);
-    charReader.setSkipHeader(true);
-    List<String[]> landRows = landReader.read();
-    List<String[]> skillAuraRows = skillAuraReader.read();
-    List<String[]> skillDestroyRows = skillDestroyReader.read();
-    List<String[]> skillPowerUpRows = skillPowerUpReader.read();
-    List<String[]> charRows = charReader.read();
-    for (String[] item : landRows) {
-      Land l = new Land(item[1], item[3], Element.valueOf(item[2]), item[4]);
-      AllCards.addLand(l);
-    }
-    for (String[] item : skillAuraRows) {
-      SkillAura l = new SkillAura(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[6]),
-          Integer.parseInt(item[7]), Integer.parseInt(item[5]));
-      AllCards.addSkill(l);
-    }
-    for (String[] item : skillDestroyRows) {
-      SkillDestroy l = new SkillDestroy(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[5]));
-      AllCards.addSkill(l);
-    }
-    for (String[] item : skillPowerUpRows) {
-      SkillPowerUp l = new SkillPowerUp(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[5]));
-      AllCards.addSkill(l);
-    }
-    for (String[] item : charRows) {
-      Character l = new Character(item[1], item[3], Element.valueOf(item[2]), item[4], Integer.parseInt(item[5]),
-          Integer.parseInt(item[6]), Integer.parseInt(item[7]));
-      AllCards.addCharacter(l);
-    }
-    AllCards.addAll();
+  public void loadCards() throws IOException {
+    AllCards.addCard(Land.class, LAND_CSV_FILE_PATH);
+    AllCards.addCard(SkillAura.class, SKILL_AURA_CSV_FILE_PATH);
+    AllCards.addCard(SkillPowerUp.class, SKILL_POWERUP_CSV_FILE_PATH);
+    AllCards.addCard(SkillDestroy.class, SKILL_DESTROY_CSV_FILE_PATH);
+    AllCards.addCard(Character.class, CHAR_CSV_FILE_PATH);
   }
 
   @Override
   public void start(Stage stage) throws IOException {
     Parent window = FXMLLoader.load(getClass().getResource("RegisterUI.fxml"));
-    // Parent window = FXMLLoader.load(getClass().getResource("PowerUI.fxml"));
     Scene windowScene = new Scene(window, 500, 400);
 
     stage.setTitle("Avatar Duel");

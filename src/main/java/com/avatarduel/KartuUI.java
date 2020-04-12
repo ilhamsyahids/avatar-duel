@@ -7,7 +7,6 @@ import com.avatarduel.model.Mode;
 import com.avatarduel.model.Phase;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.Powerable;
-import com.avatarduel.model.Phase.Fase;
 import com.avatarduel.model.Character;
 
 import javafx.scene.Parent;
@@ -117,7 +116,7 @@ public class KartuUI extends Parent {
             // implementasi set
             ((Character) this.getCard()).setMode(Mode.DEFENSE);
             Powerable powerCard = (Powerable) this.getCard();
-            if (powerCard.isCanSummon()) {
+            if (powerCard.isCanSummon()) { // Comment this for game test
                 myPlayer.getDeck().moveToArea(this.getCard());
                 myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); // Comment this for game test
             } else { // Comment this for game test

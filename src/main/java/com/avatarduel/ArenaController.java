@@ -185,7 +185,7 @@ public class ArenaController implements Initializable, Rendered {
             Logger.getLogger(ArenaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        setBackground("file:background/arena.JPG");
+        setBackground("file:src/main/resources/com/avatarduel/card/image/background/arena.JPG");
         renderStackOfCards();
     }
 
@@ -237,7 +237,9 @@ public class ArenaController implements Initializable, Rendered {
      * Render stack of cards (static)
      */
     public void renderStackOfCards() {
-        Image card = new Image(new File("background/flip.PNG").toURI().toString(), 93, 68, false, false);
+        Image card = new Image(
+                new File("src/main/resources/com/avatarduel/card/image/background/flip.PNG").toURI().toString(), 93, 68,
+                false, false);
         fillMyCard.getChildren().add(new ImageView(card));
         fillEnemyCard.getChildren().add(new ImageView(card));
     }
@@ -306,7 +308,9 @@ public class ArenaController implements Initializable, Rendered {
             setHover(cardUI);
         });
         enemyPlayer.getDeck().getHandCards().forEach(item -> {
-            Image img = new Image(new File("background/flip.PNG").toURI().toString(), 70, 72, false, false);
+            Image img = new Image(
+                    new File("src/main/resources/com/avatarduel/card/image/background/flip.PNG").toURI().toString(), 70,
+                    72, false, false);
             ImageView imageView = new ImageView(img);
             otherHand.getChildren().add(imageView);
         });

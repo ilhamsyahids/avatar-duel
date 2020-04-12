@@ -39,7 +39,7 @@ public class RegisterController implements Initializable {
     private Button playButton;
 
     public void initialize(URL url, ResourceBundle rb) {
-        setBackground("file:background/RegBackground.jpg");
+        setBackground("file:src/main/resources/com/avatarduel/card/image/background/RegBackground.jpg");
     }
 
     public void setBackground(String pict) {

@@ -42,7 +42,7 @@ public class AvatarDuel extends Application {
     Scene windowScene = new Scene(window, 500, 400);
 
     stage.setTitle("Avatar Duel");
-    stage.getIcons().add(new Image("file:background/icon.PNG"));
+    stage.getIcons().add(new Image("file:src/main/resources/com/avatarduel/card/image/background/icon.PNG"));
     stage.setScene(windowScene);
     stage.show();
 

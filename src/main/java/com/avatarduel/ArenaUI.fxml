@@ -180,7 +180,7 @@
       </Label>
       <ImageView fitHeight="57.0" fitWidth="143.0" layoutX="380.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../background/icon.png" />
+            <Image url="@../../../../../src/main/resources/com/avatarduel/card/image/background/icon.png" />
          </image>
       </ImageView>
       <StackPane layoutX="115.0" layoutY="560.0" prefHeight="57.0" prefWidth="200.0">

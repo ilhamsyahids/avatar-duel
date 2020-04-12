@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
 public class SkillAura extends Skill {
     private int attack;

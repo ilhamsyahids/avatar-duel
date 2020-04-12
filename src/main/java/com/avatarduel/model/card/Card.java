@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
 public abstract class Card {
     private String name;

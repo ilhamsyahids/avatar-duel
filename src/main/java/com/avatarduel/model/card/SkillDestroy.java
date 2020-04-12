@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
 public class SkillDestroy extends Skill {
     public SkillDestroy(String name, String description, Element element, String imagePath, int power) {

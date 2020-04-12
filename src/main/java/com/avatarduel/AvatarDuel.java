@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 import javafx.scene.image.*;
 
 import com.avatarduel.model.GameState;
-import com.avatarduel.model.Land;
-import com.avatarduel.model.SkillAura;
-import com.avatarduel.model.SkillDestroy;
-import com.avatarduel.model.SkillPowerUp;
-import com.avatarduel.model.CardsRepository;
-import com.avatarduel.model.Character;
+import com.avatarduel.model.card.Land;
+import com.avatarduel.model.card.SkillAura;
+import com.avatarduel.model.card.SkillDestroy;
+import com.avatarduel.model.card.SkillPowerUp;
+import com.avatarduel.model.card.CardsRepository;
+import com.avatarduel.model.card.Character;
 import javafx.scene.Parent;
 
 public class AvatarDuel extends Application {

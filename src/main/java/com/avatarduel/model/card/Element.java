@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
 public enum Element {
   WATER, FIRE, AIR, EARTH, ENERGY

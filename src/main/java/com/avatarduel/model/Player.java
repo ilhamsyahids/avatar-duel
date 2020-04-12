@@ -1,5 +1,9 @@
 package com.avatarduel.model;
 
+import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Deck;
+import com.avatarduel.model.card.Element;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.Point;

@@ -1,13 +1,13 @@
 package com.avatarduel;
 
-import com.avatarduel.model.Card;
+import com.avatarduel.model.card.Card;
 import com.avatarduel.model.GameState;
-import com.avatarduel.model.Land;
-import com.avatarduel.model.Mode;
+import com.avatarduel.model.card.Land;
+import com.avatarduel.model.card.Mode;
 import com.avatarduel.model.Phase;
 import com.avatarduel.model.Player;
-import com.avatarduel.model.Powerable;
-import com.avatarduel.model.Character;
+import com.avatarduel.model.card.Powerable;
+import com.avatarduel.model.card.Character;
 
 import javafx.scene.Parent;
 import javafx.scene.image.Image;

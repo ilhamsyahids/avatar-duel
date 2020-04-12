@@ -1,6 +1,6 @@
 package com.avatarduel;
 
-import com.avatarduel.model.Element;
+import com.avatarduel.model.card.Element;
 import com.avatarduel.model.Player;
 import java.net.URL;
 import java.util.ResourceBundle;

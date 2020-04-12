@@ -1,4 +1,6 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
+
+import com.avatarduel.model.GameState;
 
 import java.util.ArrayList;
 

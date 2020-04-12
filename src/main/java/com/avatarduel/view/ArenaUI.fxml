@@ -24,7 +24,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.ArenaController">
+<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.view.ArenaController">
    <children>
       <Rectangle fx:id="changePhase" arcHeight="5.0" arcWidth="5.0" fill="#ffcb21b0" height="39.0" layoutX="364.0" layoutY="354.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="165.0" />
       <Label fx:id="playerTwo" layoutX="568.0" layoutY="35.0" prefHeight="28.0" prefWidth="262.0" text="Player 2" textFill="WHITE">
@@ -180,7 +180,7 @@
       </Label>
       <ImageView fitHeight="57.0" fitWidth="143.0" layoutX="380.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../src/main/resources/com/avatarduel/card/image/background/icon.png" />
+            <Image url="@../../../../../../src/main/resources/com/avatarduel/card/image/background/icon.png" />
          </image>
       </ImageView>
       <StackPane layoutX="115.0" layoutY="560.0" prefHeight="57.0" prefWidth="200.0">

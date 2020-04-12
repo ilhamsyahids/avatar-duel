@@ -1,4 +1,4 @@
-package com.avatarduel;
+package com.avatarduel.view;
 
 import com.avatarduel.model.card.Element;
 import com.avatarduel.model.Player;

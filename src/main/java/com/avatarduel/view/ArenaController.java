@@ -1,4 +1,4 @@
-package com.avatarduel;
+package com.avatarduel.view;
 
 import java.io.File;
 import java.net.URL;

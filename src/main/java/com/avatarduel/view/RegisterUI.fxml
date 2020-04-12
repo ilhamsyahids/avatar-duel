@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.RegisterController">
+<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.view.RegisterController">
    <children>
       <TextField fx:id="playerOneName" alignment="TOP_CENTER" layoutX="176.0" layoutY="250.0" promptText="Player 1" />
       <TextField fx:id="playerTwoName" alignment="TOP_CENTER" layoutX="176.0" layoutY="291.0" promptText="Player 2" />

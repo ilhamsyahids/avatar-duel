@@ -1,4 +1,4 @@
-package com.avatarduel;
+package com.avatarduel.view;
 
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.GameState;

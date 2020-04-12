@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="powerContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="88.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.PowerController">
+<Pane fx:id="powerContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="88.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.view.PowerController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2bf" height="160.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="88.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cf2530bf" height="32.0" layoutX="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
@@ -18,7 +18,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffa0980" height="32.0" layoutX="9.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
       <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="10.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../src/main/resources/com/avatarduel/card/image/background/fire.png" />
+            <Image url="@../../../../../../src/main/resources/com/avatarduel/card/image/background/fire.png" />
          </image>
          <effect>
             <Glow />
@@ -26,7 +26,7 @@
       </ImageView>
       <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="10.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../src/main/resources/com/avatarduel/card/image/background/water.png" />
+            <Image url="@../../../../../../src/main/resources/com/avatarduel/card/image/background/water.png" />
          </image>
          <effect>
             <Glow level="0.37" />
@@ -34,7 +34,7 @@
       </ImageView>
       <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="10.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../src/main/resources/com/avatarduel/card/image/background/air.png" />
+            <Image url="@../../../../../../src/main/resources/com/avatarduel/card/image/background/air.png" />
          </image>
          <effect>
             <Glow />
@@ -42,7 +42,7 @@
       </ImageView>
       <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="10.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../src/main/resources/com/avatarduel/card/image/background/earth.png" />
+            <Image url="@../../../../../../src/main/resources/com/avatarduel/card/image/background/earth.png" />
          </image>
          <effect>
             <Glow />
@@ -50,7 +50,7 @@
       </ImageView>
       <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="10.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../src/main/resources/com/avatarduel/card/image/background/energy.png" />
+            <Image url="@../../../../../../src/main/resources/com/avatarduel/card/image/background/energy.png" />
          </image>
          <effect>
             <Glow />

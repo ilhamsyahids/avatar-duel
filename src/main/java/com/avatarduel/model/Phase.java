@@ -1,8 +1,8 @@
 package com.avatarduel.model;
 
-import com.avatarduel.ArenaController;
-import com.avatarduel.CardUI;
-import com.avatarduel.Rendered;
+import com.avatarduel.view.ArenaController;
+import com.avatarduel.view.CardUI;
+import com.avatarduel.view.Rendered;
 
 public class Phase {
     public static Phase INSTANCEPHASE = new Phase();

@@ -13,7 +13,7 @@ import com.avatarduel.model.Land;
 import com.avatarduel.model.SkillAura;
 import com.avatarduel.model.SkillDestroy;
 import com.avatarduel.model.SkillPowerUp;
-import com.avatarduel.model.AllCards;
+import com.avatarduel.model.CardsRepository;
 import com.avatarduel.model.Character;
 import javafx.scene.Parent;
 
@@ -29,11 +29,11 @@ public class AvatarDuel extends Application {
   Scene scene1, scene2;
 
   public void loadCards() throws IOException {
-    AllCards.addCard(Land.class, LAND_CSV_FILE_PATH);
-    AllCards.addCard(SkillAura.class, SKILL_AURA_CSV_FILE_PATH);
-    AllCards.addCard(SkillPowerUp.class, SKILL_POWERUP_CSV_FILE_PATH);
-    AllCards.addCard(SkillDestroy.class, SKILL_DESTROY_CSV_FILE_PATH);
-    AllCards.addCard(Character.class, CHAR_CSV_FILE_PATH);
+    CardsRepository.addCard(Land.class, LAND_CSV_FILE_PATH);
+    CardsRepository.addCard(SkillAura.class, SKILL_AURA_CSV_FILE_PATH);
+    CardsRepository.addCard(SkillPowerUp.class, SKILL_POWERUP_CSV_FILE_PATH);
+    CardsRepository.addCard(SkillDestroy.class, SKILL_DESTROY_CSV_FILE_PATH);
+    CardsRepository.addCard(Character.class, CHAR_CSV_FILE_PATH);
   }
 
   @Override

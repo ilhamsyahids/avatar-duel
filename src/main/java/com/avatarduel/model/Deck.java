@@ -49,7 +49,7 @@ public class Deck {
 
     private void refill() {
         for (int i = 0; i < MAXCARDSTAKKEN; i++) {
-            allCards.add(AllCards.getInstance().getCard());
+            allCards.add(CardsRepository.getInstance().getCard());
         }
     }
 

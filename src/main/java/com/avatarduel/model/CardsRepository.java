@@ -6,23 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.avatarduel.model.AllCards;
 import com.avatarduel.util.CSVReader;
 
-public class AllCards {
-    private static AllCards instance = new AllCards();
+public class CardsRepository {
+    private static CardsRepository instance = new CardsRepository();
     private ArrayList<Card> allCards = new ArrayList<>();
 
     /**
      * Constructor
      */
-    AllCards() {
+    CardsRepository() {
     }
 
     /**
      * @return the instance of singleton class
      */
-    public static AllCards getInstance() {
+    public static CardsRepository getInstance() {
         return instance;
     }
 

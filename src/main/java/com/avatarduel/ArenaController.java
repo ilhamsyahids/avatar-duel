@@ -260,7 +260,7 @@ public class ArenaController implements Initializable, Rendered {
 
         // ME
         myPlayer.getDeck().getHandCards().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
+            CardUI cardUI = new CardUI(item);
             myHand.getChildren().add(cardUI);
             if (Phase.getInstancePhase().getFase() == Phase.Fase.MAIN) {
                 cardUI.setHandDialog();
@@ -270,7 +270,7 @@ public class ArenaController implements Initializable, Rendered {
             setHover(cardUI);
         });
         myPlayer.getDeck().getCharacters().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
+            CardUI cardUI = new CardUI(item);
             if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
                 cardUI.imageView.setRotate(90);
             }
@@ -283,19 +283,19 @@ public class ArenaController implements Initializable, Rendered {
             setHover(cardUI);
         });
         myPlayer.getDeck().getSkills().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
+            CardUI cardUI = new CardUI(item);
             mySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
 
         // ENEMY
         enemyPlayer.getDeck().getCharacters().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
+            CardUI cardUI = new CardUI(item);
             if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
                 cardUI.imageView.setRotate(90);
             }
             enemyCharArea.getChildren().add(cardUI);
-            if (KartuUI.getPowerAttack() != 9999) {
+            if (CardUI.getPowerAttack() != 9999) {
                 cardUI.setCharacterDialogAttackedInField();
             } else {
                 cardUI.emptyCardDialog();
@@ -303,7 +303,7 @@ public class ArenaController implements Initializable, Rendered {
             setHover(cardUI);
         });
         enemyPlayer.getDeck().getSkills().forEach(item -> {
-            KartuUI cardUI = new KartuUI(item);
+            CardUI cardUI = new CardUI(item);
             enemySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });
@@ -323,9 +323,9 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Display details card when hover
      * 
-     * @param cardUI KartuUI for trigger the hover
+     * @param cardUI CardUI for trigger the hover
      */
-    public void setHover(KartuUI cardUI) {
+    public void setHover(CardUI cardUI) {
         cardUI.imageView.setOnMouseEntered(e -> {
             cardUI.setStyle(HOVERED_CARD_STYLE);
             Image img = new Image(new File(cardUI.getCard().getImage()).toURI().toString(), 200, 200, false, false);

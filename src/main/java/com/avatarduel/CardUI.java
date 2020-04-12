@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
 
 import java.io.File;
 
-public class KartuUI extends Parent {
+public class CardUI extends Parent {
     public int fieldCol;
     public int deckCol;
     public Card card;
@@ -34,7 +34,7 @@ public class KartuUI extends Parent {
     private static int powerAttack = 9999; // bernilai 9999 jika tidak ada monster di field yang mendeclare attack
     private static int powerAttacked = 9999; // bernilai 9999 jika monster yang diserang belum dipilih
 
-    public KartuUI(Card card) {
+    public CardUI(Card card) {
         HandDialog = new VBox();
         HandDialog.setSpacing(5);
         summon = new Button("summon");
@@ -60,13 +60,13 @@ public class KartuUI extends Parent {
         powerAttacked = pwr;
     }
 
-    public static void setPowerAttack(KartuUI kartuUI) {
-        Character temp = (Character) kartuUI.card;
+    public static void setPowerAttack(CardUI cardUI) {
+        Character temp = (Character) cardUI.card;
         powerAttack = temp.getAttack();
     }
 
-    public static void setPowerAttacked(KartuUI kartuUI) {
-        Character temp = (Character) kartuUI.card;
+    public static void setPowerAttacked(CardUI cardUI) {
+        Character temp = (Character) cardUI.card;
         if (temp.getMode() == Mode.ATTACK) {
             powerAttacked = temp.getAttack();
         } else {
@@ -145,7 +145,7 @@ public class KartuUI extends Parent {
             if (this.isClicked) {
                 this.emptyCardDialog();
             } else {
-                // tampilin menu tergantung state dari kartuUInya
+                // tampilin menu tergantung state dari cardUInya
                 if (getCard() instanceof Character) { // tampilin pilihan set kalau mmg dia karakter
                     this.HandDialog.getChildren().addAll(this.summon, this.set);
                 } else { // bukan karakter

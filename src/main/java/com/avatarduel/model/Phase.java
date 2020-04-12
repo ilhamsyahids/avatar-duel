@@ -1,7 +1,7 @@
 package com.avatarduel.model;
 
 import com.avatarduel.ArenaController;
-import com.avatarduel.KartuUI;
+import com.avatarduel.CardUI;
 import com.avatarduel.Rendered;
 
 public class Phase {
@@ -84,8 +84,8 @@ public class Phase {
         arenaController.getBattleTextLabel().setText("--> BATTLE");
 
         arenaController.getEndPhase().setOnMouseClicked(el -> {
-            KartuUI.setPowerAttacked(9999);
-            KartuUI.setPowerAttack(9999);
+            CardUI.setPowerAttacked(9999);
+            CardUI.setPowerAttack(9999);
             Phase.arenaController.setGameMessage("");
             endPhase();
         });

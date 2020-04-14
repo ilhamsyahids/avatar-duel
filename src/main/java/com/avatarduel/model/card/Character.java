@@ -10,6 +10,7 @@ public class Character extends Card implements Powerable {
     private int power;
     private Mode mode;
     private ArrayList<Skill> charSkills = new ArrayList<>();
+    private boolean udhAttackThisTurn;
 
     public Character(String name, String description, Element element, String imagePath, int attack, int defense,
             int power) {
@@ -18,6 +19,15 @@ public class Character extends Card implements Powerable {
         this.defense = defense;
         this.power = power;
         mode = Mode.ATTACK;
+        udhAttackThisTurn = false;
+    }
+
+    public void setUdhAttackThisTurn(boolean val){
+        this.udhAttackThisTurn = val;
+    }
+
+    public boolean getUdhAttackThisTurn(){
+        return this.udhAttackThisTurn;
     }
 
     /**

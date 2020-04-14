@@ -76,13 +76,4 @@ public class Deck {
         }
         handCards.remove(card);
     }
-
-    /*
-    deleted soon UwU
-    public void hasAttacked(Character thisChar){
-        characterArea.remove(thisChar);
-        thisChar.setUdhAttackThisTurn(true);
-        characterArea.add(thisChar);
-    }
-    */
 }

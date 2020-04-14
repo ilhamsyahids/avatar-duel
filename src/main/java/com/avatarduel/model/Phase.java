@@ -51,7 +51,8 @@ public class Phase {
     public void drawPhase() {
         fase = Fase.DRAW;
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
-        arenaController.getDirAtt().setVisible(false); //direct attack akan visible diatur di button attack di kelas CardUI
+        // direct attack akan visible diatur di button attack di kelas CardUI
+        arenaController.getDirectAttack().setVisible(false);
         arenaController.changePhasePosition(273);
         arenaController.getEndTextLabel().setText("END");
         arenaController.getDrawTextLabel().setText("--> DRAW");
@@ -82,13 +83,13 @@ public class Phase {
         arenaController.getMainTextLabel().setText("MAIN");
         arenaController.getBattleTextLabel().setText("--> BATTLE");
         arenaController.getEndPhase().setOnMouseClicked(el -> {
-            //set variabel-variabel power ke default
+            // set variabel-variabel power ke default
             CardUI.setPowerAttacked(9999);
             CardUI.setPowerAttack(9999);
             Phase.arenaController.setGameMessage("");
-            //set semua kartu current player di field udh bsa attack lagi
+            // set semua kartu current player di field udh bsa attack lagi
             GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
-                item.setUdhAttackThisTurn(false);
+                item.setIsAttackThisTurn(false);
             });
             endPhase();
         });

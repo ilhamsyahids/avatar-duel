@@ -113,7 +113,7 @@ public class ArenaController implements Initializable, Rendered {
     @FXML
     private Label gameMessage;
     @FXML
-    private Button dirAtt;
+    private Button directAttack;
 
     FXMLLoader loaderPower1;
     FXMLLoader loaderPower2;
@@ -144,12 +144,11 @@ public class ArenaController implements Initializable, Rendered {
     }
 
     /**
-     * @return the dirAtt
+     * @return the directAttack
      */
-    public Button getDirAtt() {
-        return dirAtt;
+    public Button getDirectAttack() {
+        return directAttack;
     }
-
 
     /**
      * @return the mainTextLabel
@@ -426,18 +425,17 @@ public class ArenaController implements Initializable, Rendered {
         setName(playerTwo.getText(), temp);
     }
 
-    public void dirAtt(){
-        //System.out.println("Hello Doraemon");
+    public void directAttack() {
         int oldHP = GameState.getInstance().getOtherPlayer().getHp();
         GameState.getInstance().getOtherPlayer().setHp(oldHP - CardUI.getPowerAttack());
-        CardUI.getCardAttack().setUdhAttackThisTurn(true); //si attacker udh nyerang karena udh menetukan target (suatu kartu dianggap udh nyerang kalo dia udh nentuin targetnya jg)
+        // si attacker udh nyerang karena udh menetukan target (suatu kartu dianggap udh
+        // nyerang kalo dia udh nentuin targetnya jg)
+        CardUI.getCardAttack().setIsAttackThisTurn(true);
         CardUI.setPowerAttack(9999); // kembalikan ke default value
         CardUI.setPowerAttacked(9999); // kembalikan ke default value
-        dirAtt.setVisible(false);
+        directAttack.setVisible(false);
         setGameMessage("Direct Attack Berhasil");
         Phase.arenaController.render();
     }
-
-
 
 }

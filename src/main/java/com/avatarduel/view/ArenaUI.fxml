@@ -181,6 +181,6 @@
             <Label fx:id="gameMessage" />
          </children>
       </StackPane>
-      <Button fx:id="dirAtt" layoutX="903.0" layoutY="51.0" mnemonicParsing="false" onMouseClicked="#dirAtt" text="Direct Attack" />
+      <Button fx:id="directAttack" layoutX="903.0" layoutY="51.0" mnemonicParsing="false" onMouseClicked="#directAttack" text="Direct Attack" />
    </children>
 </Pane>

@@ -14,7 +14,6 @@ import com.avatarduel.model.GameState;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.SkillAura;
 import java.io.IOException;
-import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
@@ -40,7 +39,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -148,40 +146,13 @@ public class ArenaController implements Initializable, Rendered {
         Timeline blinker = createBlinker(gameMessage);
         blinker.setOnFinished(event -> gameMessage.setText(""));
         FadeTransition fader = createFader(gameMessage);
-        SequentialTransition blinkThenFade = new SequentialTransition(
-                gameMessage,
-                blinker,
-                fader
-//                this.message.setLayoutX(358),
-//                this.message.setLayoutY(65)
-        );
+        SequentialTransition blinkThenFade = new SequentialTransition(gameMessage, blinker, fader);
         blinkThenFade.play();
     }
-    
-    public Timeline createBlinker(Node node){
+
+    public Timeline createBlinker(Node node) {
         Timeline blink = new Timeline(
-//                new KeyFrame(
-//                        Duration.seconds(0),
-//                        new KeyValue(
-//                                node.opacityProperty(), 
-//                                1, 
-//                                Interpolator.DISCRETE)
-//                ),
-//                new KeyFrame(
-//                        Duration.seconds(0.5),
-//                        new KeyValue(
-//                                node.opacityProperty(), 
-//                                0, 
-//                                Interpolator.DISCRETE)
-//                ),
-                new KeyFrame(
-                        Duration.seconds(1.5),
-                        new KeyValue(
-                                node.opacityProperty(), 
-                                1, 
-                                Interpolator.DISCRETE)
-                )
-        );
+                new KeyFrame(Duration.seconds(1.5), new KeyValue(node.opacityProperty(), 1, Interpolator.DISCRETE)));
         blink.setCycleCount(1);
 
         return blink;
@@ -191,11 +162,10 @@ public class ArenaController implements Initializable, Rendered {
         FadeTransition fade = new FadeTransition(Duration.seconds(0.25), node);
         fade.setFromValue(1);
         fade.setToValue(0);
-        
+
         return fade;
     }
 
-    
     /**
      * @return the drawTextLabel
      */
@@ -387,28 +357,29 @@ public class ArenaController implements Initializable, Rendered {
         renderCountRestTakeCards();
         renderPower();
         setParamLife(myPlayer.getHp(), enemyPlayer.getHp());
-        
+
         // Change color of life bar base on player HP
-        if (GameState.getInstance().getCurrentPlayer().getHp() <= 80){
+        if (GameState.getInstance().getCurrentPlayer().getHp() <= 80) {
             myBar.setStyle("-fx-accent: green");
-            if (GameState.getInstance().getCurrentPlayer().getHp() <= 40){
+            if (GameState.getInstance().getCurrentPlayer().getHp() <= 40) {
                 myBar.setStyle("-fx-accent: yellow");
-                if (GameState.getInstance().getCurrentPlayer().getHp() <= 20){
+                if (GameState.getInstance().getCurrentPlayer().getHp() <= 20) {
                     myBar.setStyle("-fx-accent: red");
                 }
-            } 
+            }
         }
-        
-        if (GameState.getInstance().getOtherPlayer().getHp() <= 80){
+
+        if (GameState.getInstance().getOtherPlayer().getHp() <= 80) {
             enemyBar.setStyle("-fx-accent: green");
-            if (GameState.getInstance().getOtherPlayer().getHp() <= 40){
+            if (GameState.getInstance().getOtherPlayer().getHp() <= 40) {
                 enemyBar.setStyle("-fx-accent: yellow");
-                if (GameState.getInstance().getOtherPlayer().getHp() <= 20){
+                if (GameState.getInstance().getOtherPlayer().getHp() <= 20) {
                     enemyBar.setStyle("-fx-accent: red");
                 }
             }
         }
 
+        checkWinner();
     }
 
     /**
@@ -518,6 +489,30 @@ public class ArenaController implements Initializable, Rendered {
         directAttack.setVisible(false);
         setGameMessage("Direct Attack Berhasil");
         Phase.arenaController.render();
+    }
+
+    /**
+     * Check winner game
+     * 
+     * @return player name, empty string for no player win
+     */
+    public String checkWinner() {
+        Player myPlayer = GameState.getInstance().getCurrentPlayer();
+        Player enemyPlayer = GameState.getInstance().getOtherPlayer();
+        String win = "";
+        if (myPlayer.getHp() <= 0 || myPlayer.getDeck().getLeftTakeCards() <= 0) {
+            win = playerTwo.getText();
+            this.utama.getChildren().clear(); // Kalo menang clear semuanya
+            this.loaderPower1 = new FXMLLoader();
+            this.loaderPower2 = new FXMLLoader();
+        } else if (enemyPlayer.getHp() <= 0 || enemyPlayer.getDeck().getLeftTakeCards() <= 0) {
+            win = playerOne.getText();
+            this.utama.getChildren().clear();
+            this.loaderPower1 = new FXMLLoader();
+            this.loaderPower2 = new FXMLLoader();
+        }
+
+        return win;
     }
 
 }

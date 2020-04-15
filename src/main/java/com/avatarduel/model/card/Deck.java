@@ -65,7 +65,7 @@ public class Deck {
             takeCardToHand();
         }
     }
-    
+
     public void moveToArea(Card card) {
         if (card instanceof Character) {
             characterArea.add((Character) card);

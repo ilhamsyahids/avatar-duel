@@ -56,27 +56,27 @@
             <Glow />
          </effect>
       </ImageView>
-      <Label fx:id="fireElmt" layoutX="41.0" layoutY="3.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
+      <Label fx:id="waterElmt" layoutX="41.0" layoutY="35.0" prefHeight="26.0" prefWidth="37.0" text="0/0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="waterElmt" layoutX="41.0" layoutY="35.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
+      <Label fx:id="airElmt" layoutX="41.0" layoutY="67.0" prefHeight="26.0" prefWidth="37.0" text="0/0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="airElmt" layoutX="41.0" layoutY="67.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
+      <Label fx:id="earthElmt" layoutX="41.0" layoutY="99.0" prefHeight="26.0" prefWidth="37.0" text="0/0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="earthElmt" layoutX="41.0" layoutY="99.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
+      <Label fx:id="energyElmt" layoutX="41.0" layoutY="130.0" prefHeight="26.0" prefWidth="37.0" text="0/0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="energyElmt" layoutX="41.0" layoutY="130.0" prefHeight="26.0" prefWidth="37.0" text="0/0" textFill="WHITE">
+      <Label fx:id="fireElmt" layoutX="41.0" layoutY="3.0" prefHeight="26.0" prefWidth="37.0" text="0/0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

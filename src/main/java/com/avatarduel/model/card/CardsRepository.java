@@ -36,7 +36,7 @@ public class CardsRepository {
      */
     public static <T extends Card> void addCard(Class<T> card, String url) throws IOException {
         File fileCSV = new File(url);
-        CSVReader cardReader = new CSVReader(fileCSV, "\t");
+        CSVReader cardReader = new CSVReader(fileCSV, ";");
         cardReader.setSkipHeader(true);
         List<String[]> cardRows = cardReader.read();
         Card cardObject = new Card() {
@@ -80,6 +80,6 @@ public class CardsRepository {
      */
     public Card getCard() {
         int idx = new Random().nextInt(allCards.size());
-        return allCards.get(idx);
+        return allCards.remove(idx);
     }
 }

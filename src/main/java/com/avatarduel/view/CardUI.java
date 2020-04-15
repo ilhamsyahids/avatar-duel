@@ -113,7 +113,11 @@ public class CardUI extends Parent {
             // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
             // test
             // if (powerCard.isCanSummon()) { // Comment this for game test
-            myPlayer.getDeck().moveToArea(this.getCard());
+            try {
+                myPlayer.getDeck().moveToArea(this.getCard());
+            } catch (Exception e1) {
+                Phase.arenaController.setGameMessage(e1.getMessage());
+            }
             // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
             // Comment this for game test
             // } else { // Comment this for game test
@@ -128,7 +132,11 @@ public class CardUI extends Parent {
             // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
             // test
             // if (powerCard.isCanSummon()) { // Comment this for game test
-            myPlayer.getDeck().moveToArea(this.getCard());
+            try {
+                myPlayer.getDeck().moveToArea(this.getCard());
+            } catch (Exception e1) {
+                Phase.arenaController.setGameMessage(e1.getMessage());
+            }
             // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
             // Comment this for game test
             // } else { // Comment this for game test
@@ -143,7 +151,11 @@ public class CardUI extends Parent {
                 // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
                 // test
                 // if (powerCard.isCanSummon()) { // Comment this for game test
-                myPlayer.getDeck().moveToArea(this.getCard());
+                try {
+                    myPlayer.getDeck().moveToArea(this.getCard());
+                } catch (Exception e1) {
+                    Phase.arenaController.setGameMessage(e1.getMessage());
+                }
                 // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
                 // Comment this for game test
                 // } else { // Comment this for game test
@@ -151,7 +163,11 @@ public class CardUI extends Parent {
                 // for game test
                 // } // Comment this for game test
             } else {
-                myPlayer.getDeck().moveToArea(this.getCard());
+                try {
+                    myPlayer.getDeck().moveToArea(this.getCard());
+                } catch (Exception e1) {
+                    Phase.arenaController.setGameMessage(e1.getMessage());
+                }
             }
             Phase.arenaController.render();
             // tambahin kodingan efek dari kartunya disini..

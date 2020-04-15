@@ -14,8 +14,15 @@ import com.avatarduel.model.GameState;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.SkillAura;
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,8 +40,11 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 public class ArenaController implements Initializable, Rendered {
 
@@ -133,9 +143,59 @@ public class ArenaController implements Initializable, Rendered {
      * @param msg the message to gameMessage
      */
     public void setGameMessage(String msg) {
+        this.gameMessage.setFont(Font.loadFont("file:src/main/resources/com/avatarduel/card/data/fonts/RAVIE.ttf", 38));
         this.gameMessage.setText(msg);
+        Timeline blinker = createBlinker(gameMessage);
+        blinker.setOnFinished(event -> gameMessage.setText(""));
+        FadeTransition fader = createFader(gameMessage);
+        SequentialTransition blinkThenFade = new SequentialTransition(
+                gameMessage,
+                blinker,
+                fader
+//                this.message.setLayoutX(358),
+//                this.message.setLayoutY(65)
+        );
+        blinkThenFade.play();
+    }
+    
+    public Timeline createBlinker(Node node){
+        Timeline blink = new Timeline(
+//                new KeyFrame(
+//                        Duration.seconds(0),
+//                        new KeyValue(
+//                                node.opacityProperty(), 
+//                                1, 
+//                                Interpolator.DISCRETE)
+//                ),
+//                new KeyFrame(
+//                        Duration.seconds(0.5),
+//                        new KeyValue(
+//                                node.opacityProperty(), 
+//                                0, 
+//                                Interpolator.DISCRETE)
+//                ),
+                new KeyFrame(
+                        Duration.seconds(1.5),
+                        new KeyValue(
+                                node.opacityProperty(), 
+                                1, 
+                                Interpolator.DISCRETE)
+                )
+        );
+        blink.setCycleCount(1);
+
+        return blink;
     }
 
+    private FadeTransition createFader(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(0.25), node);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        
+        return fade;
+    }
+
+    
     /**
      * @return the drawTextLabel
      */
@@ -327,6 +387,28 @@ public class ArenaController implements Initializable, Rendered {
         renderCountRestTakeCards();
         renderPower();
         setParamLife(myPlayer.getHp(), enemyPlayer.getHp());
+        
+        // Change color of life bar base on player HP
+        if (GameState.getInstance().getCurrentPlayer().getHp() <= 80){
+            myBar.setStyle("-fx-accent: green");
+            if (GameState.getInstance().getCurrentPlayer().getHp() <= 40){
+                myBar.setStyle("-fx-accent: yellow");
+                if (GameState.getInstance().getCurrentPlayer().getHp() <= 20){
+                    myBar.setStyle("-fx-accent: red");
+                }
+            } 
+        }
+        
+        if (GameState.getInstance().getOtherPlayer().getHp() <= 80){
+            enemyBar.setStyle("-fx-accent: green");
+            if (GameState.getInstance().getOtherPlayer().getHp() <= 40){
+                enemyBar.setStyle("-fx-accent: yellow");
+                if (GameState.getInstance().getOtherPlayer().getHp() <= 20){
+                    enemyBar.setStyle("-fx-accent: red");
+                }
+            }
+        }
+
     }
 
     /**

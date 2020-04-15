@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Deck {
     public final static int MAXCARDSTAKKEN = 60;
-    private ArrayList<Skill> skillArea = new ArrayList<>(8);
-    private ArrayList<Character> characterArea = new ArrayList<>(8);
+    private ArrayList<Skill> skillArea = new ArrayList<>(6);
+    private ArrayList<Character> characterArea = new ArrayList<>(6);
     private ArrayList<Card> handCards = new ArrayList<>();
     private ArrayList<Card> allCards = new ArrayList<>();
     private int leftTakeCards = MAXCARDSTAKKEN;
@@ -65,7 +65,7 @@ public class Deck {
             takeCardToHand();
         }
     }
-
+    
     public void moveToArea(Card card) {
         if (card instanceof Character) {
             characterArea.add((Character) card);

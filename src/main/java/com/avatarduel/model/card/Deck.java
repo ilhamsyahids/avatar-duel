@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Deck {
     public final static int MAXCARDSTAKKEN = 60;
-    private ArrayList<Skill> skillArea = new ArrayList<>(6);
-    private ArrayList<Character> characterArea = new ArrayList<>(6);
+    public final static int MAXCARDSINAREA = 6;
+    private ArrayList<Skill> skillArea = new ArrayList<>(MAXCARDSINAREA);
+    private ArrayList<Character> characterArea = new ArrayList<>(MAXCARDSINAREA);
     private ArrayList<Card> handCards = new ArrayList<>();
     private ArrayList<Card> allCards = new ArrayList<>();
     private int leftTakeCards = MAXCARDSTAKKEN;
@@ -66,10 +67,14 @@ public class Deck {
         }
     }
 
-    public void moveToArea(Card card) {
+    public void moveToArea(Card card) throws Exception {
         if (card instanceof Character) {
+            if (characterArea.size() >= MAXCARDSINAREA)
+                throw new Exception("Character Area Penuh!");
             characterArea.add((Character) card);
         } else if (Skill.class.isAssignableFrom(card.getClass())) {
+            if (skillArea.size() >= MAXCARDSINAREA)
+                throw new Exception("Skill Area Penuh!");
             skillArea.add((Skill) card);
         } else if (card instanceof Land) {
             ((Land) card).action();

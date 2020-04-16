@@ -247,8 +247,13 @@ public class CardUI extends Parent {
 
     public void setCharacterDialogInFieldMainPhase(boolean isSelf){
         this.destroy.setOnMouseClicked(e -> {
-           // masukin fungsi destroy kesini yaa :)
-           System.out.println("I'm going to be destroyed!! Run!!");
+            if (getCard() instanceof Character) {
+                GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard());
+                Phase.arenaController.getMyCharArea().getChildren().remove(this);
+            } else if (getCard() instanceof Skill) {
+                GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(getCard());
+                Phase.arenaController.getMySkillArea().getChildren().remove(this);
+            }
         });
 
 

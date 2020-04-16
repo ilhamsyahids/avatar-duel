@@ -209,6 +209,20 @@ public class ArenaController implements Initializable, Rendered {
     }
 
     /**
+     * @return the myCharArea
+     */
+    public HBox getMyCharArea() {
+        return myCharArea;
+    }
+
+    /**
+     * @return the mySkillArea
+     */
+    public HBox getMySkillArea() {
+        return mySkillArea;
+    }
+
+    /**
      * Init scene
      */
     public void initialize(URL url, ResourceBundle rb) {

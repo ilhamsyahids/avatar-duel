@@ -9,32 +9,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DeckTest {
+    private static final String LAND_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/land.csv";
+    private static final String SKILL_AURA_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_aura.csv";
+    private static final String SKILL_POWERUP_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_power_up.csv";
+    private static final String SKILL_DESTROY_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_destroy.csv";
+    private static final String CHAR_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/character.csv";
+
     @Before
     public void setUp() throws Exception {
-        Land l1 = new Land("Land1", "", Element.FIRE, "");
-        Land l2 = new Land("Land2", "", Element.FIRE, "");
-        Land l3 = new Land("Land3", "", Element.FIRE, "");
-        SkillAura s1 = new SkillAura("Aura1", "", Element.AIR, "", 1, 2, 2);
-        SkillAura s2 = new SkillAura("Aura2", "", Element.AIR, "", 1, 2, 2);
-        SkillAura s3 = new SkillAura("Aura3", "", Element.AIR, "", 1, 2, 2);
-        SkillDestroy d1 = new SkillDestroy("Destroy1", "", Element.AIR, "", 1);
-        SkillDestroy d2 = new SkillDestroy("Destroy2", "", Element.AIR, "", 1);
-        SkillPowerUp p1 = new SkillPowerUp("Destroy3", "", Element.AIR, "", 1);
-        Character c1 = new Character("Char1", "", Element.AIR, "", 1, 2, 3);
-        Character c2 = new Character("Char2", "", Element.AIR, "", 1, 2, 3);
-        Character c3 = new Character("Char3", "", Element.AIR, "", 1, 2, 3);
-        CardsRepository.getInstance().getAllCards().add(c1);
-        CardsRepository.getInstance().getAllCards().add(c2);
-        CardsRepository.getInstance().getAllCards().add(c3);
-        CardsRepository.getInstance().getAllCards().add(l1);
-        CardsRepository.getInstance().getAllCards().add(l2);
-        CardsRepository.getInstance().getAllCards().add(l3);
-        CardsRepository.getInstance().getAllCards().add(s1);
-        CardsRepository.getInstance().getAllCards().add(s2);
-        CardsRepository.getInstance().getAllCards().add(s3);
-        CardsRepository.getInstance().getAllCards().add(d1);
-        CardsRepository.getInstance().getAllCards().add(d2);
-        CardsRepository.getInstance().getAllCards().add(p1);
+        CardsRepository.addCard(Land.class, LAND_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillAura.class, SKILL_AURA_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillPowerUp.class, SKILL_POWERUP_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillDestroy.class, SKILL_DESTROY_CSV_FILE_PATH);
+        CardsRepository.addCard(Character.class, CHAR_CSV_FILE_PATH);
     }
 
     @Test
@@ -57,14 +44,18 @@ public class DeckTest {
     }
 
     @Test
-    public void checkArea() {
+    public void checkArea() throws Exception {
         Deck deck = new Deck();
         Character c1 = new Character("Char1", "", Element.AIR, "", 1, 2, 3);
         SkillDestroy d1 = new SkillDestroy("Destroy1", "", Element.AIR, "", 1);
         deck.getHandCards().add(c1);
         deck.getHandCards().add(d1);
         assertEquals(deck.getHandCards().size(), 2);
-        deck.moveToArea(deck.getHandCards().get(0));
+        try {
+            deck.moveToArea(deck.getHandCards().get(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         assertEquals(deck.getHandCards().size(), 1);
         deck.moveToArea(deck.getHandCards().get(0));
         assertEquals(deck.getCharacters().size(), 1);

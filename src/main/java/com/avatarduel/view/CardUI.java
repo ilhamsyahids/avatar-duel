@@ -164,11 +164,17 @@ public class CardUI extends Parent {
                 // for game test
                 // } // Comment this for game test
             } else {
-                try {
-                    myPlayer.getDeck().moveToArea(this.getCard());
-                } catch (Exception e1) {
-                    Phase.arenaController.setGameMessage(e1.getMessage());
+                if(myPlayer.getTakeLand()){
+                    try {
+                        myPlayer.getDeck().moveToArea(this.getCard());
+                        myPlayer.setTakeLand(false);
+                    } catch (Exception e1) {
+                        Phase.arenaController.setGameMessage(e1.getMessage());
+                    }
+                }else{
+                    Phase.arenaController.setGameMessage("Sekali ajaaa");
                 }
+                
             }
             Phase.arenaController.render();
             // tambahin kodingan efek dari kartunya disini..
@@ -220,19 +226,49 @@ public class CardUI extends Parent {
     public void setCharacterDialogInFieldMainPhase(boolean isSelf) {
         this.destroy.setOnMouseClicked(e -> {
             if (getCard() instanceof Character) {
+                // remove skill
+                ((Character)getCard()).getCharSkills().forEach(item -> {
+                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(item)) {
+                        GameState.getInstance().getOtherPlayer().getDeck().getSkills().remove(item);
+                    }
+                });
+                // remove character
                 GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard());
-                Phase.arenaController.getMyCharArea().getChildren().remove(this);
             } else if (getCard() instanceof Skill) {
+                for(Character character : GameState.getInstance().getCurrentPlayer().getDeck().getCharacters()){
+                    // ngecek field kita
+                    if(character.getCharSkills().contains((Skill)getCard())){
+                        // remove skill
+                        character.getCharSkills().remove((Skill)getCard());
+                        break;
+                    }
+                }
+                for(Character character : GameState.getInstance().getOtherPlayer().getDeck().getCharacters()){
+                    // ngecek field lawan
+                    if(character.getCharSkills().contains((Skill)getCard())){
+                        // remove skill
+                        character.getCharSkills().remove((Skill)getCard());
+                        break;
+                    }
+                }
                 GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(getCard());
-                Phase.arenaController.getMySkillArea().getChildren().remove(this);
             }
+
+            Phase.arenaController.render();
         });
 
         this.activateOnThis.setOnMouseClicked(e -> {
             // masukin fungsi" skill disini
             try {
                 if (skillOnAction instanceof SkillDestroy) {
-                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard())) {
+                    // remove skill
+                    ((Character)getCard()).getCharSkills().forEach(item -> {
+                        if (!GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(item)) {
+                            GameState.getInstance().getOtherPlayer().getDeck().getSkills().remove(item);
+                        }
+                    });
+                    // remove character
+                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().contains(getCard())) {
                         GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(getCard());
                     }
                     GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().remove(skillOnAction);
@@ -245,6 +281,7 @@ public class CardUI extends Parent {
                 Phase.arenaController.setGameMessage(e1.getMessage());
             }
             isSkillActive = false;
+            System.out.println(((Character)getCard()).getCharSkills().size());
             Phase.arenaController.render();
         });
 

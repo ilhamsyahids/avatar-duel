@@ -116,17 +116,30 @@ public class Character extends Card implements Powerable {
             }
         }
 
-        if (isPowerUp) {
-            if (myAttack > enemyAttack) {
-                GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
-                GameState.getInstance().getOtherPlayer().reduceHp(myAttack - enemyAttack);
-                Phase.arenaController.setGameMessage("Serangan berhasil");
+        if (character.getMode() == Mode.DEFENSE) {
+            if (isPowerUp) {
+                if (myAttack > enemyAttack) {
+                    character.removeSkills();
+                    GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
+                    GameState.getInstance().getOtherPlayer().reduceHp(myAttack - enemyAttack);
+                    Phase.arenaController.setGameMessage("Serangan berhasil");
+                } else {
+                    Phase.arenaController.setGameMessage("Serangan gagal");
+                }
             } else {
-                Phase.arenaController.setGameMessage("Serangan gagal");
+                if (myAttack > enemyDefense) {
+                    character.removeSkills();
+                    GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
+                    Phase.arenaController.setGameMessage("Serangan berhasil");
+                } else {
+                    Phase.arenaController.setGameMessage("Serangan gagal");
+                }
             }
         } else {
-            if (myAttack > enemyDefense) {
+            if (myAttack > enemyAttack) {
+                character.removeSkills();
                 GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
+                GameState.getInstance().getOtherPlayer().reduceHp(myAttack - enemyAttack);
                 Phase.arenaController.setGameMessage("Serangan berhasil");
             } else {
                 Phase.arenaController.setGameMessage("Serangan gagal");
@@ -136,6 +149,10 @@ public class Character extends Card implements Powerable {
         this.setIsAttackThisTurn(true);
     }
 
+    /**
+     * Attack directly on Player
+     * @param P the player
+     */
     public void attackOnPlayer(Player P) {
         int myAttack = getAttack();
         for (Skill skill : getCharSkills()) {
@@ -144,12 +161,27 @@ public class Character extends Card implements Powerable {
             }
         }
         P.reduceHp(myAttack);
-    } 
+    }
 
+    /**
+     * Add skill to character
+     * @param skill the skill
+     */
     public void addSkills(Skill skill) {
         // add to list
         charSkills.add(skill);
         // action
         // skill.action(this);
+    }
+
+    /**
+     * Remove all skills that attach character in arena
+     */
+    public void removeSkills() {
+        getCharSkills().forEach(item -> {
+            if (!GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(item)) {
+                GameState.getInstance().getOtherPlayer().getDeck().getSkills().remove(item);
+            }
+        });
     }
 }

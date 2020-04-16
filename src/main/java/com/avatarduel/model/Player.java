@@ -1,9 +1,9 @@
 package com.avatarduel.model;
 
-import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Deck;
 import com.avatarduel.model.card.Element;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.Point;
@@ -24,22 +24,19 @@ public class Player {
         mapPower.put(Element.WATER, new Point(0, 0));
         mapPower.put(Element.ENERGY, new Point(0, 0));
         deck.takeCardsToHand(7);
-
-        // For Debuging
-        deck.getHandCards().forEach(el -> {
-            useCard(el);
-        });
-        deck.getHandCards().forEach(item -> {
-            System.out.println(item);
-        });
-        System.out.println();
     }
 
+    /**
+     * @return the deck
+     */
     public Deck getDeck() {
         return deck;
     }
 
-    public boolean getTakeLand() {
+    /**
+     * @return the isCanTakeLand
+     */
+    public boolean isCanTakeLand() {
         return isCanTakeLand;
     }
 
@@ -96,11 +93,6 @@ public class Player {
             int x = (int) el.getValue().getX();
             el.getValue().move(x, x);
         });
-    }
-
-    public void useCard(Card card) {
-        // System.out.println(card);
-        // System.out.println(card.getClass());
     }
 
     @Override

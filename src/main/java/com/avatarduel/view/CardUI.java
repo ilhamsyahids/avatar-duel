@@ -155,8 +155,14 @@ public class CardUI extends Parent {
                 // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
                 // test
                 // if (powerCard.isCanSummon()) { // Comment this for game test
-                isSkillActive = true;
-                skillOnAction = (Skill) this.card;
+                if ((GameState.getInstance().getOtherPlayer().getDeck().getCharacters().size() != 0)
+                        || (GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size() != 0)) {
+                    Phase.arenaController.setGameMessage("Klik Target Kartu");
+                    isSkillActive = true;
+                    skillOnAction = (Skill) this.card;
+                } else {
+                    Phase.arenaController.setGameMessage("Tidak ada pilihan kartu");
+                }
                 // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
                 // Comment this for game test
                 // } else { // Comment this for game test
@@ -164,17 +170,17 @@ public class CardUI extends Parent {
                 // for game test
                 // } // Comment this for game test
             } else {
-                if(myPlayer.getTakeLand()){
+                if (myPlayer.isCanTakeLand()) {
                     try {
                         myPlayer.getDeck().moveToArea(this.getCard());
                         myPlayer.setTakeLand(false);
                     } catch (Exception e1) {
                         Phase.arenaController.setGameMessage(e1.getMessage());
                     }
-                }else{
+                } else {
                     Phase.arenaController.setGameMessage("Sekali ajaaa");
                 }
-                
+
             }
             Phase.arenaController.render();
             // tambahin kodingan efek dari kartunya disini..
@@ -201,7 +207,6 @@ public class CardUI extends Parent {
         // kotak dialog ini adalah kotak dialog yang akan ditampilkan
         this.isAttacked.setOnMouseClicked(e -> {
             // implementasi kalau kartu ini diserang
-            System.out.println("Aku diserang");
             // Set nilai powerAttacked berdasarkan mode dari kartu yang diserang
             cardAttack.action((Character) this.card);
             powerAttack = 9999; // kembalikan ke default value
@@ -227,27 +232,21 @@ public class CardUI extends Parent {
         this.destroy.setOnMouseClicked(e -> {
             if (getCard() instanceof Character) {
                 // remove skill
-                ((Character)getCard()).getCharSkills().forEach(item -> {
-                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(item)) {
-                        GameState.getInstance().getOtherPlayer().getDeck().getSkills().remove(item);
-                    }
-                });
+                ((Character) getCard()).removeSkills();
                 // remove character
                 GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard());
             } else if (getCard() instanceof Skill) {
-                for(Character character : GameState.getInstance().getCurrentPlayer().getDeck().getCharacters()){
+                for (Character character : GameState.getInstance().getCurrentPlayer().getDeck().getCharacters()) {
                     // ngecek field kita
-                    if(character.getCharSkills().contains((Skill)getCard())){
+                    if (character.getCharSkills().remove((Skill) getCard())) {
                         // remove skill
-                        character.getCharSkills().remove((Skill)getCard());
                         break;
                     }
                 }
-                for(Character character : GameState.getInstance().getOtherPlayer().getDeck().getCharacters()){
+                for (Character character : GameState.getInstance().getOtherPlayer().getDeck().getCharacters()) {
                     // ngecek field lawan
-                    if(character.getCharSkills().contains((Skill)getCard())){
+                    if (character.getCharSkills().remove((Skill) getCard())) {
                         // remove skill
-                        character.getCharSkills().remove((Skill)getCard());
                         break;
                     }
                 }
@@ -262,7 +261,7 @@ public class CardUI extends Parent {
             try {
                 if (skillOnAction instanceof SkillDestroy) {
                     // remove skill
-                    ((Character)getCard()).getCharSkills().forEach(item -> {
+                    ((Character) getCard()).getCharSkills().forEach(item -> {
                         if (!GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(item)) {
                             GameState.getInstance().getOtherPlayer().getDeck().getSkills().remove(item);
                         }
@@ -281,7 +280,6 @@ public class CardUI extends Parent {
                 Phase.arenaController.setGameMessage(e1.getMessage());
             }
             isSkillActive = false;
-            System.out.println(((Character)getCard()).getCharSkills().size());
             Phase.arenaController.render();
         });
 
@@ -321,10 +319,8 @@ public class CardUI extends Parent {
     public void setCharacterDialogInFieldBattlePhase() {
         this.attack.setOnMouseClicked(e -> {
             // implementasikan attack
-            System.out.println("Aku nyerang"); // ini dummy aja
             setPowerAttack(this);
             cardAttack = (Character) this.card;
-            System.out.println(powerAttack);
             Phase.arenaController.render();
             // bikin button directAttack visible jika enemyPlayer tidak punya karakter di
             // field

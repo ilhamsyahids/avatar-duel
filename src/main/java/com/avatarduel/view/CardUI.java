@@ -1,14 +1,11 @@
 package com.avatarduel.view;
 
-import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.*;
 import com.avatarduel.model.GameState;
-import com.avatarduel.model.card.Land;
-import com.avatarduel.model.card.Mode;
 import com.avatarduel.model.Phase;
 import com.avatarduel.model.Player;
-import com.avatarduel.model.card.Powerable;
-import com.avatarduel.model.card.Character;
 
+import com.avatarduel.model.card.Character;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,10 +24,14 @@ public class CardUI extends Parent {
     public VBox root;
     public Button summon;
     public Button set;
+    public Button destroy;
     public Button attack;
     public Button changePosition;
     public Button isAttacked;
     public Button activate;
+    public Button activateOnThis;
+    private static Skill skillOnAction; // ini buat nyimpen kartu yg lagi ngegunain skillnya saat ini
+    private static boolean isSkillActive = false; // bernilai True jika ada kartu skill yang sedang aktif, akan bernilai False jika gk ada kartu skill yg sedang aktif
     private static int powerAttack = 9999; // bernilai 9999 jika tidak ada monster di field yang mendeclare attack
     private static int powerAttacked = 9999; // bernilai 9999 jika monster yang diserang belum dipilih
     private static Character cardAttack;
@@ -41,9 +42,11 @@ public class CardUI extends Parent {
         summon = new Button("summon");
         set = new Button("set");
         attack = new Button("attack");
+        activateOnThis = new Button("activate on this");
         changePosition = new Button("changePosition");
         activate = new Button("activate");
         isAttacked = new Button("attack this");
+        destroy = new Button("destroy");
         HandDialog.getChildren().addAll();
         this.card = card;
         Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
@@ -152,6 +155,8 @@ public class CardUI extends Parent {
                 // test
                 // if (powerCard.isCanSummon()) { // Comment this for game test
                 try {
+                    isSkillActive = true;
+                    skillOnAction = (Skill)this.card;
                     myPlayer.getDeck().moveToArea(this.getCard());
                 } catch (Exception e1) {
                     Phase.arenaController.setGameMessage(e1.getMessage());
@@ -240,7 +245,59 @@ public class CardUI extends Parent {
 
     }
 
-    public void setCharacterDialogInField() {
+    public void setCharacterDialogInFieldMainPhase(boolean isSelf){
+        this.destroy.setOnMouseClicked(e -> {
+           // masukin fungsi destroy kesini yaa :)
+           System.out.println("I'm going to be destroyed!! Run!!");
+        });
+
+
+        this.activateOnThis.setOnMouseClicked(e ->{
+            // masukin fungsi" skill disini
+            System.out.println("Skill " + skillOnAction.getName() + " dikenakan pada kartu " + this.card.getName()); //ini dummy
+            isSkillActive = false;
+            Phase.arenaController.render();
+        });
+
+        this.imageView.setOnMouseClicked(el -> {
+            if (this.isClicked) {
+                this.emptyCardDialog();
+            } else {
+                if(this.card instanceof Skill){
+                    if(isSelf){
+                        this.HandDialog.getChildren().addAll(this.destroy);
+                    }
+                    else{
+                        this.emptyCardDialog();
+                    }
+                }
+                else{
+                    if(!isSkillActive){
+                        if(isSelf){
+                            this.HandDialog.getChildren().addAll(this.destroy);
+                        }
+                        else{
+                            this.emptyCardDialog();
+                        }
+                    }
+                    else{
+                        if(isSelf){
+                            this.HandDialog.getChildren().addAll(this.destroy, this.activateOnThis);
+                        }
+                        else{
+                            this.HandDialog.getChildren().addAll(this.activateOnThis);
+                        }
+                    }
+                }
+
+                this.root.getChildren().clear();
+                this.root.getChildren().addAll(this.HandDialog, this.imageView);
+                this.isClicked = true;
+            }
+        });
+    }
+
+    public void setCharacterDialogInFieldBattlePhase() {
         this.attack.setOnMouseClicked(e -> {
             // implementasikan attack
             System.out.println("Aku nyerang"); // ini dummy aja

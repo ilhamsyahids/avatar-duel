@@ -314,8 +314,12 @@ public class ArenaController implements Initializable, Rendered {
                 cardUI.imageView.setRotate(90);
             }
             myCharArea.getChildren().add(cardUI);
-            if (Phase.getInstancePhase().getFase() == Phase.Fase.BATTLE) {
-                cardUI.setCharacterDialogInField();
+            // Jika fasenya Main tampilin dialog destroy
+            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+                cardUI.setCharacterDialogInFieldMainPhase(true);
+            }
+            else if (Phase.getInstancePhase().getFase() == Phase.Fase.BATTLE) {
+                cardUI.setCharacterDialogInFieldBattlePhase();
             } else {
                 cardUI.emptyCardDialog();
             }
@@ -324,12 +328,18 @@ public class ArenaController implements Initializable, Rendered {
         myPlayer.getDeck().getSkills().forEach(item -> {
             CardUI cardUI = new CardUI(item);
             mySkillArea.getChildren().add(cardUI);
+            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+                cardUI.setCharacterDialogInFieldMainPhase(true);
+            }
             setHover(cardUI);
         });
 
         // ENEMY
         enemyPlayer.getDeck().getCharacters().forEach(item -> {
             CardUI cardUI = new CardUI(item);
+            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+                cardUI.setCharacterDialogInFieldMainPhase(false);
+            }
             if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
                 cardUI.imageView.setRotate(90);
             }
@@ -343,6 +353,9 @@ public class ArenaController implements Initializable, Rendered {
         });
         enemyPlayer.getDeck().getSkills().forEach(item -> {
             CardUI cardUI = new CardUI(item);
+            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+                cardUI.setCharacterDialogInFieldMainPhase(false);
+            }
             enemySkillArea.getChildren().add(cardUI);
             setHover(cardUI);
         });

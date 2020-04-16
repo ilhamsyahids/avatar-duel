@@ -31,7 +31,8 @@ public class CardUI extends Parent {
     public Button activate;
     public Button activateOnThis;
     private static Skill skillOnAction; // ini buat nyimpen kartu yg lagi ngegunain skillnya saat ini
-    private static boolean isSkillActive = false; // bernilai True jika ada kartu skill yang sedang aktif, akan bernilai False jika gk ada kartu skill yg sedang aktif
+    private static boolean isSkillActive = false; // bernilai True jika ada kartu skill yang sedang aktif, akan bernilai
+                                                  // False jika gk ada kartu skill yg sedang aktif
     private static int powerAttack = 9999; // bernilai 9999 jika tidak ada monster di field yang mendeclare attack
     private static int powerAttacked = 9999; // bernilai 9999 jika monster yang diserang belum dipilih
     private static Character cardAttack;
@@ -154,13 +155,8 @@ public class CardUI extends Parent {
                 // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
                 // test
                 // if (powerCard.isCanSummon()) { // Comment this for game test
-                try {
-                    isSkillActive = true;
-                    skillOnAction = (Skill)this.card;
-                    myPlayer.getDeck().moveToArea(this.getCard());
-                } catch (Exception e1) {
-                    Phase.arenaController.setGameMessage(e1.getMessage());
-                }
+                isSkillActive = true;
+                skillOnAction = (Skill) this.card;
                 // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
                 // Comment this for game test
                 // } else { // Comment this for game test
@@ -201,35 +197,11 @@ public class CardUI extends Parent {
             // implementasi kalau kartu ini diserang
             System.out.println("Aku diserang");
             // Set nilai powerAttacked berdasarkan mode dari kartu yang diserang
-            Character temp = (Character) this.card;
-            if (temp.getMode() == Mode.ATTACK) {
-                powerAttacked = temp.getAttack();
-            } else {
-                powerAttacked = temp.getDefense();
-            }
-            System.out.println("Power attack " + powerAttack);
-            System.out.println("Power yang diattack " + powerAttacked);
-            if (powerAttack > powerAttacked) {
-                System.out.println("Serangan berhasil");
-                if (temp.getMode() == Mode.ATTACK) {
-                    // jika kartu ini dalam mode attack kurangi hp lawan sebesar selisih powerAttack
-                    // dan powerAttacked
-                    int oldHP = GameState.getInstance().getOtherPlayer().getHp();
-                    GameState.getInstance().getOtherPlayer().setHp(oldHP - (powerAttack - powerAttacked));
-                }
-                GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(this.card);
-                Phase.arenaController.setGameMessage("Serangan berhasil");
-            } else {
-                System.out.println("Serangan gagal");
-                Phase.arenaController.setGameMessage("Serangan gagal");
-            }
-            cardAttack.setIsAttackThisTurn(true); // si attacker udh nyerang karena udh menetukan target (suatu kartu
-                                                  // dianggap udh nyerang kalo dia udh nentuin targetnya jg)
+            cardAttack.action((Character) this.card);
             powerAttack = 9999; // kembalikan ke default value
             powerAttacked = 9999; // kembalikan ke default value
             Phase.arenaController.getDirectAttack().setVisible(false);
             Phase.arenaController.render();
-
         });
 
         this.imageView.setOnMouseClicked(el -> {
@@ -245,7 +217,7 @@ public class CardUI extends Parent {
 
     }
 
-    public void setCharacterDialogInFieldMainPhase(boolean isSelf){
+    public void setCharacterDialogInFieldMainPhase(boolean isSelf) {
         this.destroy.setOnMouseClicked(e -> {
             if (getCard() instanceof Character) {
                 GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard());
@@ -256,10 +228,22 @@ public class CardUI extends Parent {
             }
         });
 
-
-        this.activateOnThis.setOnMouseClicked(e ->{
+        this.activateOnThis.setOnMouseClicked(e -> {
             // masukin fungsi" skill disini
-            System.out.println("Skill " + skillOnAction.getName() + " dikenakan pada kartu " + this.card.getName()); //ini dummy
+            try {
+                if (skillOnAction instanceof SkillDestroy) {
+                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard())) {
+                        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(getCard());
+                    }
+                    GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().remove(skillOnAction);
+                } else {
+                    Character cardChar = (Character) getCard();
+                    cardChar.addSkills(skillOnAction);
+                    GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(skillOnAction);
+                }
+            } catch (Exception e1) {
+                Phase.arenaController.setGameMessage(e1.getMessage());
+            }
             isSkillActive = false;
             Phase.arenaController.render();
         });
@@ -268,28 +252,23 @@ public class CardUI extends Parent {
             if (this.isClicked) {
                 this.emptyCardDialog();
             } else {
-                if(this.card instanceof Skill){
-                    if(isSelf){
+                if (this.card instanceof Skill) {
+                    if (isSelf) {
                         this.HandDialog.getChildren().addAll(this.destroy);
-                    }
-                    else{
+                    } else {
                         this.emptyCardDialog();
                     }
-                }
-                else{
-                    if(!isSkillActive){
-                        if(isSelf){
+                } else {
+                    if (!isSkillActive) {
+                        if (isSelf) {
                             this.HandDialog.getChildren().addAll(this.destroy);
-                        }
-                        else{
+                        } else {
                             this.emptyCardDialog();
                         }
-                    }
-                    else{
-                        if(isSelf){
+                    } else {
+                        if (isSelf) {
                             this.HandDialog.getChildren().addAll(this.destroy, this.activateOnThis);
-                        }
-                        else{
+                        } else {
                             this.HandDialog.getChildren().addAll(this.activateOnThis);
                         }
                     }
@@ -316,7 +295,6 @@ public class CardUI extends Parent {
                 Phase.arenaController.getDirectAttack().setVisible(true);
             }
             Phase.arenaController.setGameMessage("Klik target serangan");
-
         });
         this.changePosition.setOnMouseClicked(e -> {
             // implementasi changePosition

@@ -1,6 +1,8 @@
 package com.avatarduel.model.card;
 
 import com.avatarduel.model.GameState;
+import com.avatarduel.model.Phase;
+import com.avatarduel.model.Player;
 
 import java.util.ArrayList;
 
@@ -88,22 +90,66 @@ public class Character extends Card implements Powerable {
     public boolean isCanSummon() {
         int power = GameState.getInstance().getCurrentPlayer().getValuePower(getElement());
         return (getPower() <= power);
-
     }
 
     @Override
     public void action(Character character) {
-        // character.destroy();
-        // if (character.mode == Mode.ATTACK && character.getAttack() < attack) {
-        // GameState.getInstance().getOtherPlayer().reduceHp(attack -
-        // character.getAttack());
-        // }
+        boolean isPowerUp = false;
+        int myAttack = getAttack();
+        int enemyAttack = character.getAttack();
+        int enemyDefense = character.getDefense();
+
+        for (Skill skill : getCharSkills()) {
+            if (skill instanceof SkillPowerUp) {
+                isPowerUp = true;
+            } else if (skill instanceof SkillAura) {
+                myAttack += ((SkillAura) skill).getAttack();
+            }
+        }
+
+        for (Skill skill : character.getCharSkills()) {
+            if (skill instanceof SkillPowerUp) {
+                isPowerUp = true;
+            } else if (skill instanceof SkillAura) {
+                enemyAttack += ((SkillAura) skill).getAttack();
+                enemyDefense += ((SkillAura) skill).getDefense();
+            }
+        }
+
+        if (isPowerUp) {
+            if (myAttack > enemyAttack) {
+                GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
+                GameState.getInstance().getOtherPlayer().reduceHp(myAttack - enemyAttack);
+                Phase.arenaController.setGameMessage("Serangan berhasil");
+            } else {
+                Phase.arenaController.setGameMessage("Serangan gagal");
+            }
+        } else {
+            if (myAttack > enemyDefense) {
+                GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
+                Phase.arenaController.setGameMessage("Serangan berhasil");
+            } else {
+                Phase.arenaController.setGameMessage("Serangan gagal");
+            }
+        }
+
+        this.setIsAttackThisTurn(true);
     }
+
+    public void attackOnPlayer(Player P) {
+        int myAttack = getAttack();
+        for (Skill skill : getCharSkills()) {
+            if (skill instanceof SkillAura) {
+                myAttack += ((SkillAura) skill).getAttack();
+            }
+        }
+        P.reduceHp(myAttack);
+    } 
 
     public void addSkills(Skill skill) {
         // add to list
         charSkills.add(skill);
         // action
-        skill.action(this);
+        // skill.action(this);
     }
 }

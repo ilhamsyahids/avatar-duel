@@ -506,8 +506,7 @@ public class ArenaController implements Initializable, Rendered {
     }
 
     public void directAttack() {
-        int oldHP = GameState.getInstance().getOtherPlayer().getHp();
-        GameState.getInstance().getOtherPlayer().setHp(oldHP - CardUI.getPowerAttack());
+        CardUI.getCardAttack().attackOnPlayer(GameState.getInstance().getOtherPlayer());
         // si attacker udh nyerang karena udh menetukan target (suatu kartu dianggap udh
         // nyerang kalo dia udh nentuin targetnya jg)
         CardUI.getCardAttack().setIsAttackThisTurn(true);

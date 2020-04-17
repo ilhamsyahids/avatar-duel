@@ -464,7 +464,6 @@ public class ArenaController implements Initializable, Rendered {
                         defenceHover.setText("DEF " + (cardChar.getDefense() + ((SkillAura) skillAura).getDefense()));
                     }
                 });
-                
             }
             else{ skillAttach.setText(""); }
             paneHover.setStyle(IDLE_CARD_STYLE);

@@ -14,6 +14,7 @@ import com.avatarduel.model.GameState;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.SkillAura;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
@@ -39,6 +40,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -124,6 +126,10 @@ public class ArenaController implements Initializable, Rendered {
     private Button directAttack;
     @FXML
     private Label skillAttach;
+    @FXML
+    private VBox attachedSkill;
+    @FXML
+    private Pane tableOfSkill;
     
     FXMLLoader loaderPower1;
     FXMLLoader loaderPower2;
@@ -442,6 +448,7 @@ public class ArenaController implements Initializable, Rendered {
             defenceHover.setText("");
             powerHover.setText("");
             if (cardUI.getCard() instanceof Character) {
+                tableOfSkill.setStyle(IDLE_CARD_STYLE);
                 Character cardChar = (Character) cardUI.getCard();
                 attackHover.setText("ATK " + cardChar.getAttack());
                 defenceHover.setText("DEF " + cardChar.getDefense());
@@ -455,22 +462,45 @@ public class ArenaController implements Initializable, Rendered {
                     defenceHover.setText("DEF " + cardAura.getDefense());
                 }
             }
-            if (typeClass.getText().equalsIgnoreCase("Character")){
+            if (cardUI.getCard() instanceof Character){
+                ArrayList<Skill> listOfSkill = new ArrayList<Skill>();
                 Character cardChar = (Character) cardUI.getCard();
-                cardChar.getCharSkills().forEach(skill -> skillAttach.setText("Skill attached: " + skill.getName()));
-                cardChar.getCharSkills().forEach(skillAura -> {
-                    if (skillAura instanceof SkillAura){
-                        attackHover.setText("ATK " + (cardChar.getAttack() + ((SkillAura) skillAura).getAttack()));
-                        defenceHover.setText("DEF " + (cardChar.getDefense() + ((SkillAura) skillAura).getDefense()));
-                    }
+                cardChar.getCharSkills().forEach(skill -> {
+                    listOfSkill.add(skill);
+                    attachedSkill.getChildren().clear();
+                    listOfSkill.forEach(kemampuan -> {
+                        Label x = new Label();
+                        x.setText(kemampuan.getName());
+                        x.setFont(Font.loadFont("file:src/main/resources/com/avatarduel/card/data/fonts/RAVIE.ttf", 10.5));
+                        attachedSkill.getChildren().add(x);
+                    });
                 });
+                
+                int totalAttack = 0;
+                int totalDefence = 0;
+                for(int i=0; i<cardChar.getCharSkills().size(); i++){
+                    if (cardChar.getCharSkills().get(i) instanceof SkillAura){
+                        SkillAura cardAura = (SkillAura) cardChar.getCharSkills().get(i);
+                        totalAttack += cardAura.getAttack();
+                        totalDefence += cardAura.getDefense();
+                    }
+                }
+                attackHover.setText("ATK " + (cardChar.getAttack() + totalAttack));
+                defenceHover.setText("DEF " + (cardChar.getDefense() + totalDefence));
             }
-            else{ skillAttach.setText(""); }
+            else{ 
+//                skillAttach.setText("");
+            }
             paneHover.setStyle(IDLE_CARD_STYLE);
+            attachedSkill.setStyle(IDLE_CARD_STYLE);
+            
         });
         cardUI.setOnMouseExited(e -> {
             cardUI.setStyle(IDLE_CARD_STYLE);
             paneHover.setStyle(REMOVE_CARD_STYLE);
+            attachedSkill.setStyle(REMOVE_CARD_STYLE);
+            tableOfSkill.setStyle(REMOVE_CARD_STYLE);
+            attachedSkill.getChildren().clear();
         });
     }
 

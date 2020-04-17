@@ -6,7 +6,7 @@ id;name;element;description;imagepath
 5;Foggy Swamp;WATER;Place for immigrants of the Southern Water Tribe with an extensive array of fauna and flora.;src/main/resources/com/avatarduel/card/image/land/Foggy Swamp.png
 6;Spirit Oasis;WATER;A verdant and lush garden located in a cave in the Northern Water Tribe's capital city at the North Pole.;src/main/resources/com/avatarduel/card/image/land/Spirit Oasis.png
 7;Northern Water Tribe;WATER;The largest division of its nation and is located on an island situated near the North Pole.;src/main/resources/com/avatarduel/card/image/land/Northern Water Tribe.png
-8;Southern Water Tribe;ENERGY;Minor division of the Water Tribe. Its people are scattered in tiny villages and settlements located on an island by the South Pole.;src/main/resources/com/avatarduel/card/image/land/Southern Water Tribe.png
+8;Southern Energy Tribe;ENERGY;Minor division of the Water Tribe. Its people are scattered in tiny villages and settlements located on an island by the South Pole.;src/main/resources/com/avatarduel/card/image/land/Southern Water Tribe.png
 9;Si Wong Desert;EARTH;The largest desert in the world.;src/main/resources/com/avatarduel/card/image/land/Si Wong Desert.png
 10;Ba Sing Se;EARTH;The monolithic capital of the Earth Kingdom.;src/main/resources/com/avatarduel/card/image/land/Ba Sing Se.png
 11;Kyoshi Island;EARTH;Famous as the birthplace of Avatar Kyoshi and as the home of the elite Kyoshi Warriors.;src/main/resources/com/avatarduel/card/image/land/Kyoshi Island.png
@@ -15,10 +15,10 @@ id;name;element;description;imagepath
 14;Boiling Rock;FIRE;A massive Fire Nation prison.;src/main/resources/com/avatarduel/card/image/land/Boiling Rock.png
 15;Sun Warriors' Ancient City;FIRE;Large, historic settlement located on an island north of the Fire Nation mainland.;src/main/resources/com/avatarduel/card/image/land/Sun Warriors s Ancient City.png
 16;Fire Fountain City;FIRE;A large industrial city located in the Fire Nation.;src/main/resources/com/avatarduel/card/image/land/Fire Fountain City.png
-17;Eastern Air Temple;ENERGY;One of the two temples exclusively housing female airbenders.;src/main/resources/com/avatarduel/card/image/land/Eastern Air Temple.png
+17;Eastern Energy Temple;ENERGY;One of the two temples exclusively housing female airbenders.;src/main/resources/com/avatarduel/card/image/land/Eastern Air Temple.png
 18;Western Air Temple;AIR;One of the two temples exclusively housing female airbenders.;src/main/resources/com/avatarduel/card/image/land/Western Air Temple.png
 19;Southern Air Temple;AIR;One of the two temples exclusively housing male airbenders. Childhood home of Avatar Aang.;src/main/resources/com/avatarduel/card/image/land/Southern Air Temple.png
-20;Northern Air Temple;ENERGY;One of the two temples exclusively housing male airbenders.;src/main/resources/com/avatarduel/card/image/land/Northern Air Temple.png
+20;Northern Energy Temple;ENERGY;One of the two temples exclusively housing male airbenders.;src/main/resources/com/avatarduel/card/image/land/Northern Air Temple.png
 21;Foggy Swamp;WATER;Place for immigrants of the Southern Water Tribe with an extensive array of fauna and flora.;src/main/resources/com/avatarduel/card/image/land/Foggy Swamp.png
 22;Spirit Oasis;WATER;A verdant and lush garden located in a cave in the Northern Water Tribe's capital city at the North Pole.;src/main/resources/com/avatarduel/card/image/land/Spirit Oasis.png
 23;Northern Water Tribe;WATER;The largest division of its nation and is located on an island situated near the North Pole.;src/main/resources/com/avatarduel/card/image/land/Northern Water Tribe.png
@@ -27,7 +27,10 @@ id;name;element;description;imagepath
 26;Ba Sing Se;EARTH;The monolithic capital of the Earth Kingdom.;src/main/resources/com/avatarduel/card/image/land/Ba Sing Se.png
 27;Kyoshi Island;EARTH;Famous as the birthplace of Avatar Kyoshi and as the home of the elite Kyoshi Warriors.;src/main/resources/com/avatarduel/card/image/land/Kyoshi Island.png
 28;Omashu;EARTH;The second largest city in the Earth Kingdom and the capital of one of its provinces ruled by King Bumi.;src/main/resources/com/avatarduel/card/image/land/Omashu.png
-29;Fire Nation Capital;ENERGY;The seat of the government for the Fire Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
-30;Boiling Rock;FIRE;A massive Fire Nation prison.;src/main/resources/com/avatarduel/card/image/land/Boiling Rock.png
-31;Sun Warriors' Ancient City;FIRE;Large, historic settlement located on an island north of the Fire Nation mainland.;src/main/resources/com/avatarduel/card/image/land/Sun Warriors s Ancient City.png
-32;Fire Fountain City;FIRE;A large industrial city located in the Fire Nation.;src/main/resources/com/avatarduel/card/image/land/Fire Fountain City.png
+29;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
+30;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
+31;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
+32;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
+33;Boiling Rock;FIRE;A massive Fire Nation prison.;src/main/resources/com/avatarduel/card/image/land/Boiling Rock.png
+34;Sun Warriors' Ancient City;FIRE;Large, historic settlement located on an island north of the Fire Nation mainland.;src/main/resources/com/avatarduel/card/image/land/Sun Warriors s Ancient City.png
+35;Fire Fountain City;FIRE;A large industrial city located in the Fire Nation.;src/main/resources/com/avatarduel/card/image/land/Fire Fountain City.png

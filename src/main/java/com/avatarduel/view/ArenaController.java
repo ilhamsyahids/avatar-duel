@@ -430,9 +430,12 @@ public class ArenaController implements Initializable, Rendered {
             } else if (elementHover.getText().equalsIgnoreCase("EARTH")) {
                 this.rectElemen.setFill(Color.web("#b33c00"));
                 this.colorCard.setFill(Color.web("#e64d00"));
-            } else {
+            } else if (elementHover.getText().equalsIgnoreCase("AIR")) {
                 this.rectElemen.setFill(Color.web("#e6ffff"));
                 this.colorCard.setFill(Color.web("#ffffff"));
+            } else if (elementHover.getText().equalsIgnoreCase("ENERGY")) {
+                this.rectElemen.setFill(Color.web("darkkhaki"));
+                this.colorCard.setFill(Color.web("bisque"));
             }
             descriptionHover.setText(cardUI.getCard().getDescription());
             typeClass.setText(cardUI.getCard().getClass().getSimpleName());

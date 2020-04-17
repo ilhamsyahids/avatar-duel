@@ -122,7 +122,9 @@ public class ArenaController implements Initializable, Rendered {
     private Label gameMessage;
     @FXML
     private Button directAttack;
-
+    @FXML
+    private Label skillAttach;
+    
     FXMLLoader loaderPower1;
     FXMLLoader loaderPower2;
 
@@ -453,6 +455,18 @@ public class ArenaController implements Initializable, Rendered {
                     defenceHover.setText("DEF " + cardAura.getDefense());
                 }
             }
+            if (typeClass.getText().equalsIgnoreCase("Character")){
+                Character cardChar = (Character) cardUI.getCard();
+                cardChar.getCharSkills().forEach(skill -> skillAttach.setText("Skill attached: " + skill.getName()));
+                cardChar.getCharSkills().forEach(skillAura -> {
+                    if (skillAura instanceof SkillAura){
+                        attackHover.setText("ATK " + (cardChar.getAttack() + ((SkillAura) skillAura).getAttack()));
+                        defenceHover.setText("DEF " + (cardChar.getDefense() + ((SkillAura) skillAura).getDefense()));
+                    }
+                });
+                
+            }
+            else{ skillAttach.setText(""); }
             paneHover.setStyle(IDLE_CARD_STYLE);
         });
         cardUI.setOnMouseExited(e -> {

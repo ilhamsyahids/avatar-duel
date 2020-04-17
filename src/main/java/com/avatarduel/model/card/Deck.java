@@ -43,7 +43,7 @@ public class Deck {
     public ArrayList<Card> getHandCards() {
         return handCards;
     }
-
+    
     public void setHandCards(ArrayList<Card> handCards) {
         this.handCards = handCards;
     }

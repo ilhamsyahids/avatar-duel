@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -87,9 +88,9 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane fx:id="paneHover" layoutX="54.0" layoutY="131.0" opacity="0.0" prefHeight="433.0" prefWidth="280.0">
+      <Pane fx:id="paneHover" layoutX="68.0" layoutY="138.0" opacity="0.0" prefHeight="433.0" prefWidth="280.0">
          <children>
-            <Rectangle fx:id="colorCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="433.0" stroke="#544f4b" strokeType="INSIDE" strokeWidth="5.0" width="280.0" />
+            <Rectangle fx:id="colorCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="555.0" layoutX="-45.0" layoutY="-60.0" scaleX="0.8" scaleY="0.8" stroke="#544f4b" strokeType="INSIDE" strokeWidth="5.0" width="371.0" />
             <Rectangle fx:id="rectElemen" arcHeight="5.0" arcWidth="5.0" fill="#a42e06" height="39.0" layoutX="9.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="262.0" />
             <Label fx:id="nameHover" layoutX="13.0" layoutY="18.0" prefHeight="28.0" prefWidth="188.0" text="Name">
                <font>
@@ -108,7 +109,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label fx:id="powerHover" layoutX="236.0" layoutY="407.0" text="POW">
+            <Label fx:id="powerHover" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="233.0" layoutY="407.0" text="POW">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
@@ -121,6 +122,8 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
+            <Line endX="136.0" endY="44.125" layoutX="140.0" layoutY="358.0" startX="-135.0" startY="44.125" />
+            <Label fx:id="skillAttach" layoutX="6.0" layoutY="385.0" prefHeight="17.0" prefWidth="271.0" />
          </children>
       </Pane>
       <Label fx:id="myCountCard" layoutX="1210.0" layoutY="522.0" text="60/60" textFill="WHITE">

@@ -15,7 +15,7 @@ public abstract class Skill extends Card implements Powerable {
         super(name, description, element, imagePath);
         this.power = power;
     }
-
+    
     @Override
     public int getPower() {
         return power;

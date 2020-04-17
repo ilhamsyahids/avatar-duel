@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,12 +21,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.view.ArenaController">
+<Pane fx:id="utama" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.view.ArenaController">
    <children>
       <Rectangle fx:id="changePhase" arcHeight="5.0" arcWidth="5.0" fill="#ffcb21b0" height="39.0" layoutX="364.0" layoutY="354.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="165.0" />
       <Label fx:id="playerTwo" layoutX="568.0" layoutY="35.0" prefHeight="28.0" prefWidth="262.0" text="Player 2" textFill="WHITE">
@@ -87,9 +98,9 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane fx:id="paneHover" layoutX="54.0" layoutY="131.0" opacity="0.0" prefHeight="433.0" prefWidth="280.0">
+      <Pane fx:id="paneHover" layoutX="68.0" layoutY="138.0" opacity="0.0" prefHeight="433.0" prefWidth="280.0">
          <children>
-            <Rectangle fx:id="colorCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="433.0" stroke="#544f4b" strokeType="INSIDE" strokeWidth="5.0" width="280.0" />
+            <Rectangle fx:id="colorCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="555.0" layoutX="-45.0" layoutY="-60.0" scaleX="0.8" scaleY="0.8" stroke="#544f4b" strokeType="INSIDE" strokeWidth="5.0" width="371.0" />
             <Rectangle fx:id="rectElemen" arcHeight="5.0" arcWidth="5.0" fill="#a42e06" height="39.0" layoutX="9.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="262.0" />
             <Label fx:id="nameHover" layoutX="13.0" layoutY="18.0" prefHeight="28.0" prefWidth="188.0" text="Name">
                <font>
@@ -108,7 +119,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label fx:id="powerHover" layoutX="236.0" layoutY="407.0" text="POW">
+            <Label fx:id="powerHover" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="233.0" layoutY="407.0" text="POW">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
@@ -121,6 +132,8 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
+            <Line endX="136.0" endY="44.125" layoutX="140.0" layoutY="358.0" startX="-135.0" startY="44.125" />
+            <Label fx:id="skillAttach" layoutX="6.0" layoutY="385.0" prefHeight="17.0" prefWidth="271.0" />
          </children>
       </Pane>
       <Label fx:id="myCountCard" layoutX="1210.0" layoutY="522.0" text="60/60" textFill="WHITE">
@@ -189,5 +202,16 @@
             </LinearGradient>
          </textFill>
       </Label>
+      <Pane fx:id="tableOfSkill" layoutX="558.0" layoutY="366.0" opacity="0.0" prefHeight="158.0" prefWidth="134.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff80" height="158.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.0" width="138.0" />
+            <VBox fx:id="attachedSkill" layoutY="28.0" prefHeight="138.0" prefWidth="134.0" />
+            <Label layoutX="35.0" layoutY="7.0" text="List Of Skill">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </Pane>

@@ -13,6 +13,8 @@ import com.avatarduel.model.Player;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.SkillAura;
+import com.avatarduel.model.card.SkillPowerUp;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +41,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -122,7 +125,13 @@ public class ArenaController implements Initializable, Rendered {
     private Label gameMessage;
     @FXML
     private Button directAttack;
-
+    @FXML
+    private Label skillAttach;
+    @FXML
+    private VBox attachedSkill;
+    @FXML
+    private Pane tableOfSkill;
+    
     FXMLLoader loaderPower1;
     FXMLLoader loaderPower2;
 
@@ -439,13 +448,27 @@ public class ArenaController implements Initializable, Rendered {
             }
             descriptionHover.setText(cardUI.getCard().getDescription());
             typeClass.setText(cardUI.getCard().getClass().getSimpleName());
-            attackHover.setText("");
-            defenceHover.setText("");
-            powerHover.setText("");
+            attachedSkill.getChildren().clear();
             if (cardUI.getCard() instanceof Character) {
+                tableOfSkill.setStyle(IDLE_CARD_STYLE);
                 Character cardChar = (Character) cardUI.getCard();
-                attackHover.setText("ATK " + cardChar.getAttack());
-                defenceHover.setText("DEF " + cardChar.getDefense());
+                int totalAttack = 0;
+                int totalDefence = 0;
+
+                for (Skill skill : cardChar.getCharSkills()) {
+                    Label x = new Label();
+                    if (skill instanceof SkillAura) {
+                        SkillAura aura = (SkillAura) skill;
+                        x.setText(aura.getName());
+                        totalAttack += aura.getAttack();
+                        totalDefence += aura.getDefense();
+                    } else if (skill instanceof SkillPowerUp) {
+                        x.setText(skill.getName());
+                    }
+                    attachedSkill.getChildren().add(x);
+                }
+                attackHover.setText("ATK " + Math.max(0, cardChar.getAttack() + totalAttack));
+                defenceHover.setText("DEF " + Math.max(0, cardChar.getDefense() + totalDefence));
                 powerHover.setText("POW " + cardChar.getPower());
             } else if (Skill.class.isAssignableFrom(cardUI.getCard().getClass())) {
                 Skill cardChar = (Skill) cardUI.getCard();
@@ -457,10 +480,15 @@ public class ArenaController implements Initializable, Rendered {
                 }
             }
             paneHover.setStyle(IDLE_CARD_STYLE);
+            attachedSkill.setStyle(IDLE_CARD_STYLE);
+            
         });
         cardUI.setOnMouseExited(e -> {
             cardUI.setStyle(IDLE_CARD_STYLE);
             paneHover.setStyle(REMOVE_CARD_STYLE);
+            attachedSkill.setStyle(REMOVE_CARD_STYLE);
+            tableOfSkill.setStyle(REMOVE_CARD_STYLE);
+            attachedSkill.getChildren().clear();
         });
     }
 

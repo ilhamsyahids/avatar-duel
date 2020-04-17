@@ -1,9 +1,9 @@
 id;name;element;description;imagepath;power
 1;Air Power Up;AIR;Power up defense of air element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Air Power Up.png;2
-2;Earth Power Up;EARTH;Power up defense of Earth element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Earth Power Up.png;2
+2;Earth Power Up;ENERGY;Power up defense of Earth element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Earth Power Up.png;2
 3;Water Power Up;WATER;Power up defense of water element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Water Power Up.png;2
 4;Fire Power Up;FIRE;Power up defense of Fire element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Fire Power Up.png;2
 5;Air Power Up;AIR;Power up defense of air element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Air Power Up.png;2
 6;Earth Power Up;EARTH;Power up defense of Earth element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Earth Power Up.png;2
 7;Water Power Up;WATER;Power up defense of water element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Water Power Up.png;2
-8;Fire Power Up;FIRE;Power up defense of Fire element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Fire Power Up.png;2
+8;Fire Power Up;ENERGY;Power up defense of Fire element's character by reversing attack.;src/main/resources/com/avatarduel/card/image/skill/Fire Power Up.png;2

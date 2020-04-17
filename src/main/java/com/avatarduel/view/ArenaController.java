@@ -514,31 +514,42 @@ public class ArenaController implements Initializable, Rendered {
         CardUI.setPowerAttacked(9999); // kembalikan ke default value
         directAttack.setVisible(false);
         setGameMessage("Direct Attack Berhasil");
-        Phase.arenaController.render();
+        render();
     }
 
     /**
      * Check winner game
      * 
-     * @return player name, empty string for no player win
      */
-    public String checkWinner() {
+    public void checkWinner() {
         Player myPlayer = GameState.getInstance().getCurrentPlayer();
         Player enemyPlayer = GameState.getInstance().getOtherPlayer();
         String win = "";
         if (myPlayer.getHp() <= 0 || myPlayer.getDeck().getLeftTakeCards() <= 0) {
-            win = playerTwo.getText();
-            this.utama.getChildren().clear(); // Kalo menang clear semuanya
-            this.loaderPower1 = new FXMLLoader();
-            this.loaderPower2 = new FXMLLoader();
-        } else if (enemyPlayer.getHp() <= 0 || enemyPlayer.getDeck().getLeftTakeCards() <= 0) {
-            win = playerOne.getText();
+            if (playerOne.getText().equals("")) {
+                win = "Enemy Win!\nYou Loser!";
+            } else {
+                win = playerTwo.getText() + " Win!";
+            }
+        }
+        if (enemyPlayer.getHp() <= 0 || enemyPlayer.getDeck().getLeftTakeCards() <= 0) {
+            if (playerOne.getText().equals("")) {
+                win = "You Win!";
+            } else {
+                win = playerOne.getText() + " Win!";
+            }
+        }
+
+        if (!win.equals("")) {
             this.utama.getChildren().clear();
             this.loaderPower1 = new FXMLLoader();
             this.loaderPower2 = new FXMLLoader();
+            Label winner = new Label(win);
+            winner.setFont(Font.loadFont("file:src/main/resources/com/avatarduel/card/data/fonts/RAVIE.ttf", 50));
+            winner.setText(win);
+            winner.setOpacity(1);
+            this.utama.getChildren().add(winner);
         }
-
-        return win;
     }
 
 }

@@ -14,6 +14,16 @@ public class Character extends Card implements Powerable {
     private ArrayList<Skill> charSkills = new ArrayList<>();
     private boolean isAttackThisTurn;
 
+    /**
+     * Contructor
+     * @param name name, super
+     * @param description description, super
+     * @param element element, super
+     * @param imagePath imagePath, super
+     * @param attack the attack of this character
+     * @param defense the defense of this character
+     * @param power the power, implements from Powerable
+     */
     public Character(String name, String description, Element element, String imagePath, int attack, int defense,
             int power) {
         super(name, description, element, imagePath);
@@ -24,10 +34,17 @@ public class Character extends Card implements Powerable {
         isAttackThisTurn = false;
     }
 
+    /**
+     * Set is can attack this turn
+     * @param val value
+     */
     public void setIsAttackThisTurn(boolean val) {
         this.isAttackThisTurn = val;
     }
 
+    /**
+     * @return isAttackThisTurn
+     */
     public boolean isAttackThisTurn() {
         return this.isAttackThisTurn;
     }
@@ -116,6 +133,9 @@ public class Character extends Card implements Powerable {
             }
         }
 
+        myAttack = Math.max(0, myAttack);
+        enemyAttack = Math.max(0, enemyAttack);
+
         if (character.getMode() == Mode.DEFENSE) {
             if (isPowerUp) {
                 if (myAttack > enemyAttack) {
@@ -168,10 +188,7 @@ public class Character extends Card implements Powerable {
      * @param skill the skill
      */
     public void addSkills(Skill skill) {
-        // add to list
         charSkills.add(skill);
-        // action
-        // skill.action(this);
     }
 
     /**

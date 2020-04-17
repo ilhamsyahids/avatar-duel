@@ -13,8 +13,9 @@ import com.avatarduel.model.Player;
 import com.avatarduel.model.GameState;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.SkillAura;
+import com.avatarduel.model.card.SkillPowerUp;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
@@ -444,14 +445,27 @@ public class ArenaController implements Initializable, Rendered {
             }
             descriptionHover.setText(cardUI.getCard().getDescription());
             typeClass.setText(cardUI.getCard().getClass().getSimpleName());
-            attackHover.setText("");
-            defenceHover.setText("");
-            powerHover.setText("");
+            attachedSkill.getChildren().clear();
             if (cardUI.getCard() instanceof Character) {
                 tableOfSkill.setStyle(IDLE_CARD_STYLE);
                 Character cardChar = (Character) cardUI.getCard();
-                attackHover.setText("ATK " + cardChar.getAttack());
-                defenceHover.setText("DEF " + cardChar.getDefense());
+                int totalAttack = 0;
+                int totalDefence = 0;
+
+                for (Skill skill : cardChar.getCharSkills()) {
+                    Label x = new Label();
+                    if (skill instanceof SkillAura) {
+                        SkillAura aura = (SkillAura) skill;
+                        x.setText(aura.getName());
+                        totalAttack += aura.getAttack();
+                        totalDefence += aura.getDefense();
+                    } else if (skill instanceof SkillPowerUp) {
+                        x.setText(skill.getName());
+                    }
+                    attachedSkill.getChildren().add(x);
+                }
+                attackHover.setText("ATK " + Math.max(0, cardChar.getAttack() + totalAttack));
+                defenceHover.setText("DEF " + Math.max(0, cardChar.getDefense() + totalDefence));
                 powerHover.setText("POW " + cardChar.getPower());
             } else if (Skill.class.isAssignableFrom(cardUI.getCard().getClass())) {
                 Skill cardChar = (Skill) cardUI.getCard();
@@ -461,35 +475,6 @@ public class ArenaController implements Initializable, Rendered {
                     attackHover.setText("ATK " + cardAura.getAttack());
                     defenceHover.setText("DEF " + cardAura.getDefense());
                 }
-            }
-            if (cardUI.getCard() instanceof Character){
-                ArrayList<Skill> listOfSkill = new ArrayList<Skill>();
-                Character cardChar = (Character) cardUI.getCard();
-                cardChar.getCharSkills().forEach(skill -> {
-                    listOfSkill.add(skill);
-                    attachedSkill.getChildren().clear();
-                    listOfSkill.forEach(kemampuan -> {
-                        Label x = new Label();
-                        x.setText(kemampuan.getName());
-                        x.setFont(Font.loadFont("file:src/main/resources/com/avatarduel/card/data/fonts/RAVIE.ttf", 10.5));
-                        attachedSkill.getChildren().add(x);
-                    });
-                });
-                
-                int totalAttack = 0;
-                int totalDefence = 0;
-                for(int i=0; i<cardChar.getCharSkills().size(); i++){
-                    if (cardChar.getCharSkills().get(i) instanceof SkillAura){
-                        SkillAura cardAura = (SkillAura) cardChar.getCharSkills().get(i);
-                        totalAttack += cardAura.getAttack();
-                        totalDefence += cardAura.getDefense();
-                    }
-                }
-                attackHover.setText("ATK " + (cardChar.getAttack() + totalAttack));
-                defenceHover.setText("DEF " + (cardChar.getDefense() + totalDefence));
-            }
-            else{ 
-//                skillAttach.setText("");
             }
             paneHover.setStyle(IDLE_CARD_STYLE);
             attachedSkill.setStyle(IDLE_CARD_STYLE);

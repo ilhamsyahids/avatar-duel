@@ -3,7 +3,6 @@ package com.avatarduel.model;
 import com.avatarduel.model.card.Deck;
 import com.avatarduel.model.card.Element;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.Point;
@@ -14,6 +13,9 @@ public class Player {
     private Deck deck;
     private Map<Element, Point> mapPower;
 
+    /**
+     * Contructor Player
+     */
     public Player() {
         this.setHp(80);
         this.deck = new Deck();
@@ -40,6 +42,10 @@ public class Player {
         return isCanTakeLand;
     }
 
+    /**
+     * Set is can take land
+     * @param isCan value
+     */
     public void setTakeLand(boolean isCan) {
         isCanTakeLand = isCan;
     }
@@ -73,7 +79,8 @@ public class Player {
     }
 
     public void reduceHp(int hp) {
-        this.hp -= hp;
+        int reducer = Math.max(hp, 0);
+        this.hp -= reducer;
     }
 
     public void addPower(Element el, int added) {

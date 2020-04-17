@@ -25,6 +25,7 @@ public class CardUI extends Parent {
     public Button summon;
     public Button set;
     public Button destroy;
+    public Button destroyInHand;
     public Button attack;
     public Button changePosition;
     public Button isAttacked;
@@ -48,6 +49,7 @@ public class CardUI extends Parent {
         activate = new Button("activate");
         isAttacked = new Button("attack this");
         destroy = new Button("destroy");
+        destroyInHand = new Button("destroy");
         HandDialog.getChildren().addAll();
         this.card = card;
         Image img = new Image(new File(card.getImage()).toURI().toString(), 70, 72, false, false);
@@ -112,6 +114,10 @@ public class CardUI extends Parent {
     public void setHandDialog() {
         Player myPlayer = GameState.getInstance().getCurrentPlayer();
 
+        this.destroyInHand.setOnMouseClicked(e -> {
+            myPlayer.getDeck().getHandCards().remove(getCard());
+            Phase.arenaController.render();
+        });
         this.summon.setOnMouseClicked(e -> {
             // implementasi summon
             // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
@@ -192,9 +198,9 @@ public class CardUI extends Parent {
             } else {
                 // tampilin menu tergantung state dari cardUInya
                 if (getCard() instanceof Character) { // tampilin pilihan set kalau mmg dia karakter
-                    this.HandDialog.getChildren().addAll(this.summon, this.set);
+                    this.HandDialog.getChildren().addAll(this.summon, this.set, this.destroyInHand);
                 } else { // bukan karakter
-                    this.HandDialog.getChildren().addAll(this.activate);
+                    this.HandDialog.getChildren().addAll(this.activate, this.destroyInHand);
                 }
                 this.root.getChildren().clear();
                 this.root.getChildren().addAll(this.HandDialog, this.imageView);

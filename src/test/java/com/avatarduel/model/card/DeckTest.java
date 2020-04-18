@@ -1,8 +1,6 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
-import com.avatarduel.model.card.*;
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.model.card.Character;
 
 import org.junit.Before;
 import org.junit.Test;

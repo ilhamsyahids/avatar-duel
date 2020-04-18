@@ -1,9 +1,9 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
-import com.avatarduel.model.card.Character;
-import com.avatarduel.model.card.Element;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.avatarduel.model.card.Character;
 
 import static org.junit.Assert.*;
 
@@ -44,11 +44,4 @@ public class CharacterTest {
         assertEquals(charr.getPower(), 1);
     }
 
-    @Test
-    public void action() {
-    }
-
-    @Test
-    public void destroy() {
-    }
 }

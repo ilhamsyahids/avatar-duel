@@ -18,6 +18,11 @@ public class GameStateTest {
         CardsRepository.addCard(SkillPowerUp.class, AvatarDuel.SKILL_POWERUP_CSV_FILE_PATH);
         CardsRepository.addCard(SkillDestroy.class, AvatarDuel.SKILL_DESTROY_CSV_FILE_PATH);
         CardsRepository.addCard(Character.class, AvatarDuel.CHAR_CSV_FILE_PATH);
+        CardsRepository.addCard(Land.class, AvatarDuel.LAND_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillAura.class, AvatarDuel.SKILL_AURA_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillPowerUp.class, AvatarDuel.SKILL_POWERUP_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillDestroy.class, AvatarDuel.SKILL_DESTROY_CSV_FILE_PATH);
+        CardsRepository.addCard(Character.class, AvatarDuel.CHAR_CSV_FILE_PATH);
         new GameState();
     }
 

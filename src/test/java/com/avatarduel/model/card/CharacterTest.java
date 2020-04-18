@@ -3,8 +3,6 @@ package com.avatarduel.model.card;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.avatarduel.model.card.Character;
-
 import static org.junit.Assert.*;
 
 public class CharacterTest {

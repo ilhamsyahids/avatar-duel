@@ -28,6 +28,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -42,6 +43,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -247,6 +250,11 @@ public class ArenaController implements Initializable, Rendered {
             Logger.getLogger(ArenaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        Media soundtrack = new Media(new File("src/main/resources/com/avatarduel/card/data/soundtrack/Agni Kai.mp3").toURI().toString());
+        MediaPlayer player = new MediaPlayer(soundtrack);
+        player.setCycleCount(MediaPlayer.INDEFINITE);
+        player.setAutoPlay(true);
+        
         setBackground("file:src/main/resources/com/avatarduel/card/image/background/arena.JPG");
         renderStackOfCards();
     }
@@ -578,9 +586,12 @@ public class ArenaController implements Initializable, Rendered {
             this.loaderPower1 = new FXMLLoader();
             this.loaderPower2 = new FXMLLoader();
             Label winner = new Label(win);
-            winner.setFont(Font.loadFont("file:src/main/resources/com/avatarduel/card/data/fonts/RAVIE.ttf", 50));
+            winner.setFont(Font.loadFont("file:src/main/resources/com/avatarduel/card/data/fonts/RAVIE.ttf", 75));
             winner.setText(win);
             winner.setOpacity(1);
+            winner.setLayoutX(500);
+            winner.setLayoutY(301);
+            winner.setStyle("-fx-text-fill: white");
             this.utama.getChildren().add(winner);
         }
     }

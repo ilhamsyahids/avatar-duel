@@ -3,6 +3,7 @@ package com.avatarduel.model;
 import com.avatarduel.view.ArenaController;
 import com.avatarduel.view.CardUI;
 import com.avatarduel.view.Rendered;
+import javafx.scene.text.Font;
 
 public class Phase {
     public static Phase INSTANCEPHASE = new Phase();
@@ -67,6 +68,7 @@ public class Phase {
         arenaController.changePhasePosition(273);
         arenaController.getEndTextLabel().setText("END");
         arenaController.getDrawTextLabel().setText("--> DRAW");
+        
         arenaController.getEndPhase().setOnMouseClicked(el -> {
             mainPhase();
         });
@@ -83,7 +85,7 @@ public class Phase {
         arenaController.changePhasePosition(300);
         arenaController.getDrawTextLabel().setText("DRAW");
         arenaController.getMainTextLabel().setText("--> MAIN");
-
+     
         arenaController.getEndPhase().setOnMouseClicked(el -> {
             battlePhase();
         });

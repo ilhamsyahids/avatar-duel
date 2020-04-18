@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.avatarduel.model.Phase;
+import java.io.File;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,10 +24,14 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class RegisterController implements Initializable {
-
+    
+    MediaPlayer player;
+    
     @FXML
     private Pane utama;
     @FXML
@@ -45,6 +50,10 @@ public class RegisterController implements Initializable {
      * @param rb
      */
     public void initialize(URL url, ResourceBundle rb) {
+        Media soundtrack = new Media(new File("src/main/resources/com/avatarduel/card/data/soundtrack/Intro.mp3").toURI().toString());
+        player = new MediaPlayer(soundtrack);
+        player.setCycleCount(MediaPlayer.INDEFINITE);
+        player.setAutoPlay(true);
         setBackground("file:src/main/resources/com/avatarduel/card/image/background/RegBackground.jpg");
     }
 
@@ -85,7 +94,7 @@ public class RegisterController implements Initializable {
         String playerOne = playerOneName.getText();
         String playerTwo = playerTwoName.getText();
         controller.setName(playerOne, playerTwo);
-
+        player.stop();
         stage.show();
 
     }

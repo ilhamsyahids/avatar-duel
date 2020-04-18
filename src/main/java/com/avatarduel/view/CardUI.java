@@ -273,7 +273,7 @@ public class CardUI extends Parent {
                         }
                     });
                     // remove character
-                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().contains(getCard())) {
+                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard())) {
                         GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(getCard());
                     }
                     GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().remove(skillOnAction);

@@ -449,6 +449,9 @@ public class ArenaController implements Initializable, Rendered {
             descriptionHover.setText(cardUI.getCard().getDescription());
             typeClass.setText(cardUI.getCard().getClass().getSimpleName());
             attachedSkill.getChildren().clear();
+            attackHover.setText("");
+            defenceHover.setText("");
+            powerHover.setText("");
             if (cardUI.getCard() instanceof Character) {
                 tableOfSkill.setStyle(IDLE_CARD_STYLE);
                 Character cardChar = (Character) cardUI.getCard();

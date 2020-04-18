@@ -101,9 +101,4 @@ public class Player {
             el.getValue().move(x, x);
         });
     }
-
-    @Override
-    public String toString() {
-        return "Hand:" + deck.getHandCards();
-    }
 }

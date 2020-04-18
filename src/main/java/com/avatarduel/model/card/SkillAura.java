@@ -13,8 +13,7 @@ public class SkillAura extends Skill {
 
     @Override
     public void action(Character character) {
-        character.setAttack(character.getAttack() + attack);
-        character.setDefense(character.getDefense() + defense);
+        character.addSkills(this);
     }
 
     public int getAttack() {

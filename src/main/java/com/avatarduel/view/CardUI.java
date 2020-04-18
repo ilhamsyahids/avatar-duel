@@ -279,7 +279,7 @@ public class CardUI extends Parent {
                     GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().remove(skillOnAction);
                 } else {
                     Character cardChar = (Character) getCard();
-                    cardChar.addSkills(skillOnAction);
+                    skillOnAction.action(cardChar);
                     GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(skillOnAction);
                 }
             } catch (Exception e1) {

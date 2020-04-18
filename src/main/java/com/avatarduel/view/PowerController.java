@@ -33,6 +33,10 @@ public class PowerController implements Initializable {
         // Do nothing
     }
 
+    /**
+     * Set the UI text of power of each element with the value of power of related element
+     * @param p
+     */
     public void setPowerPoint(Player p) {
         this.fireElmt.setText(p.getSpecificPower(Element.FIRE));
         this.waterElmt.setText(p.getSpecificPower(Element.WATER));

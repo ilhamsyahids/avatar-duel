@@ -50,51 +50,99 @@ public class Player {
         isCanTakeLand = isCan;
     }
 
+    /**
+     * Set the player's deck with the value of this parameter
+     * @param deck
+     */
     public void setdeck(Deck deck) {
         this.deck = deck;
     }
 
+    /**
+     *
+     * @return the map of element with its corresponding value of this player
+     */
     public Map<Element, Point> getMapPower() {
         return mapPower;
     }
 
+    /**
+     *
+     * @param el
+     * @return string with format (el)/(its max value)
+     */
     public String getSpecificPower(Element el) {
         return getValuePower(el) + "/" + getMaxPower(el);
     }
 
+    /**
+     *
+     * @param el
+     * @return the max value of power of that el element
+     */
     public int getMaxPower(Element el) {
         return (int) getMapPower().get(el).getX();
     }
 
+    /**
+     *
+     * @param el
+     * @return the value of unused number of power of that el element
+     */
     public int getValuePower(Element el) {
         return (int) getMapPower().get(el).getY();
     }
 
+    /**
+     *
+     * @return hp of this player
+     */
     public int getHp() {
         return hp;
     }
 
+    /**
+     * Set hp of this player according to param hp
+     * @param hp
+     */
     public void setHp(int hp) {
         this.hp = hp;
     }
 
+    /**
+     * Reduce hp of this player with value of param hp
+     * @param hp
+     */
     public void reduceHp(int hp) {
         int reducer = Math.max(hp, 0);
         this.hp -= reducer;
     }
 
+    /**
+     * Add power of el element with the value of param added
+     * @param el
+     * @param added
+     */
     public void addPower(Element el, int added) {
         int x = (int) mapPower.get(el).getX();
         int y = (int) mapPower.get(el).getY();
         mapPower.get(el).move(x + added, y + added);
     }
 
+    /**
+     * Reduce the power of el element with the value of param minus
+     * @param el
+     * @param minus
+     */
     public void reducePower(Element el, int minus) {
         int x = (int) mapPower.get(el).getX();
         int y = (int) mapPower.get(el).getY();
         mapPower.get(el).move(x, y - minus);
     }
 
+    /**
+     * Reset all unused value of power to its maxValue
+     */
     public void resetPower() {
         mapPower.entrySet().forEach(el -> {
             int x = (int) el.getValue().getX();

@@ -40,14 +40,25 @@ public class Phase {
         Phase.arenaController = (ArenaController) arenaController;
     }
 
+    /**
+     * Function that is called once to start the game for the first time
+     */
     public void startGame() {
         drawPhase();
     }
 
+    /**
+     * Return single instance of this(Phase) class
+     *
+     * @return INSTANCEPHASE
+     */
     public static Phase getInstancePhase() {
         return INSTANCEPHASE;
     }
 
+    /**
+     * Set atribute "fase" to FASE.DRAW and adjust the UI in arenaController according to its new fase
+     */
     public void drawPhase() {
         fase = Fase.DRAW;
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
@@ -62,6 +73,9 @@ public class Phase {
         arenaController.render();
     }
 
+    /**
+     * Set atribute "fase" to FASE.MAIN and adjust the UI in arenaController according to its new fase
+     */
     public void mainPhase() {
         fase = Fase.MAIN;
         GameState.getInstance().getCurrentPlayer().setTakeLand(true);
@@ -76,6 +90,9 @@ public class Phase {
         arenaController.render();
     }
 
+    /**
+     * Set atribute "fase" to FASE.BATTLE and adjust the UI in arenaController according to its new fase
+     */
     public void battlePhase() {
         fase = Fase.BATTLE;
 
@@ -83,9 +100,7 @@ public class Phase {
         arenaController.getMainTextLabel().setText("MAIN");
         arenaController.getBattleTextLabel().setText("--> BATTLE");
         arenaController.getEndPhase().setOnMouseClicked(el -> {
-            // set variabel-variabel power ke default
-            CardUI.setPowerAttacked(9999);
-            CardUI.setPowerAttack(9999);
+            CardUI.setThereIsCardAttack(false);
             Phase.arenaController.setGameMessage("");
             // set semua kartu current player di field udh bsa attack lagi
             GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
@@ -95,7 +110,9 @@ public class Phase {
         });
         arenaController.render();
     }
-
+    /**
+     * Set atribute "fase" to FASE.BATTLE and adjust the UI in arenaController according to its new fase
+     */
     public void endPhase() {
         fase = Fase.END;
 

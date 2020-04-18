@@ -11,14 +11,26 @@ public class Deck {
     private ArrayList<Card> allCards = new ArrayList<>();
     private int leftTakeCards = MAXCARDSTAKKEN;
 
+    /**
+     * Constructor
+     */
     public Deck() {
         refill();
     }
 
+    /**
+     *
+     * @return card that is left in Deck ( num of Cards that is Drawable )
+     */
     public int getLeftTakeCards() {
         return leftTakeCards;
     }
 
+    /**
+     * Update number of remaining Cards in Deck
+     *
+     * @param leftTakeCards
+     */
     public void setLeftTakeCards(int leftTakeCards) {
         this.leftTakeCards = leftTakeCards;
     }
@@ -32,28 +44,50 @@ public class Deck {
         return getLeftTakeCards() + "/" + MAXCARDSTAKKEN;
     }
 
+    /**
+     *
+     * @return the list of Character in Field
+     */
     public ArrayList<Character> getCharacters() {
         return characterArea;
     }
 
+    /**
+     *
+     * @return the list of Skill Card in Field
+     */
     public ArrayList<Skill> getSkills() {
         return skillArea;
     }
 
+    /**
+     *
+     * @return the list of Card in Hand
+     */
     public ArrayList<Card> getHandCards() {
         return handCards;
     }
-    
+
+    /**
+     * Set the list of handCards
+     * @param handCards
+     */
     public void setHandCards(ArrayList<Card> handCards) {
         this.handCards = handCards;
     }
 
+    /**
+     * Initialize all cards in Deck from CardsRepository(can be any type)
+     */
     private void refill() {
         for (int i = 0; i < MAXCARDSTAKKEN; i++) {
             allCards.add(CardsRepository.getInstance().getCard());
         }
     }
 
+    /**
+     * Add card to Hand From Deck(allCards)
+     */
     public void takeCardToHand() {
         if (handCards.size() < 8) {
             handCards.add(allCards.remove(0));
@@ -61,12 +95,21 @@ public class Deck {
         }
     }
 
+    /**
+     * Add card to Hand From Deck(allCards) n times
+     * @param n
+     */
     public void takeCardsToHand(int n) {
         for (int i = 0; i < n; i++) {
             takeCardToHand();
         }
     }
 
+    /**
+     * Move the card from hand to field if space in field for that type of card is not full
+     * @param card
+     * @throws Exception
+     */
     public void moveToArea(Card card) throws Exception {
         if (card instanceof Character) {
             if (characterArea.size() >= MAXCARDSINAREA)

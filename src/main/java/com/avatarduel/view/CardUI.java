@@ -15,29 +15,31 @@ import javafx.scene.control.Button;
 import java.io.File;
 
 public class CardUI extends Parent {
-    public int fieldCol;
-    public int deckCol;
-    public Card card;
-    public ImageView imageView;
+    private Card card;
+    private ImageView imageView;
     public boolean isClicked = false;
-    public VBox HandDialog;
-    public VBox root;
-    public Button summon;
-    public Button set;
-    public Button destroy;
-    public Button destroyInHand;
-    public Button attack;
-    public Button changePosition;
-    public Button isAttacked;
-    public Button activate;
-    public Button activateOnThis;
+    private VBox HandDialog;
+    private VBox root;
+    private Button summon;
+    private Button set;
+    private Button destroy;
+    private Button destroyInHand;
+    private Button attack;
+    private Button changePosition;
+    private Button isAttacked;
+    private Button activate;
+    private Button activateOnThis;
     private static Skill skillOnAction; // ini buat nyimpen kartu yg lagi ngegunain skillnya saat ini
     private static boolean isSkillActive = false; // bernilai True jika ada kartu skill yang sedang aktif, akan bernilai
                                                   // False jika gk ada kartu skill yg sedang aktif
-    private static int powerAttack = 9999; // bernilai 9999 jika tidak ada monster di field yang mendeclare attack
-    private static int powerAttacked = 9999; // bernilai 9999 jika monster yang diserang belum dipilih
+    private static boolean thereIsCardAttack = false; // bernilai true jika ada kartu yang sedang menyerang
     private static Character cardAttack;
 
+    /**
+     * Constructor
+     * @param card card that is inserted in this cardUI
+     *             other atributes are set to their default value
+     */
     public CardUI(Card card) {
         HandDialog = new VBox();
         HandDialog.setSpacing(5);
@@ -59,50 +61,41 @@ public class CardUI extends Parent {
         getChildren().addAll(root);
     }
 
+    /**
+     *
+     * @return cardAttack (cardAttack stores last card that declares attack)
+     */
     public static Character getCardAttack() {
         return cardAttack;
     }
 
-    public static void setPowerAttack(int pwr) {
-        powerAttack = pwr;
-    }
+    /**
+     *
+     * @return thereIsCardAttack
+     */
+    public static boolean getThereIsCardAttack(){return thereIsCardAttack;}
 
-    public static void setPowerAttacked(int pwr) {
-        powerAttacked = pwr;
-    }
+    /**
+     * Set boolean thereIsCardAttack which means if its value is true indicate that there a card that declares attack
+     * @param val
+     */
+    public static void setThereIsCardAttack(boolean val){thereIsCardAttack = val;}
 
-    public static void setPowerAttack(CardUI cardUI) {
-        Character temp = (Character) cardUI.card;
-        powerAttack = temp.getAttack();
-        cardAttack = temp;
-    }
+    /**
+     *
+     * @return imageView (images of the card)
+     */
+    public ImageView getImageView() { return imageView; }
 
-    public static void setPowerAttacked(CardUI cardUI) {
-        Character temp = (Character) cardUI.card;
-        if (temp.getMode() == Mode.ATTACK) {
-            powerAttacked = temp.getAttack();
-        } else {
-            powerAttacked = temp.getDefense();
-        }
+    /**
+     *
+     * @return card (card that is contained in this CardUI)
+     */
+    public Card getCard() { return card; }
 
-    }
-
-    public static int getPowerAttack() {
-        return powerAttack;
-    }
-
-    public static int getPowerAttacked() {
-        return powerAttacked;
-    }
-
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    public Card getCard() {
-        return card;
-    }
-
+    /**
+     * Empty the dialog of card which means no action is available for this card
+     */
     public void emptyCardDialog() {
         // membuat kartu tidak menampilkan pilihan dialog apapun
         this.HandDialog.getChildren().clear();
@@ -111,6 +104,9 @@ public class CardUI extends Parent {
         this.isClicked = false;
     }
 
+    /**
+     * Set the dialog of card that is in Hand with available action which is destory, summon, set if the card is Character and activate if the card is Land or Skill
+     */
     public void setHandDialog() {
         Player myPlayer = GameState.getInstance().getCurrentPlayer();
 
@@ -209,14 +205,18 @@ public class CardUI extends Parent {
         });
     }
 
+    /**
+     * Set the dialog for card that is in enemy's field action attack this if there is our card in field that declares attack
+     */
     public void setCharacterDialogAttackedInField() {
         // kotak dialog ini adalah kotak dialog yang akan ditampilkan
         this.isAttacked.setOnMouseClicked(e -> {
             // implementasi kalau kartu ini diserang
             // Set nilai powerAttacked berdasarkan mode dari kartu yang diserang
             cardAttack.action((Character) this.card);
-            powerAttack = 9999; // kembalikan ke default value
-            powerAttacked = 9999; // kembalikan ke default value
+            thereIsCardAttack = false;
+            //powerAttack = 9999; // kembalikan ke default value
+            //powerAttacked = 9999; // kembalikan ke default value
             Phase.arenaController.getDirectAttack().setVisible(false);
             Phase.arenaController.render();
         });
@@ -234,6 +234,10 @@ public class CardUI extends Parent {
 
     }
 
+    /**
+     * Set the dialog for cards in field in Main Phase
+     * @param isSelf indicates whether the cards in field belong to current player or enemy
+     */
     public void setCharacterDialogInFieldMainPhase(boolean isSelf) {
         this.destroy.setOnMouseClicked(e -> {
             if (getCard() instanceof Character) {
@@ -322,10 +326,13 @@ public class CardUI extends Parent {
         });
     }
 
+    /**
+     * Set the dialog for cards in field in Battle Phase
+     */
     public void setCharacterDialogInFieldBattlePhase() {
         this.attack.setOnMouseClicked(e -> {
             // implementasikan attack
-            setPowerAttack(this);
+            thereIsCardAttack = true;
             cardAttack = (Character) this.card;
             Phase.arenaController.render();
             // bikin button directAttack visible jika enemyPlayer tidak punya karakter di

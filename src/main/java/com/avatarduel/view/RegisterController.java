@@ -38,10 +38,20 @@ public class RegisterController implements Initializable {
     @FXML
     private Button playButton;
 
+    /**
+     * Initialize the RegisterUI.fxml
+     *
+     * @param url
+     * @param rb
+     */
     public void initialize(URL url, ResourceBundle rb) {
         setBackground("file:src/main/resources/com/avatarduel/card/image/background/RegBackground.jpg");
     }
 
+    /**
+     * Set the background of RegisterUI.fxml with the image on pict path
+     * @param pict
+     */
     public void setBackground(String pict) {
         Image image = new Image(pict);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
@@ -52,6 +62,12 @@ public class RegisterController implements Initializable {
         utama.setBackground(background);
     }
 
+    /**
+     * Change the scene of UI from Register.fxml to ArenaController
+     *
+     * @param event
+     * @throws IOException
+     */
     public void changeScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ArenaUI.fxml"));

@@ -334,7 +334,7 @@ public class ArenaController implements Initializable, Rendered {
         myPlayer.getDeck().getCharacters().forEach(item -> {
             CardUI cardUI = new CardUI(item);
             if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
-                cardUI.imageView.setRotate(90);
+                cardUI.getImageView().setRotate(90);
             }
             myCharArea.getChildren().add(cardUI);
             // Jika fasenya Main tampilin dialog destroy
@@ -364,10 +364,10 @@ public class ArenaController implements Initializable, Rendered {
                 cardUI.setCharacterDialogInFieldMainPhase(false);
             }
             if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
-                cardUI.imageView.setRotate(90);
+                cardUI.getImageView().setRotate(90);
             }
             enemyCharArea.getChildren().add(cardUI);
-            if (CardUI.getPowerAttack() != 9999) {
+            if (CardUI.getThereIsCardAttack()) {
                 cardUI.setCharacterDialogAttackedInField();
             } else {
                 cardUI.emptyCardDialog();
@@ -424,7 +424,7 @@ public class ArenaController implements Initializable, Rendered {
      * @param cardUI CardUI for trigger the hover
      */
     public void setHover(CardUI cardUI) {
-        cardUI.imageView.setOnMouseEntered(e -> {
+        cardUI.getImageView().setOnMouseEntered(e -> {
             cardUI.setStyle(HOVERED_CARD_STYLE);
             Image img = new Image(new File(cardUI.getCard().getImage()).toURI().toString(), 200, 200, false, false);
             imageHover.getChildren().add(new ImageView(img));
@@ -544,8 +544,7 @@ public class ArenaController implements Initializable, Rendered {
         // si attacker udh nyerang karena udh menetukan target (suatu kartu dianggap udh
         // nyerang kalo dia udh nentuin targetnya jg)
         CardUI.getCardAttack().setIsAttackThisTurn(true);
-        CardUI.setPowerAttack(9999); // kembalikan ke default value
-        CardUI.setPowerAttacked(9999); // kembalikan ke default value
+        CardUI.setThereIsCardAttack(false);
         directAttack.setVisible(false);
         setGameMessage("Direct Attack Berhasil");
         render();

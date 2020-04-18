@@ -1,5 +1,6 @@
 package com.avatarduel.model;
 
+import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.card.*;
 import com.avatarduel.model.card.Character;
 
@@ -17,30 +18,11 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        Land l1 = new Land("Land1", "", Element.FIRE, "");
-        Land l2 = new Land("Land2", "", Element.FIRE, "");
-        Land l3 = new Land("Land3", "", Element.FIRE, "");
-        SkillAura s1 = new SkillAura("Aura1", "", Element.AIR, "", 1, 2, 2);
-        SkillAura s2 = new SkillAura("Aura2", "", Element.AIR, "", 1, 2, 2);
-        SkillAura s3 = new SkillAura("Aura3", "", Element.AIR, "", 1, 2, 2);
-        SkillDestroy d1 = new SkillDestroy("Destroy1", "", Element.AIR, "", 1);
-        SkillDestroy d2 = new SkillDestroy("Destroy2", "", Element.AIR, "", 1);
-        SkillPowerUp p1 = new SkillPowerUp("Destroy3", "", Element.AIR, "", 1);
-        Character c1 = new Character("Char1", "", Element.AIR, "", 1, 2, 3);
-        Character c2 = new Character("Char2", "", Element.AIR, "", 1, 2, 3);
-        Character c3 = new Character("Char3", "", Element.AIR, "", 1, 2, 3);
-        CardsRepository.getInstance().getAllCards().add(c1);
-        CardsRepository.getInstance().getAllCards().add(c2);
-        CardsRepository.getInstance().getAllCards().add(c3);
-        CardsRepository.getInstance().getAllCards().add(l1);
-        CardsRepository.getInstance().getAllCards().add(l2);
-        CardsRepository.getInstance().getAllCards().add(l3);
-        CardsRepository.getInstance().getAllCards().add(s1);
-        CardsRepository.getInstance().getAllCards().add(s2);
-        CardsRepository.getInstance().getAllCards().add(s3);
-        CardsRepository.getInstance().getAllCards().add(d1);
-        CardsRepository.getInstance().getAllCards().add(d2);
-        CardsRepository.getInstance().getAllCards().add(p1);
+        CardsRepository.addCard(Land.class, AvatarDuel.LAND_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillAura.class, AvatarDuel.SKILL_AURA_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillPowerUp.class, AvatarDuel.SKILL_POWERUP_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillDestroy.class, AvatarDuel.SKILL_DESTROY_CSV_FILE_PATH);
+        CardsRepository.addCard(Character.class, AvatarDuel.CHAR_CSV_FILE_PATH);
         player = new Player();
     }
 
@@ -58,15 +40,16 @@ public class PlayerTest {
         mapPower.put(Element.FIRE, new Point(0, 0));
         mapPower.put(Element.EARTH, new Point(0, 0));
         mapPower.put(Element.WATER, new Point(0, 0));
+        mapPower.put(Element.ENERGY, new Point(0, 0));
         assertTrue(mapPower.equals(player.getMapPower()));
 
         player.addPower(Element.AIR, 3);
-        assertEquals((int) player.getMapPower().get(Element.AIR).getX(), 3);
-        assertEquals((int) player.getMapPower().get(Element.AIR).getY(), 3);
+        assertEquals(player.getMaxPower(Element.AIR), 3);
+        assertEquals(player.getValuePower(Element.AIR), 3);
 
         player.reducePower(Element.AIR, 2);
-        assertEquals((int) player.getMapPower().get(Element.AIR).getX(), 3);
-        assertEquals((int) player.getMapPower().get(Element.AIR).getY(), 1);
+        assertEquals(player.getMaxPower(Element.AIR), 3);
+        assertEquals(player.getValuePower(Element.AIR), 1);
 
         player.resetPower();
         Map<Element, Point> mapPower2 = new HashMap<>();
@@ -74,13 +57,17 @@ public class PlayerTest {
         mapPower2.put(Element.FIRE, new Point(0, 0));
         mapPower2.put(Element.EARTH, new Point(0, 0));
         mapPower2.put(Element.WATER, new Point(0, 0));
+        mapPower2.put(Element.ENERGY, new Point(0, 0));
         assertTrue(mapPower2.equals(player.getMapPower()));
+        assertEquals(player.getMaxPower(Element.AIR), 3);
     }
 
     @Test
     public void checkHp() {
         assertEquals(player.getHp(), 80);
         player.reduceHp(10);
+        assertEquals(player.getHp(), 70);
+        player.reduceHp(-10);
         assertEquals(player.getHp(), 70);
     }
 }

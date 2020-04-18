@@ -1,6 +1,7 @@
 package com.avatarduel.model;
 
 import com.avatarduel.model.card.*;
+import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.card.Character;
 
 import org.junit.Before;
@@ -9,19 +10,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DeckTest {
-    private static final String LAND_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/land.csv";
-    private static final String SKILL_AURA_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_aura.csv";
-    private static final String SKILL_POWERUP_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_power_up.csv";
-    private static final String SKILL_DESTROY_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_destroy.csv";
-    private static final String CHAR_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/character.csv";
-
     @Before
     public void setUp() throws Exception {
-        CardsRepository.addCard(Land.class, LAND_CSV_FILE_PATH);
-        CardsRepository.addCard(SkillAura.class, SKILL_AURA_CSV_FILE_PATH);
-        CardsRepository.addCard(SkillPowerUp.class, SKILL_POWERUP_CSV_FILE_PATH);
-        CardsRepository.addCard(SkillDestroy.class, SKILL_DESTROY_CSV_FILE_PATH);
-        CardsRepository.addCard(Character.class, CHAR_CSV_FILE_PATH);
+        CardsRepository.addCard(Land.class, AvatarDuel.LAND_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillAura.class, AvatarDuel.SKILL_AURA_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillPowerUp.class, AvatarDuel.SKILL_POWERUP_CSV_FILE_PATH);
+        CardsRepository.addCard(SkillDestroy.class, AvatarDuel.SKILL_DESTROY_CSV_FILE_PATH);
+        CardsRepository.addCard(Character.class, AvatarDuel.CHAR_CSV_FILE_PATH);
     }
 
     @Test

@@ -18,11 +18,11 @@ import com.avatarduel.model.card.Character;
 import javafx.scene.Parent;
 
 public class AvatarDuel extends Application {
-  private static final String LAND_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/land.csv";
-  private static final String SKILL_AURA_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_aura.csv";
-  private static final String SKILL_POWERUP_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_power_up.csv";
-  private static final String SKILL_DESTROY_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_destroy.csv";
-  private static final String CHAR_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/character.csv";
+  public static final String LAND_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/land.csv";
+  public static final String SKILL_AURA_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_aura.csv";
+  public static final String SKILL_POWERUP_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_power_up.csv";
+  public static final String SKILL_DESTROY_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_destroy.csv";
+  public static final String CHAR_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/character.csv";
 
   // variabel-variable untuk tampilan GUI
   Stage window;

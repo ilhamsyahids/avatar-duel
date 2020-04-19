@@ -1,17 +1,29 @@
 # IF2210 Project Template
 
-Here is an example of project using gradle as the build tools.
-Try running these commands:
+Compile and run with these commands:
 
 `./gradlew run`
 
-You will notice that it will open a window that display 'Avatar Duel'.
-In the command line you can see the data that is being read by `CSVReader.java`
+## Struktur Kode
+Aplikasi ini memanfaatkan tiga buah package, yaitu:
+- model : package untuk implementasi model-model kelas pada program
+- util : package untuk implementasi utilisasi program
+- view : package untuk mengimplementasikan tampilan atau GUI aplikasi
 
-What happen is when you use `./gradlew run`, it will start the main function in your app.
-For this app, the main function lives in `AvatarDuel.java`.
+Aplikasi ini terbagi atas tiga buah folder, yaitu:
+- src : folder yang berisi source code dari package dan main program
+- src/main : folder yang berisi kelas-kelas program
+- src/test : folder yang berisi unit testing
 
-You can explore more about gradle [here](https://guides.gradle.org/creating-new-gradle-builds/)
+
+## Screenshot
+
+### Register View
+![Register View](src/main/resources/com/avatarduel/card/image/screenshot/ss1.png)
+### Launching View
+![Launching View](src/main/resources/com/avatarduel/card/image/screenshot/ss2.png)
+### Battle View
+![Battle View](src/main/resources/com/avatarduel/card/image/screenshot/ss3.png)
 
 ## Credit
 

@@ -26,6 +26,7 @@ public class AvatarDuel extends Application {
 
   private void loadCards() throws IOException {
     CardsRepository.addCard(Land.class, LAND_CSV_FILE_PATH);
+    CardsRepository.addCard(Land.class, LAND_CSV_FILE_PATH);
     CardsRepository.addCard(SkillAura.class, SKILL_AURA_CSV_FILE_PATH);
     CardsRepository.addCard(SkillPowerUp.class, SKILL_POWERUP_CSV_FILE_PATH);
     CardsRepository.addCard(SkillDestroy.class, SKILL_DESTROY_CSV_FILE_PATH);

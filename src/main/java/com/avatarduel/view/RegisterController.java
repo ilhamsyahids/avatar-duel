@@ -8,6 +8,7 @@ import com.avatarduel.model.Phase;
 import java.io.File;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -42,6 +44,8 @@ public class RegisterController implements Initializable {
     private Label title;
     @FXML
     private Button playButton;
+    @FXML
+    private CheckBox soundControl;
 
     /**
      * Initialize the RegisterUI.fxml
@@ -53,7 +57,16 @@ public class RegisterController implements Initializable {
         Media soundtrack = new Media(new File("src/main/resources/com/avatarduel/card/data/soundtrack/Intro.mp3").toURI().toString());
         player = new MediaPlayer(soundtrack);
         player.setCycleCount(MediaPlayer.INDEFINITE);
-        player.setAutoPlay(true);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) 
+            { 
+                if (soundControl.isSelected()) 
+                    player.play();
+                else
+                    player.pause();
+            } 
+        }; 
+        soundControl.setOnAction(event); 
         setBackground("file:src/main/resources/com/avatarduel/card/image/background/RegBackground.jpg");
     }
 
@@ -96,7 +109,8 @@ public class RegisterController implements Initializable {
         controller.setName(playerOne, playerTwo);
         player.stop();
         stage.show();
-
+        if (soundControl.isSelected())
+            controller.playSound();
     }
 
 }

@@ -250,13 +250,18 @@ public class ArenaController implements Initializable, Rendered {
             Logger.getLogger(ArenaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        setBackground("file:src/main/resources/com/avatarduel/card/image/background/arena.JPG");
+        renderStackOfCards();
+    }
+
+    /**
+     * Setting for play sound
+     */
+    public void playSound() {
         Media soundtrack = new Media(new File("src/main/resources/com/avatarduel/card/data/soundtrack/Agni Kai.mp3").toURI().toString());
         MediaPlayer player = new MediaPlayer(soundtrack);
         player.setCycleCount(MediaPlayer.INDEFINITE);
         player.setAutoPlay(true);
-        
-        setBackground("file:src/main/resources/com/avatarduel/card/image/background/arena.JPG");
-        renderStackOfCards();
     }
 
     /**

@@ -3,7 +3,6 @@ package com.avatarduel.model;
 import com.avatarduel.view.ArenaController;
 import com.avatarduel.view.CardUI;
 import com.avatarduel.view.Rendered;
-import javafx.scene.text.Font;
 
 public class Phase {
     private static Phase INSTANCEPHASE = new Phase();

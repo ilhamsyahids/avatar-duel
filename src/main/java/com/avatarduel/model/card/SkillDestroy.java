@@ -10,7 +10,7 @@ public class SkillDestroy extends Skill {
      * @param imagePath
      * @param power
      */
-    public SkillDestroy(String name, String description, Element element, String imagePath, int power) {
+    SkillDestroy(String name, String description, Element element, String imagePath, int power) {
         super(name, description, element, power, imagePath);
     }
 

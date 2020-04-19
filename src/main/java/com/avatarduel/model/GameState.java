@@ -1,7 +1,7 @@
 package com.avatarduel.model;
 
 public class GameState {
-  public static GameState INSTANCE = new GameState();
+  private static GameState INSTANCE = new GameState();
 
   private Player myPlayer = new Player();
   private Player enemyPlayer = new Player();
@@ -40,7 +40,7 @@ public class GameState {
   /**
    * set the next currentPlayer and enemyPlayer
    */
-  public void nextPlayer() {
+  void nextPlayer() {
     Player temp = myPlayer;
     myPlayer = enemyPlayer;
     enemyPlayer = temp;

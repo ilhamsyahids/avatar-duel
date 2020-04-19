@@ -8,7 +8,7 @@ import java.util.Map;
 import java.awt.Point;
 
 public class Player {
-    public boolean isCanTakeLand;
+    private boolean isCanTakeLand;
     private int hp;
     private Deck deck;
     private Map<Element, Point> mapPower;
@@ -44,6 +44,7 @@ public class Player {
 
     /**
      * Set is can take land
+     * 
      * @param isCan value
      */
     public void setTakeLand(boolean isCan) {
@@ -52,9 +53,10 @@ public class Player {
 
     /**
      * Set the player's deck with the value of this parameter
+     * 
      * @param deck
      */
-    public void setdeck(Deck deck) {
+    void setdeck(Deck deck) {
         this.deck = deck;
     }
 
@@ -80,7 +82,7 @@ public class Player {
      * @param el
      * @return the max value of power of that el element
      */
-    public int getMaxPower(Element el) {
+    int getMaxPower(Element el) {
         return (int) getMapPower().get(el).getX();
     }
 
@@ -103,14 +105,16 @@ public class Player {
 
     /**
      * Set hp of this player according to param hp
+     * 
      * @param hp
      */
-    public void setHp(int hp) {
+    private void setHp(int hp) {
         this.hp = hp;
     }
 
     /**
      * Reduce hp of this player with value of param hp
+     * 
      * @param hp
      */
     public void reduceHp(int hp) {
@@ -120,6 +124,7 @@ public class Player {
 
     /**
      * Add power of el element with the value of param added
+     * 
      * @param el
      * @param added
      */
@@ -131,6 +136,7 @@ public class Player {
 
     /**
      * Reduce the power of el element with the value of param minus
+     * 
      * @param el
      * @param minus
      */
@@ -143,7 +149,7 @@ public class Player {
     /**
      * Reset all unused value of power to its maxValue
      */
-    public void resetPower() {
+    void resetPower() {
         mapPower.entrySet().forEach(el -> {
             int x = (int) el.getValue().getX();
             el.getValue().move(x, x);

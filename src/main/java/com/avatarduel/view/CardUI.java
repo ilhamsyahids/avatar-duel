@@ -17,7 +17,7 @@ import java.io.File;
 public class CardUI extends Parent {
     private Card card;
     private ImageView imageView;
-    public boolean isClicked = false;
+    private boolean isClicked = false;
     private VBox HandDialog;
     private VBox root;
     private Button summon;
@@ -37,10 +37,11 @@ public class CardUI extends Parent {
 
     /**
      * Constructor
-     * @param card card that is inserted in this cardUI
-     *             other atributes are set to their default value
+     * 
+     * @param card card that is inserted in this cardUI other atributes are set to
+     *             their default value
      */
-    public CardUI(Card card) {
+    CardUI(Card card) {
         HandDialog = new VBox();
         HandDialog.setSpacing(5);
         summon = new Button("summon");
@@ -65,7 +66,7 @@ public class CardUI extends Parent {
      *
      * @return cardAttack (cardAttack stores last card that declares attack)
      */
-    public static Character getCardAttack() {
+    static Character getCardAttack() {
         return cardAttack;
     }
 
@@ -73,30 +74,40 @@ public class CardUI extends Parent {
      *
      * @return thereIsCardAttack
      */
-    public static boolean getThereIsCardAttack(){return thereIsCardAttack;}
+    static boolean getThereIsCardAttack() {
+        return thereIsCardAttack;
+    }
 
     /**
-     * Set boolean thereIsCardAttack which means if its value is true indicate that there a card that declares attack
-     * @param val
+     * Set boolean thereIsCardAttack which means if its value is true indicate that
+     * there a card that declares attack
+     * 
+     * @param val value
      */
-    public static void setThereIsCardAttack(boolean val){thereIsCardAttack = val;}
+    public static void setThereIsCardAttack(boolean val) {
+        thereIsCardAttack = val;
+    }
 
     /**
      *
      * @return imageView (images of the card)
      */
-    public ImageView getImageView() { return imageView; }
+    ImageView getImageView() {
+        return imageView;
+    }
 
     /**
      *
      * @return card (card that is contained in this CardUI)
      */
-    public Card getCard() { return card; }
+    public Card getCard() {
+        return card;
+    }
 
     /**
      * Empty the dialog of card which means no action is available for this card
      */
-    public void emptyCardDialog() {
+    void emptyCardDialog() {
         // membuat kartu tidak menampilkan pilihan dialog apapun
         this.HandDialog.getChildren().clear();
         this.root.getChildren().clear();
@@ -105,9 +116,11 @@ public class CardUI extends Parent {
     }
 
     /**
-     * Set the dialog of card that is in Hand with available action which is destory, summon, set if the card is Character and activate if the card is Land or Skill
+     * Set the dialog of card that is in Hand with available action which is
+     * destory, summon, set if the card is Character and activate if the card is
+     * Land or Skill
      */
-    public void setHandDialog() {
+    void setHandDialog() {
         Player myPlayer = GameState.getInstance().getCurrentPlayer();
 
         this.destroyInHand.setOnMouseClicked(e -> {
@@ -116,61 +129,30 @@ public class CardUI extends Parent {
         });
         this.summon.setOnMouseClicked(e -> {
             // implementasi summon
-            // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
-            // test
-            // if (powerCard.isCanSummon()) { // Comment this for game test
-            try {
-                myPlayer.getDeck().moveToArea(this.getCard());
-            } catch (Exception e1) {
-                Phase.arenaController.setGameMessage(e1.getMessage());
-            }
-            // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
-            // Comment this for game test
-            // } else { // Comment this for game test
-            // Phase.arenaController.setGameMessage("Power tidak cukup!"); // Comment this
-            // for game test
-            // } // Comment this for game test
-            Phase.arenaController.render();
+            summonCard((Powerable) this.getCard(), myPlayer);
         });
         this.set.setOnMouseClicked(e -> {
             // implementasi set
             ((Character) this.getCard()).setMode(Mode.DEFENSE);
-            // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
-            // test
-            // if (powerCard.isCanSummon()) { // Comment this for game test
-            try {
-                myPlayer.getDeck().moveToArea(this.getCard());
-            } catch (Exception e1) {
-                Phase.arenaController.setGameMessage(e1.getMessage());
-            }
-            // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
-            // Comment this for game test
-            // } else { // Comment this for game test
-            // Phase.arenaController.setGameMessage("Power tidak cukup!"); // Comment this
-            // for game test
-            // } // Comment this for game test
-            Phase.arenaController.render();
+            summonCard((Powerable) this.getCard(), myPlayer);
         });
 
         this.activate.setOnMouseClicked(e -> {
             if (!(getCard() instanceof Land)) {
-                // Powerable powerCard = (Powerable) this.getCard(); // Comment this for game
-                // test
-                // if (powerCard.isCanSummon()) { // Comment this for game test
-                if ((GameState.getInstance().getOtherPlayer().getDeck().getCharacters().size() != 0)
-                        || (GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size() != 0)) {
-                    Phase.arenaController.setGameMessage("Klik Target Kartu");
-                    isSkillActive = true;
-                    skillOnAction = (Skill) this.card;
+                Powerable powerCard = (Powerable) this.getCard();
+                if (powerCard.isCanSummon()) {
+                    if ((GameState.getInstance().getOtherPlayer().getDeck().getCharacters().size() != 0)
+                            || (GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size() != 0)) {
+                        Phase.arenaController.setGameMessage("Klik Target Kartu");
+                        isSkillActive = true;
+                        skillOnAction = (Skill) this.card;
+                    } else {
+                        Phase.arenaController.setGameMessage("Tidak ada pilihan kartu");
+                    }
+                    myPlayer.reducePower(getCard().getElement(), powerCard.getPower());
                 } else {
-                    Phase.arenaController.setGameMessage("Tidak ada pilihan kartu");
+                    Phase.arenaController.setGameMessage("Power tidak cukup!");
                 }
-                // myPlayer.reducePower(getCard().getElement(), powerCard.getPower()); //
-                // Comment this for game test
-                // } else { // Comment this for game test
-                // Phase.arenaController.setGameMessage("Power tidak cukup!"); // Comment this
-                // for game test
-                // } // Comment this for game test
             } else {
                 if (myPlayer.isCanTakeLand()) {
                     try {
@@ -185,7 +167,6 @@ public class CardUI extends Parent {
 
             }
             Phase.arenaController.render();
-            // tambahin kodingan efek dari kartunya disini..
         });
 
         this.imageView.setOnMouseClicked(el -> {
@@ -206,17 +187,36 @@ public class CardUI extends Parent {
     }
 
     /**
-     * Set the dialog for card that is in enemy's field action attack this if there is our card in field that declares attack
+     * Summon Card to player
+     * 
+     * @param powerCard the card
+     * @param myPlayer  the player
      */
-    public void setCharacterDialogAttackedInField() {
+    private void summonCard(Powerable powerCard, Player myPlayer) {
+        if (powerCard.isCanSummon()) {
+            try {
+                myPlayer.getDeck().moveToArea(this.getCard());
+            } catch (Exception e1) {
+                Phase.arenaController.setGameMessage(e1.getMessage());
+            }
+            myPlayer.reducePower(getCard().getElement(), powerCard.getPower());
+        } else {
+            Phase.arenaController.setGameMessage("Power tidak cukup!");
+        }
+        Phase.arenaController.render();
+    }
+
+    /**
+     * Set the dialog for card that is in enemy's field action attack this if there
+     * is our card in field that declares attack
+     */
+    void setCharacterDialogAttackedInField() {
         // kotak dialog ini adalah kotak dialog yang akan ditampilkan
         this.isAttacked.setOnMouseClicked(e -> {
             // implementasi kalau kartu ini diserang
             // Set nilai powerAttacked berdasarkan mode dari kartu yang diserang
             cardAttack.action((Character) this.card);
             thereIsCardAttack = false;
-            //powerAttack = 9999; // kembalikan ke default value
-            //powerAttacked = 9999; // kembalikan ke default value
             Phase.arenaController.getDirectAttack().setVisible(false);
             Phase.arenaController.render();
         });
@@ -236,9 +236,11 @@ public class CardUI extends Parent {
 
     /**
      * Set the dialog for cards in field in Main Phase
-     * @param isSelf indicates whether the cards in field belong to current player or enemy
+     * 
+     * @param isSelf indicates whether the cards in field belong to current player
+     *               or enemy
      */
-    public void setCharacterDialogInFieldMainPhase(boolean isSelf) {
+    void setCharacterDialogInFieldMainPhase(boolean isSelf) {
         this.destroy.setOnMouseClicked(e -> {
             if (getCard() instanceof Character) {
                 // remove skill
@@ -329,7 +331,7 @@ public class CardUI extends Parent {
     /**
      * Set the dialog for cards in field in Battle Phase
      */
-    public void setCharacterDialogInFieldBattlePhase() {
+    void setCharacterDialogInFieldBattlePhase() {
         this.attack.setOnMouseClicked(e -> {
             // implementasikan attack
             thereIsCardAttack = true;
@@ -366,7 +368,7 @@ public class CardUI extends Parent {
             } else {
                 // cek mode dari kartu
                 Character karakter = (Character) this.getCard();
-                if (karakter.getMode() == Mode.ATTACK && karakter.isAttackThisTurn() == false) {
+                if (karakter.getMode() == Mode.ATTACK && !karakter.isAttackThisTurn()) {
                     this.HandDialog.getChildren().addAll(this.attack, this.changePosition);
                 } else {
                     this.HandDialog.getChildren().addAll(this.changePosition);

@@ -13,6 +13,6 @@ public class SkillPowerUpTest {
         Character ch = new Character("", "", Element.AIR, "", 1, 1, 1);
         assertEquals(ch.getCharSkills(), new ArrayList<Skill>());
         sp.action(ch);
-        assertTrue(ch.getCharSkills().size() == 1);
+        assertEquals(1, ch.getCharSkills().size());
     }
 }

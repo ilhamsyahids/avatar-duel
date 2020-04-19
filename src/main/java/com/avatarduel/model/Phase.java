@@ -6,10 +6,10 @@ import com.avatarduel.view.Rendered;
 import javafx.scene.text.Font;
 
 public class Phase {
-    public static Phase INSTANCEPHASE = new Phase();
+    private static Phase INSTANCEPHASE = new Phase();
 
     public static ArenaController arenaController;
-    public Fase fase;
+    Fase fase;
 
     /**
      * Contructors
@@ -58,9 +58,10 @@ public class Phase {
     }
 
     /**
-     * Set atribute "fase" to FASE.DRAW and adjust the UI in arenaController according to its new fase
+     * Set atribute "fase" to FASE.DRAW and adjust the UI in arenaController
+     * according to its new fase
      */
-    public void drawPhase() {
+    private void drawPhase() {
         fase = Fase.DRAW;
         GameState.getInstance().getCurrentPlayer().getDeck().takeCardToHand();
         // direct attack akan visible diatur di button attack di kelas CardUI
@@ -68,7 +69,7 @@ public class Phase {
         arenaController.changePhasePosition(273);
         arenaController.getEndTextLabel().setText("END");
         arenaController.getDrawTextLabel().setText("--> DRAW");
-        
+
         arenaController.getEndPhase().setOnMouseClicked(el -> {
             mainPhase();
         });
@@ -76,16 +77,17 @@ public class Phase {
     }
 
     /**
-     * Set atribute "fase" to FASE.MAIN and adjust the UI in arenaController according to its new fase
+     * Set atribute "fase" to FASE.MAIN and adjust the UI in arenaController
+     * according to its new fase
      */
-    public void mainPhase() {
+    private void mainPhase() {
         fase = Fase.MAIN;
         GameState.getInstance().getCurrentPlayer().setTakeLand(true);
 
         arenaController.changePhasePosition(300);
         arenaController.getDrawTextLabel().setText("DRAW");
         arenaController.getMainTextLabel().setText("--> MAIN");
-     
+
         arenaController.getEndPhase().setOnMouseClicked(el -> {
             battlePhase();
         });
@@ -93,9 +95,10 @@ public class Phase {
     }
 
     /**
-     * Set atribute "fase" to FASE.BATTLE and adjust the UI in arenaController according to its new fase
+     * Set atribute "fase" to FASE.BATTLE and adjust the UI in arenaController
+     * according to its new fase
      */
-    public void battlePhase() {
+    private void battlePhase() {
         fase = Fase.BATTLE;
 
         arenaController.changePhasePosition(327);
@@ -112,10 +115,12 @@ public class Phase {
         });
         arenaController.render();
     }
+
     /**
-     * Set atribute "fase" to FASE.BATTLE and adjust the UI in arenaController according to its new fase
+     * Set atribute "fase" to FASE.BATTLE and adjust the UI in arenaController
+     * according to its new fase
      */
-    public void endPhase() {
+    private void endPhase() {
         fase = Fase.END;
 
         arenaController.changePhasePosition(354);

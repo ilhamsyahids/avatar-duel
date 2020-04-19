@@ -9,12 +9,12 @@ public abstract class Card {
     /**
      * Constuctor
      *
-     * @param name
-     * @param description
-     * @param element
-     * @param imagePath
+     * @param name        the name
+     * @param description the description
+     * @param element     the element
+     * @param imagePath   the imagepath
      */
-    public Card(String name, String description, Element element, String imagePath) {
+    Card(String name, String description, Element element, String imagePath) {
         this.name = name;
         this.description = description;
         this.element = element;
@@ -24,7 +24,7 @@ public abstract class Card {
     /**
      * Constructor with default value
      */
-    public Card() {
+    Card() {
         this.name = "";
         this.description = "";
         this.element = Element.AIR;
@@ -32,7 +32,8 @@ public abstract class Card {
 
     /**
      * Action procedure to be overidden by children class
-     * @param character
+     * 
+     * @param character target character
      */
     public abstract void action(Character character);
 
@@ -66,11 +67,5 @@ public abstract class Card {
      */
     public String getImage() {
         return image;
-    }
-
-    @Override
-    public String toString() {
-        return name + ":" + element + ":" + image.split("/")[image.split("/").length - 1]
-                + this.getClass().getSimpleName();
     }
 }

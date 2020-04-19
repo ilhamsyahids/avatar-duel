@@ -12,18 +12,20 @@ public class Land extends Card {
 
   /**
    * Constructor with defined value
+   * 
    * @param name
    * @param description
    * @param element
    * @param imagePath
    */
-  public Land(String name, String description, Element element, String imagePath) {
+  Land(String name, String description, Element element, String imagePath) {
     super(name, description, element, imagePath);
   }
 
   /**
    * Do action of landCard
-   * @param character
+   * 
+   * @param character the target
    */
   @Override
   public void action(Character character) {

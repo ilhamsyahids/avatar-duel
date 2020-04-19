@@ -15,9 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -31,9 +29,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class RegisterController implements Initializable {
-    
-    MediaPlayer player;
-    
+
+    private MediaPlayer player;
+
     @FXML
     private Pane utama;
     @FXML
@@ -41,41 +39,36 @@ public class RegisterController implements Initializable {
     @FXML
     private TextField playerTwoName;
     @FXML
-    private Label title;
-    @FXML
-    private Button playButton;
-    @FXML
     private CheckBox soundControl;
 
     /**
      * Initialize the RegisterUI.fxml
      *
-     * @param url
-     * @param rb
+     * @param url the url
+     * @param rb  the ResourceBundle
      */
     public void initialize(URL url, ResourceBundle rb) {
-        Media soundtrack = new Media(new File("src/main/resources/com/avatarduel/card/data/soundtrack/Intro.mp3").toURI().toString());
+        Media soundtrack = new Media(
+                new File("src/main/resources/com/avatarduel/card/data/soundtrack/Intro.mp3").toURI().toString());
         player = new MediaPlayer(soundtrack);
         player.setCycleCount(MediaPlayer.INDEFINITE);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) 
-            { 
-                if (soundControl.isSelected()) 
+            public void handle(ActionEvent e) {
+                if (soundControl.isSelected())
                     player.play();
                 else
                     player.pause();
-            } 
-        }; 
-        soundControl.setOnAction(event); 
-        setBackground("file:src/main/resources/com/avatarduel/card/image/background/RegBackground.jpg");
+            }
+        };
+        soundControl.setOnAction(event);
+        setBackground();
     }
 
     /**
      * Set the background of RegisterUI.fxml with the image on pict path
-     * @param pict
      */
-    public void setBackground(String pict) {
-        Image image = new Image(pict);
+    private void setBackground() {
+        Image image = new Image("file:src/main/resources/com/avatarduel/card/image/background/RegBackground.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 new BackgroundSize(100, 100, true, true, false, true));
@@ -87,7 +80,7 @@ public class RegisterController implements Initializable {
     /**
      * Change the scene of UI from Register.fxml to ArenaController
      *
-     * @param event
+     * @param event the event
      * @throws IOException
      */
     public void changeScene(ActionEvent event) throws IOException {

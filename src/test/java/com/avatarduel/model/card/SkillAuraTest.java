@@ -14,16 +14,16 @@ public class SkillAuraTest {
     public void action() {
         assertEquals(ch.getCharSkills(), new ArrayList<Skill>());
         sp.action(ch);
-        assertTrue(ch.getCharSkills().size() == 1);
+        assertEquals(1, ch.getCharSkills().size());
     }
 
     @Test
     public void getAttack() {
-        assertTrue(sp.getAttack() == 1);
+        assertEquals(1, sp.getAttack());
     }
 
     @Test
     public void getDefense() {
-        assertTrue(sp.getDefense() == 3);
+        assertEquals(3, sp.getDefense());
     }
 }

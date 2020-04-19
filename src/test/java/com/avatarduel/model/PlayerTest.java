@@ -14,7 +14,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class PlayerTest {
-    Player player;
+    private Player player;
 
     @Before
     public void setUp() throws Exception {
@@ -41,7 +41,7 @@ public class PlayerTest {
         mapPower.put(Element.EARTH, new Point(0, 0));
         mapPower.put(Element.WATER, new Point(0, 0));
         mapPower.put(Element.ENERGY, new Point(0, 0));
-        assertTrue(mapPower.equals(player.getMapPower()));
+        assertEquals(mapPower, player.getMapPower());
 
         player.addPower(Element.AIR, 3);
         assertEquals(player.getMaxPower(Element.AIR), 3);
@@ -58,7 +58,7 @@ public class PlayerTest {
         mapPower2.put(Element.EARTH, new Point(0, 0));
         mapPower2.put(Element.WATER, new Point(0, 0));
         mapPower2.put(Element.ENERGY, new Point(0, 0));
-        assertTrue(mapPower2.equals(player.getMapPower()));
+        assertEquals(mapPower2, player.getMapPower());
         assertEquals(player.getMaxPower(Element.AIR), 3);
     }
 

@@ -15,7 +15,7 @@ public class CardsRepository {
     /**
      * Constructor
      */
-    CardsRepository() {
+    private CardsRepository() {
     }
 
     /**
@@ -69,7 +69,7 @@ public class CardsRepository {
      * 
      * @return Array of cards
      */
-    public ArrayList<Card> getAllCards() {
+    ArrayList<Card> getAllCards() {
         return allCards;
     }
 

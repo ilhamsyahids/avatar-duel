@@ -24,11 +24,7 @@ public class AvatarDuel extends Application {
   public static final String SKILL_DESTROY_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/skill_destroy.csv";
   public static final String CHAR_CSV_FILE_PATH = "src/main/resources/com/avatarduel/card/data/character.csv";
 
-  // variabel-variable untuk tampilan GUI
-  Stage window;
-  Scene scene1, scene2;
-
-  public void loadCards() throws IOException {
+  private void loadCards() throws IOException {
     CardsRepository.addCard(Land.class, LAND_CSV_FILE_PATH);
     CardsRepository.addCard(SkillAura.class, SKILL_AURA_CSV_FILE_PATH);
     CardsRepository.addCard(SkillPowerUp.class, SKILL_POWERUP_CSV_FILE_PATH);

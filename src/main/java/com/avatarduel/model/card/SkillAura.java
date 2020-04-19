@@ -6,6 +6,7 @@ public class SkillAura extends Skill {
 
     /**
      * Constructor with defined value
+     * 
      * @param name
      * @param description
      * @param element

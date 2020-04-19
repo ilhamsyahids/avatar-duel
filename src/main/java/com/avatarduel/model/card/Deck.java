@@ -3,8 +3,8 @@ package com.avatarduel.model.card;
 import java.util.ArrayList;
 
 public class Deck {
-    public final static int MAXCARDSTAKKEN = 60;
-    public final static int MAXCARDSINAREA = 6;
+    final static int MAXCARDSTAKKEN = 60;
+    private final static int MAXCARDSINAREA = 6;
     private ArrayList<Skill> skillArea = new ArrayList<>(MAXCARDSINAREA);
     private ArrayList<Character> characterArea = new ArrayList<>(MAXCARDSINAREA);
     private ArrayList<Card> handCards = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Deck {
     /**
      * Update number of remaining Cards in Deck
      *
-     * @param leftTakeCards
+     * @param leftTakeCards the leftTakeCards
      */
     public void setLeftTakeCards(int leftTakeCards) {
         this.leftTakeCards = leftTakeCards;
@@ -69,14 +69,6 @@ public class Deck {
     }
 
     /**
-     * Set the list of handCards
-     * @param handCards
-     */
-    public void setHandCards(ArrayList<Card> handCards) {
-        this.handCards = handCards;
-    }
-
-    /**
      * Initialize all cards in Deck from CardsRepository(can be any type)
      */
     private void refill() {
@@ -97,7 +89,8 @@ public class Deck {
 
     /**
      * Add card to Hand From Deck(allCards) n times
-     * @param n
+     * 
+     * @param n number
      */
     public void takeCardsToHand(int n) {
         for (int i = 0; i < n; i++) {
@@ -106,8 +99,10 @@ public class Deck {
     }
 
     /**
-     * Move the card from hand to field if space in field for that type of card is not full
-     * @param card
+     * Move the card from hand to field if space in field for that type of card is
+     * not full
+     * 
+     * @param card the card
      * @throws Exception
      */
     public void moveToArea(Card card) throws Exception {

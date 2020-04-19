@@ -28,7 +28,6 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -39,7 +38,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -58,10 +56,6 @@ public class ArenaController implements Initializable, Rendered {
     private Label enemyHP;
     @FXML
     private Label myHP;
-    @FXML
-    private GridPane enemyField;
-    @FXML
-    private GridPane myField;
     @FXML
     private HBox otherHand;
     @FXML
@@ -134,9 +128,9 @@ public class ArenaController implements Initializable, Rendered {
     private VBox attachedSkill;
     @FXML
     private Pane tableOfSkill;
-    
-    FXMLLoader loaderPower1;
-    FXMLLoader loaderPower2;
+
+    private FXMLLoader loaderPower1;
+    private FXMLLoader loaderPower2;
 
     private static final String HOVERED_CARD_STYLE = "-fx-opacity: 0.5;";
     private static final String IDLE_CARD_STYLE = "-fx-opacity: 1;";
@@ -162,7 +156,13 @@ public class ArenaController implements Initializable, Rendered {
         blinkThenFade.play();
     }
 
-    public Timeline createBlinker(Node node) {
+    /**
+     * Create Blinker
+     * 
+     * @param node target
+     * @return blinker
+     */
+    private Timeline createBlinker(Node node) {
         Timeline blink = new Timeline(
                 new KeyFrame(Duration.seconds(1.5), new KeyValue(node.opacityProperty(), 1, Interpolator.DISCRETE)));
         blink.setCycleCount(1);
@@ -170,6 +170,12 @@ public class ArenaController implements Initializable, Rendered {
         return blink;
     }
 
+    /**
+     * Create Fader
+     * 
+     * @param node target
+     * @return fader
+     */
     private FadeTransition createFader(Node node) {
         FadeTransition fade = new FadeTransition(Duration.seconds(0.25), node);
         fade.setFromValue(1);
@@ -221,20 +227,6 @@ public class ArenaController implements Initializable, Rendered {
     }
 
     /**
-     * @return the myCharArea
-     */
-    public HBox getMyCharArea() {
-        return myCharArea;
-    }
-
-    /**
-     * @return the mySkillArea
-     */
-    public HBox getMySkillArea() {
-        return mySkillArea;
-    }
-
-    /**
      * Init scene
      */
     public void initialize(URL url, ResourceBundle rb) {
@@ -257,8 +249,9 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Setting for play sound
      */
-    public void playSound() {
-        Media soundtrack = new Media(new File("src/main/resources/com/avatarduel/card/data/soundtrack/Agni Kai.mp3").toURI().toString());
+    void playSound() {
+        Media soundtrack = new Media(
+                new File("src/main/resources/com/avatarduel/card/data/soundtrack/Agni Kai.mp3").toURI().toString());
         MediaPlayer player = new MediaPlayer(soundtrack);
         player.setCycleCount(MediaPlayer.INDEFINITE);
         player.setAutoPlay(true);
@@ -267,7 +260,7 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Specify reference to power
      */
-    public void powerBoard() throws IOException {
+    private void powerBoard() throws IOException {
         Parent power2 = (Parent) loaderPower2.load();
         power2.setLayoutX(548);
         power2.setLayoutY(179);
@@ -282,7 +275,7 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Render power of each player
      */
-    public void renderPower() {
+    private void renderPower() {
         Player p1 = GameState.getInstance().getCurrentPlayer();
         Player p2 = GameState.getInstance().getOtherPlayer();
 
@@ -298,7 +291,7 @@ public class ArenaController implements Initializable, Rendered {
      * 
      * @param pictPath path of background
      */
-    public void setBackground(String pictPath) {
+    private void setBackground(String pictPath) {
         Image image = new Image(pictPath);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -311,7 +304,7 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Render stack of cards (static)
      */
-    public void renderStackOfCards() {
+    private void renderStackOfCards() {
         Image card = new Image(
                 new File("src/main/resources/com/avatarduel/card/image/background/flip.PNG").toURI().toString(), 93, 68,
                 false, false);
@@ -351,10 +344,9 @@ public class ArenaController implements Initializable, Rendered {
             }
             myCharArea.getChildren().add(cardUI);
             // Jika fasenya Main tampilin dialog destroy
-            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+            if (Phase.getInstancePhase().getFase() == Phase.Fase.MAIN) {
                 cardUI.setCharacterDialogInFieldMainPhase(true);
-            }
-            else if (Phase.getInstancePhase().getFase() == Phase.Fase.BATTLE) {
+            } else if (Phase.getInstancePhase().getFase() == Phase.Fase.BATTLE) {
                 cardUI.setCharacterDialogInFieldBattlePhase();
             } else {
                 cardUI.emptyCardDialog();
@@ -364,7 +356,7 @@ public class ArenaController implements Initializable, Rendered {
         myPlayer.getDeck().getSkills().forEach(item -> {
             CardUI cardUI = new CardUI(item);
             mySkillArea.getChildren().add(cardUI);
-            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+            if (Phase.getInstancePhase().getFase() == Phase.Fase.MAIN) {
                 cardUI.setCharacterDialogInFieldMainPhase(true);
             }
             setHover(cardUI);
@@ -373,7 +365,7 @@ public class ArenaController implements Initializable, Rendered {
         // ENEMY
         enemyPlayer.getDeck().getCharacters().forEach(item -> {
             CardUI cardUI = new CardUI(item);
-            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+            if (Phase.getInstancePhase().getFase() == Phase.Fase.MAIN) {
                 cardUI.setCharacterDialogInFieldMainPhase(false);
             }
             if (((Character) cardUI.getCard()).getMode() == Mode.DEFENSE) {
@@ -389,7 +381,7 @@ public class ArenaController implements Initializable, Rendered {
         });
         enemyPlayer.getDeck().getSkills().forEach(item -> {
             CardUI cardUI = new CardUI(item);
-            if(Phase.getInstancePhase().getFase() == Phase.Fase.MAIN){
+            if (Phase.getInstancePhase().getFase() == Phase.Fase.MAIN) {
                 cardUI.setCharacterDialogInFieldMainPhase(false);
             }
             enemySkillArea.getChildren().add(cardUI);
@@ -436,7 +428,7 @@ public class ArenaController implements Initializable, Rendered {
      * 
      * @param cardUI CardUI for trigger the hover
      */
-    public void setHover(CardUI cardUI) {
+    private void setHover(CardUI cardUI) {
         cardUI.getImageView().setOnMouseEntered(e -> {
             cardUI.setStyle(HOVERED_CARD_STYLE);
             Image img = new Image(new File(cardUI.getCard().getImage()).toURI().toString(), 200, 200, false, false);
@@ -497,7 +489,7 @@ public class ArenaController implements Initializable, Rendered {
             }
             paneHover.setStyle(IDLE_CARD_STYLE);
             attachedSkill.setStyle(IDLE_CARD_STYLE);
-            
+
         });
         cardUI.setOnMouseExited(e -> {
             cardUI.setStyle(IDLE_CARD_STYLE);
@@ -511,7 +503,7 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Render rest of player can take cards
      */
-    public void renderCountRestTakeCards() {
+    private void renderCountRestTakeCards() {
         myCountCard.setText(GameState.getInstance().getCurrentPlayer().getDeck().getRestOfCanTakeCards());
         enemyCountCard.setText(GameState.getInstance().getOtherPlayer().getDeck().getRestOfCanTakeCards());
     }
@@ -522,7 +514,7 @@ public class ArenaController implements Initializable, Rendered {
      * @param myLife    current player HP to set
      * @param enemyLife enemy player HP to set
      */
-    public void setParamLife(Integer myLife, Integer enemyLife) {
+    private void setParamLife(Integer myLife, Integer enemyLife) {
         myHP.setText(myLife.toString());
         enemyHP.setText(enemyLife.toString());
         myBar.setProgress(calculateBar(myLife));
@@ -532,14 +524,14 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * @return calculate life bar player
      */
-    public double calculateBar(int life) {
+    private double calculateBar(int life) {
         return 1.25 * life / 100;
     }
 
     /**
      * @return set name of two player
      */
-    public void setName(String player1, String player2) {
+    void setName(String player1, String player2) {
         playerOne.setText(player1);
         playerTwo.setText(player2);
     }
@@ -567,7 +559,7 @@ public class ArenaController implements Initializable, Rendered {
      * Check winner game
      * 
      */
-    public void checkWinner() {
+    private void checkWinner() {
         Player myPlayer = GameState.getInstance().getCurrentPlayer();
         Player enemyPlayer = GameState.getInstance().getOtherPlayer();
         String win = "";

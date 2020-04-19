@@ -16,13 +16,14 @@ public class Character extends Card implements Powerable {
 
     /**
      * Contructor
-     * @param name name, super
+     * 
+     * @param name        name, super
      * @param description description, super
-     * @param element element, super
-     * @param imagePath imagePath, super
-     * @param attack the attack of this character
-     * @param defense the defense of this character
-     * @param power the power, implements from Powerable
+     * @param element     element, super
+     * @param imagePath   imagePath, super
+     * @param attack      the attack of this character
+     * @param defense     the defense of this character
+     * @param power       the power, implements from Powerable
      */
     public Character(String name, String description, Element element, String imagePath, int attack, int defense,
             int power) {
@@ -36,6 +37,7 @@ public class Character extends Card implements Powerable {
 
     /**
      * Set is can attack this turn
+     * 
      * @param val value
      */
     public void setIsAttackThisTurn(boolean val) {
@@ -138,14 +140,7 @@ public class Character extends Card implements Powerable {
 
         if (character.getMode() == Mode.DEFENSE) {
             if (isPowerUp) {
-                if (myAttack > enemyAttack) {
-                    character.removeSkills();
-                    GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
-                    GameState.getInstance().getOtherPlayer().reduceHp(myAttack - enemyAttack);
-                    Phase.arenaController.setGameMessage("Serangan berhasil");
-                } else {
-                    Phase.arenaController.setGameMessage("Serangan gagal");
-                }
+                attackMechanism(myAttack, enemyAttack, character);
             } else {
                 if (myAttack > enemyDefense) {
                     character.removeSkills();
@@ -156,21 +151,33 @@ public class Character extends Card implements Powerable {
                 }
             }
         } else {
-            if (myAttack > enemyAttack) {
-                character.removeSkills();
-                GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
-                GameState.getInstance().getOtherPlayer().reduceHp(myAttack - enemyAttack);
-                Phase.arenaController.setGameMessage("Serangan berhasil");
-            } else {
-                Phase.arenaController.setGameMessage("Serangan gagal");
-            }
+            attackMechanism(myAttack, enemyAttack, character);
         }
 
         this.setIsAttackThisTurn(true);
     }
 
     /**
+     * Attack Mechanism
+     * 
+     * @param myAttack    my attack
+     * @param enemyAttack enemy attack
+     * @param character   target
+     */
+    private void attackMechanism(int myAttack, int enemyAttack, Character character) {
+        if (myAttack > enemyAttack) {
+            character.removeSkills();
+            GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(character);
+            GameState.getInstance().getOtherPlayer().reduceHp(myAttack - enemyAttack);
+            Phase.arenaController.setGameMessage("Serangan berhasil");
+        } else {
+            Phase.arenaController.setGameMessage("Serangan gagal");
+        }
+    }
+
+    /**
      * Attack directly on Player
+     * 
      * @param P the player
      */
     public void attackOnPlayer(Player P) {
@@ -185,9 +192,10 @@ public class Character extends Card implements Powerable {
 
     /**
      * Add skill to character
+     * 
      * @param skill the skill
      */
-    public void addSkills(Skill skill) {
+    void addSkills(Skill skill) {
         charSkills.add(skill);
     }
 

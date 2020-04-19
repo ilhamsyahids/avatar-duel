@@ -249,6 +249,20 @@ public class CardUI extends Parent {
      *               or enemy
      */
     void setCharacterDialogInFieldMainPhase(boolean isSelf) {
+        this.changePosition.setOnMouseClicked(e -> {
+            // implementasi changePosition
+            Character cardTemp = (Character) this.getCard();
+            if (cardTemp.getMode() == Mode.DEFENSE) {
+                this.imageView.setRotate(0);
+                cardTemp.setMode(Mode.ATTACK); // set mode ke attack
+            } else { // awalnya attack
+                this.imageView.setRotate(90);
+                cardTemp.setMode(Mode.DEFENSE); // set mode ke defense
+            }
+            this.root.getChildren().clear();
+            this.root.getChildren().addAll(this.HandDialog, this.imageView);
+            this.isClicked = true;
+        });
         this.destroy.setOnMouseClicked(e -> {
             if (getCard() instanceof Character) {
                 // remove skill
@@ -318,13 +332,13 @@ public class CardUI extends Parent {
                 } else {
                     if (!isSkillActive) {
                         if (isSelf) {
-                            this.HandDialog.getChildren().addAll(this.destroy);
+                            this.HandDialog.getChildren().addAll(this.destroy, this.changePosition);
                         } else {
                             this.emptyCardDialog();
                         }
                     } else {
                         if (isSelf) {
-                            this.HandDialog.getChildren().addAll(this.destroy, this.activateOnThis);
+                            this.HandDialog.getChildren().addAll(this.destroy, this.changePosition, this.activateOnThis);
                         } else {
                             this.HandDialog.getChildren().addAll(this.activateOnThis);
                         }
@@ -354,23 +368,6 @@ public class CardUI extends Parent {
             }
             Phase.arenaController.setGameMessage("Klik target serangan");
         });
-        this.changePosition.setOnMouseClicked(e -> {
-            // implementasi changePosition
-            Character cardTemp = (Character) this.getCard();
-            if (cardTemp.getMode() == Mode.DEFENSE) {
-                this.imageView.setRotate(0);
-                cardTemp.setMode(Mode.ATTACK); // set mode ke attack
-                if (!cardTemp.isAttackThisTurn())
-                    this.HandDialog.getChildren().add(this.attack);
-            } else { // awalnya attack
-                this.imageView.setRotate(90);
-                cardTemp.setMode(Mode.DEFENSE); // set mode ke defense
-                this.HandDialog.getChildren().remove(this.attack);
-            }
-            this.root.getChildren().clear();
-            this.root.getChildren().addAll(this.HandDialog, this.imageView);
-            this.isClicked = true;
-        });
 
         this.imageView.setOnMouseClicked(el -> {
             if (this.isClicked) {
@@ -379,9 +376,9 @@ public class CardUI extends Parent {
                 // cek mode dari kartu
                 Character karakter = (Character) this.getCard();
                 if (karakter.getMode() == Mode.ATTACK && !karakter.isAttackThisTurn()) {
-                    this.HandDialog.getChildren().addAll(this.attack, this.changePosition);
+                    this.HandDialog.getChildren().addAll(this.attack);
                 } else {
-                    this.HandDialog.getChildren().addAll(this.changePosition);
+                    this.HandDialog.getChildren().clear();
                 }
                 this.root.getChildren().clear();
                 this.root.getChildren().addAll(this.HandDialog, this.imageView);

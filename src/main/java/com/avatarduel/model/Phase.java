@@ -104,8 +104,7 @@ public class Phase {
         arenaController.getMainTextLabel().setText("MAIN");
         arenaController.getBattleTextLabel().setText("--> BATTLE");
         arenaController.getEndPhase().setOnMouseClicked(el -> {
-            CardUI.setThereIsCardAttack(false);
-            Phase.arenaController.setGameMessage("");
+            CardUI.resetCardUI();
             // set semua kartu current player di field udh bsa attack lagi
             GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().forEach(item -> {
                 item.setIsAttackThisTurn(false);

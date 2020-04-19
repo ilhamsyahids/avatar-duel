@@ -105,6 +105,14 @@ public class CardUI extends Parent {
     }
 
     /**
+     * Reset static to default value
+     */
+    public static void resetCardUI() {
+        isSkillActive = false;
+        thereIsCardAttack = false;
+    }
+
+    /**
      * Empty the dialog of card which means no action is available for this card
      */
     void emptyCardDialog() {
@@ -122,6 +130,7 @@ public class CardUI extends Parent {
      */
     void setHandDialog() {
         Player myPlayer = GameState.getInstance().getCurrentPlayer();
+        Player enemyPlayer = GameState.getInstance().getOtherPlayer();
 
         this.destroyInHand.setOnMouseClicked(e -> {
             myPlayer.getDeck().getHandCards().remove(getCard());
@@ -141,15 +150,14 @@ public class CardUI extends Parent {
             if (!(getCard() instanceof Land)) {
                 Powerable powerCard = (Powerable) this.getCard();
                 if (powerCard.isCanSummon()) {
-                    if ((GameState.getInstance().getOtherPlayer().getDeck().getCharacters().size() != 0)
-                            || (GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().size() != 0)) {
+                    if ((enemyPlayer.getDeck().getCharacters().size() != 0)
+                            || (myPlayer.getDeck().getCharacters().size() != 0)) {
                         Phase.arenaController.setGameMessage("Klik Target Kartu");
                         isSkillActive = true;
                         skillOnAction = (Skill) this.card;
                     } else {
                         Phase.arenaController.setGameMessage("Tidak ada pilihan kartu");
                     }
-                    myPlayer.reducePower(getCard().getElement(), powerCard.getPower());
                 } else {
                     Phase.arenaController.setGameMessage("Power tidak cukup!");
                 }
@@ -269,25 +277,27 @@ public class CardUI extends Parent {
         });
 
         this.activateOnThis.setOnMouseClicked(e -> {
-            // masukin fungsi" skill disini
+            Player myPlayer = GameState.getInstance().getCurrentPlayer();
+            Player enemyPlayer = GameState.getInstance().getOtherPlayer();
             try {
                 if (skillOnAction instanceof SkillDestroy) {
                     // remove skill
                     ((Character) getCard()).getCharSkills().forEach(item -> {
-                        if (!GameState.getInstance().getCurrentPlayer().getDeck().getSkills().remove(item)) {
-                            GameState.getInstance().getOtherPlayer().getDeck().getSkills().remove(item);
+                        if (!myPlayer.getDeck().getSkills().remove(item)) {
+                            enemyPlayer.getDeck().getSkills().remove(item);
                         }
                     });
                     // remove character
-                    if (!GameState.getInstance().getCurrentPlayer().getDeck().getCharacters().remove(getCard())) {
-                        GameState.getInstance().getOtherPlayer().getDeck().getCharacters().remove(getCard());
+                    if (!myPlayer.getDeck().getCharacters().remove(getCard())) {
+                        enemyPlayer.getDeck().getCharacters().remove(getCard());
                     }
-                    GameState.getInstance().getCurrentPlayer().getDeck().getHandCards().remove(skillOnAction);
+                    myPlayer.getDeck().getHandCards().remove(skillOnAction);
                 } else {
                     Character cardChar = (Character) getCard();
                     skillOnAction.action(cardChar);
-                    GameState.getInstance().getCurrentPlayer().getDeck().moveToArea(skillOnAction);
+                    myPlayer.getDeck().moveToArea(skillOnAction);
                 }
+                myPlayer.reducePower(skillOnAction.getElement(), skillOnAction.getPower());
             } catch (Exception e1) {
                 Phase.arenaController.setGameMessage(e1.getMessage());
             }

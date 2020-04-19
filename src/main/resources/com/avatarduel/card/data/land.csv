@@ -28,9 +28,24 @@ id;name;element;description;imagepath
 27;Kyoshi Island;EARTH;Famous as the birthplace of Avatar Kyoshi and as the home of the elite Kyoshi Warriors.;src/main/resources/com/avatarduel/card/image/land/Kyoshi Island.png
 28;Omashu;EARTH;The second largest city in the Earth Kingdom and the capital of one of its provinces ruled by King Bumi.;src/main/resources/com/avatarduel/card/image/land/Omashu.png
 29;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
-30;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
-31;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
-32;Energy Nation Capital;ENERGY;The seat of the government for the Energy Nation;src/main/resources/com/avatarduel/card/image/land/Fire Nation Capital.png
+30;Water Tribe;ENERGY;North and South Poles, Foggy, Swamp.;src/main/resources/com/avatarduel/card/image/land/WaterTribe.png
+31;Spirit World;ENERGY;Parallel the World of Avatar.;src/main/resources/com/avatarduel/card/image/land/SpiritWorld.png
+32;Police headquarters;ENERGY;One of the oldest and most intricate buildings in Republic City.;src/main/resources/com/avatarduel/card/image/land/PoliceHead.png
 33;Boiling Rock;FIRE;A massive Fire Nation prison.;src/main/resources/com/avatarduel/card/image/land/Boiling Rock.png
 34;Sun Warriors' Ancient City;FIRE;Large, historic settlement located on an island north of the Fire Nation mainland.;src/main/resources/com/avatarduel/card/image/land/Sun Warriors s Ancient City.png
 35;Fire Fountain City;FIRE;A large industrial city located in the Fire Nation.;src/main/resources/com/avatarduel/card/image/land/Fire Fountain City.png
+36;Eastern Sea;WATER;An extensive body of water that extends from the eastern coast of the Earth Kingdom to the northeastern shores of the South Pole.;src/main/resources/com/avatarduel/card/image/land/EasternSea.png
+37;Air Nomad Caves;AIR;An ancient cave system located on mountainside.;src/main/resources/com/avatarduel/card/image/land/Anc.png
+38;Kyoshi Shrine;ENERGY;Originally a village temple, it was converted in accordanve to Kyoshi's deep connection with the site.;src/main/resources/com/avatarduel/card/image/land/Ks.png
+39;Earth Kingdom Harbor;EARTH;Was a Fire Nation Military station.;src/main/resources/com/avatarduel/card/image/land/Ekh.png
+40;Piando's castle;EARTH;An upscale, lavish estate located high on a cliff.;src/main/resources/com/avatarduel/card/image/land/pc.png
+41;Ozai's beach house;EARTH;A vacation home located on Ember Island.;src/main/resources/com/avatarduel/card/image/land/Beach.png
+42;Makapu Village;AIR;A small farming village located on the slopes of Mt.;src/main/resources/com/avatarduel/card/image/land/mv.png
+43;Merchant Town;AIR;A minor trading settlement located high in the mountains of the northwestern Earth Kingdom.;src/main/resources/com/avatarduel/card/image/land/mt.png
+44;Mountain Prison;FIRE;A large cave underneath the mountain near the village where Hama onced lived.;src/main/resources/com/avatarduel/card/image/land/mp.png
+45;Kyoshi Bridge;FIRE;A green suspension bridge located in Republic City.;src/main/resources/com/avatarduel/card/image/land/kb.png
+46;Kwong's Cuisine;FIRE;An upscale restaurant located in downtown Republic City.;src/main/resources/com/avatarduel/card/image/land/kc.png
+47;Avatar Korra Park;ENERGY;A large recreational area located in Republic City's central peninsula.;src/main/resources/com/avatarduel/card/image/land/AKP.png
+48;Abbey;ENERGY;Located near the shores of the Mo Co Sea in the northern United Republic of Nations.;src/main/resources/com/avatarduel/card/image/land/abbey.png
+49;Black Cliffs;WATER;A series of coastal cliff-faces and stacks.;src/main/resources/com/avatarduel/card/image/land/BC.png
+50;Mo Ce Sea;WATER;An open body of water.;src/main/resources/com/avatarduel/card/image/land/MCS.png

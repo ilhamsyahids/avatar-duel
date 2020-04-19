@@ -7,7 +7,7 @@ id;name;element;description;imagepath;attack;defense;power
 6;Hama;WATER;Developer of bloodbending.;src/main/resources/com/avatarduel/card/image/character/Hama.png;12;6;4
 7;Pakku;WATER;Aang's teacher for waterbending at Northern Water Tribe.;src/main/resources/com/avatarduel/card/image/character/Pakku.png;10;6;3
 8;Arnook;WATER;Chief of the Northern Water Tribe.;src/main/resources/com/avatarduel/card/image/character/Arnook.png;4;7;1
-9;Kuruk;WATER;Water Tribe Avatar, predecessor of Avatar Kyoshi.;src/main/resources/com/avatarduel/card/image/character/Kuruk.png;6;14;5
+9;Kuruk;WATER;Water Tribe Avatar, predecessor of Avatar Kyoshi.;src/main/resources/com/avatarduel/card/image/character/Kuruk.png;6;14;1
 10;Bato;WATER;Friend of Hakoda since childhood.;src/main/resources/com/avatarduel/card/image/character/Bato.png;7;9;3
 11;Due;WATER;Waterbending master from Foggy Swamp Tribe.;src/main/resources/com/avatarduel/card/image/character/Due.png;5;8;2
 12;Hahn;WATER;Career-minded soldier from Northern Water Tribe.;src/main/resources/com/avatarduel/card/image/character/Hahn.png;8;3;1
@@ -23,7 +23,7 @@ id;name;element;description;imagepath;attack;defense;power
 22;Tashi;AIR;One of five monks in charge of the Southern Air Temple.;src/main/resources/com/avatarduel/card/image/character/Tashi.png;7;9;3
 23;Wan;AIR;The first Avatar.;src/main/resources/com/avatarduel/card/image/character/Wan.png;10;10;5
 24;Mechanist;AIR;An inventor and engineer from the Earth Kingdom who became a refugee after being displaced by a flood.;src/main/resources/com/avatarduel/card/image/character/Mechanist.png;8;8;3
-25;Zuko;FIRE;Prince of the Fire Nation, Fire Lord after Ozai.;src/main/resources/com/avatarduel/card/image/character/Zuko.png;12;8;5
+25;Zuko;FIRE;Prince of the Fire Nation, Fire Lord after Ozai.;src/main/resources/com/avatarduel/card/image/character/Zuko.png;12;8;1
 26;Azula;FIRE;Princess of the Fire Nation, daughter of Fire Lord Ozai.;src/main/resources/com/avatarduel/card/image/character/Azula.png;11;7;4
 27;Ozai;FIRE;Fire Lord during the final years of the Hundred Year War.;src/main/resources/com/avatarduel/card/image/character/Ozai.png;9;9;4
 28;Ty Lee;FIRE;Skilled acrobatic, mastering chi blocking martial arts.;src/main/resources/com/avatarduel/card/image/character/Ty Lee.png;9;4;2
@@ -37,7 +37,7 @@ id;name;element;description;imagepath;attack;defense;power
 36;Great Sage;FIRE;Leader of 5 Fire Sages who resided on Crescent Island.;src/main/resources/com/avatarduel/card/image/character/Great Sage.png;8;3;1
 37;Bumi;EARTH;King of Omashu, childhood friend of Aang.;src/main/resources/com/avatarduel/card/image/character/Bumi.png;5;12;4
 38;Cabbage Merchant;EARTH;Earth Kingdom businessman and founder of Cabbage Corb.;src/main/resources/com/avatarduel/card/image/character/Cabbage Merchant.png;2;8;1
-39;The Boulder;EARTH;Professional earthbending westler who participated in the Earth Rumble tournaments.;src/main/resources/com/avatarduel/card/image/character/The Boulder.png;9;9;4
+39;The Boulder;EARTH;Professional earthbending westler who participated in the Earth Rumble tournaments.;src/main/resources/com/avatarduel/card/image/character/The Boulder.png;9;9;2
 40;Haru;EARTH;Skilled teenager earthbender that hides his skill because of Fire Nation attack.;src/main/resources/com/avatarduel/card/image/character/Haru.png;6;10;3
 41;Jet;EARTH;Teenage leader of Earth Kingdom refugees that called themselves Freedom Fighters.;src/main/resources/com/avatarduel/card/image/character/Jet.png;8;5;2
 42;Jin Wei;EARTH;Legendary patriarch of the Gan Jin tribe.;src/main/resources/com/avatarduel/card/image/character/Jin Wei.png;6;5;1

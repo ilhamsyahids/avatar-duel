@@ -32,7 +32,7 @@ public class CardsRepository {
      * @param card Only accept Character, Land, SkillAura, SkillDestroy, or
      *             SkillPowerUp
      * @param url  URL path data of CSV file
-     * @throws IOException
+     * @throws IOException The IOException
      */
     public static <T extends Card> void addCard(Class<T> card, String url) throws IOException {
         File fileCSV = new File(url);

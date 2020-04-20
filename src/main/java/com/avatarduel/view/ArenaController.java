@@ -137,7 +137,7 @@ public class ArenaController implements Initializable, Rendered {
     private static final String REMOVE_CARD_STYLE = "-fx-opacity: 0;";
 
     /**
-     * @param positon positon in Y-axis
+     * @param position position in Y-axis
      */
     public void changePhasePosition(double position) {
         this.changePhase.setLayoutY(position);
@@ -249,7 +249,7 @@ public class ArenaController implements Initializable, Rendered {
     /**
      * Setting for play sound
      */
-    void playSound() {
+    public void playSound() {
         Media soundtrack = new Media(
                 new File("src/main/resources/com/avatarduel/card/data/soundtrack/Agni Kai.mp3").toURI().toString());
         MediaPlayer player = new MediaPlayer(soundtrack);

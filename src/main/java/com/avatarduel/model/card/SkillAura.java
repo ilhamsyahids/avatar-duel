@@ -7,13 +7,13 @@ public class SkillAura extends Skill {
     /**
      * Constructor with defined value
      * 
-     * @param name
-     * @param description
-     * @param element
-     * @param imagePath
-     * @param attack
-     * @param defense
-     * @param power
+     * @param name        the name
+     * @param description the description
+     * @param element     the element
+     * @param imagePath   the image path
+     * @param attack      the attack
+     * @param defense     the defense
+     * @param power       the power
      */
     public SkillAura(String name, String description, Element element, String imagePath, int attack, int defense,
             int power) {

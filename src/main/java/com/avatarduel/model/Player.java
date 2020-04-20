@@ -54,7 +54,7 @@ public class Player {
     /**
      * Set the player's deck with the value of this parameter
      * 
-     * @param deck
+     * @param deck the deck
      */
     void setdeck(Deck deck) {
         this.deck = deck;
@@ -70,7 +70,7 @@ public class Player {
 
     /**
      *
-     * @param el
+     * @param el render spesific power
      * @return string with format (el)/(its max value)
      */
     public String getSpecificPower(Element el) {
@@ -79,7 +79,7 @@ public class Player {
 
     /**
      *
-     * @param el
+     * @param el max power element
      * @return the max value of power of that el element
      */
     int getMaxPower(Element el) {
@@ -88,7 +88,7 @@ public class Player {
 
     /**
      *
-     * @param el
+     * @param el current element
      * @return the value of unused number of power of that el element
      */
     public int getValuePower(Element el) {
@@ -106,7 +106,7 @@ public class Player {
     /**
      * Set hp of this player according to param hp
      * 
-     * @param hp
+     * @param hp set to
      */
     private void setHp(int hp) {
         this.hp = hp;
@@ -115,7 +115,7 @@ public class Player {
     /**
      * Reduce hp of this player with value of param hp
      * 
-     * @param hp
+     * @param hp minus by
      */
     public void reduceHp(int hp) {
         int reducer = Math.max(hp, 0);
@@ -125,8 +125,8 @@ public class Player {
     /**
      * Add power of el element with the value of param added
      * 
-     * @param el
-     * @param added
+     * @param el    the element
+     * @param added added by
      */
     public void addPower(Element el, int added) {
         int x = (int) mapPower.get(el).getX();
@@ -137,8 +137,8 @@ public class Player {
     /**
      * Reduce the power of el element with the value of param minus
      * 
-     * @param el
-     * @param minus
+     * @param el    the element
+     * @param minus minus by
      */
     public void reducePower(Element el, int minus) {
         int x = (int) mapPower.get(el).getX();

@@ -16,11 +16,11 @@ public abstract class Skill extends Card implements Powerable {
     /**
      * Constructor with defined value
      *
-     * @param name
-     * @param description
-     * @param element
-     * @param power
-     * @param imagePath
+     * @param name        the name
+     * @param description the description
+     * @param element     the element
+     * @param power       the power
+     * @param imagePath   the imagepath
      */
     public Skill(String name, String description, Element element, int power, String imagePath) {
         super(name, description, element, imagePath);

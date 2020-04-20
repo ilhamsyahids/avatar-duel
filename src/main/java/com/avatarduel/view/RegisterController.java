@@ -81,7 +81,7 @@ public class RegisterController implements Initializable {
      * Change the scene of UI from Register.fxml to ArenaController
      *
      * @param event the event
-     * @throws IOException
+     * @throws IOException the IOException
      */
     public void changeScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();

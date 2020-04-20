@@ -103,7 +103,7 @@ public class Deck {
      * not full
      * 
      * @param card the card
-     * @throws Exception
+     * @throws Exception The Exception
      */
     public void moveToArea(Card card) throws Exception {
         if (card instanceof Character) {

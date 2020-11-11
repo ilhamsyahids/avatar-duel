@@ -1,4 +1,4 @@
-# IF2210 Project Template
+# Avatar Duel
 
 Compile and run with these commands:
 
